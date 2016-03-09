@@ -7,3 +7,6 @@ def index(request):
 
 def questionnaire(request):
     return HttpResponse("This screen will allow you to view and reply to the questionnaire.")
+
+def about(request):
+    return HttpResponse("A project of the Frogs' Greatest HITs team at Georgia Institute of Technology, Atlanta, GA.")
