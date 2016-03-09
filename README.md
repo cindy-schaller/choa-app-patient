@@ -18,7 +18,7 @@ After this, you can set up the app locally:
 And run it using:
     python manage.py runserver
 
-The application should now be accessible at http://127.0.0.1:8000/.
+The application should now be accessible at http://127.0.0.1:8000/questionnaire.
 
 Note: if for some reason you wish to run the development server on a machine other than your development box, you can do that as follows:
 
