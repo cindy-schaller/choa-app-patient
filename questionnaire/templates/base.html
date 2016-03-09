@@ -1,0 +1,19 @@
+{% load menu %}{% generate_menu %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}Questionnaire{% endblock %}</title>
+
+        {% block headextra %}{% endblock %}
+    </head>
+
+    <body>
+        <h1>Main Menu</h1>
+        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+
+        <hr/>
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

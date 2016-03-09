@@ -1,12 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.http import HttpResponse
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 # Create views here.
 def index(request):
-    return HttpResponse("This screen will allow you to select a patient.")
+    return render_to_response('index.html',
+                              context_instance=RequestContext(request))
 
 def questionnaire(request):
-    return HttpResponse("This screen will allow you to view and reply to the questionnaire.")
+    return render_to_response('questionnaire.html',
+                              context_instance=RequestContext(request))
 
 def about(request):
-    return HttpResponse("A project of the Frogs' Greatest HITs team at Georgia Institute of Technology, Atlanta, GA.")
+    return render_to_response('about.html',
+                              context_instance=RequestContext(request))

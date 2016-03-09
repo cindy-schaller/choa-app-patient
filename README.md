@@ -7,14 +7,13 @@ Note: if you don't have Python installed, you can install it on Mac using Homebr
     brew install python
 Or you can install it on Windows using the instructions at http://docs.python-guide.org/en/latest/starting/install/win/.
 
-To run the app, you need to install Django:
-    pip install django
-
-After this, you can set up the app locally:
-
+To run the app, you need to install Django and dependencies:
     git clone https://github.gatech.edu/cdchealthyweight/fgh-web.git fgh
     cd fgh
-    python manage.py migrate
+    pip install -r requirements.txt
+
+After this, you can set up the app locally:
+    python manage.py syncdb
 
 And run it using:
     python manage.py runserver
