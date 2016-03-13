@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-This screen will allow you to select a patient.
+    <div>Select a patient to "log in" as:</div>
+    <ul>
+        <li><a href="#" onclick="setUser(1)">Leonardo, age 16</a></li>
+        <li><a href="#" onclick="setUser(2)">Raphael, age 15</a></li>
+        <li><a href="#" onclick="setUser(3)">Donatello, age 14</a></li>
+        <li><a href="#" onclick="setUser(4)">Michaelangelo, age 13</a></li>
+        <li><a href="#" onclick="setUser(5)">Parent/guardian of Zach, age 10</a></li>
+        <li><a href="#" onclick="setUser(6)">Parent/guardian of Caitlin, age 10</a></li>
+    </ul>
+    <script type="text/javascript">
+        function setUser(userId) {
+            document.cookie="userId="+userId+"; path=/";
+            window.location.href = "/questionnaire/respond";
+        }
+    </script>
 {% endblock %}
