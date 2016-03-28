@@ -18,7 +18,7 @@ To run the app, you need to install Django and dependencies:
 
 After this, you can set up the app locally:
 
-    (may not work) ~~python manage.py syncdb~~
+    (may not work) python manage.py syncdb
     (try) python manage.py migrate
 
 And run it using:
