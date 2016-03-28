@@ -33,3 +33,15 @@ Note: if for some reason you wish to run the development server on a machine oth
 (see http://stackoverflow.com/questions/13522228/running-django-development-server-on-a-remote-machine-using-putty-how-to-run-th)
 
 However, if you find yourself doing this on a regular basis you should really just bite the bullet and set up Apache+WSGI.
+
+## Windows 10 Troubleshooting
+
+* First things first - make sure you are using Python 2.7 and that `python27` and `python27/scripts` directories are in the environmental variable path using the python instructions guide above.
+* Error - need `Microsoft Visual C++ Compiler for Python 2.7`
+   * download and install from [https://www.microsoft.com/en-us/download/confirmation.aspx?id=44266]
+* Error - can't find `sqlite.h` file
+   * download `pysqlite-2.8.2-cp27-cp27m-win_amd64.whl` from [http://www.lfd.uci.edu/~gohlke/pythonlibs/#pysqlite]
+   * save it in the `python27/scripts` directory and browse to this directory
+   * open a cmd prompt (`File->Open Cmd Prompt`) and install with
+   * `pip install pysqlite-2.8.2-cp27-cp27m-win_amd64.whl`
+
