@@ -1,5 +1,6 @@
 {% load menu %}{% generate_menu %}
 <!doctype html>
+{# SRL: Adding Bootstrap specific coding for mobile first design#}
 <html>
     <head>
         <title>{% block title %}Questionnaire{% endblock %}</title>
@@ -8,6 +9,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" />
 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block headextra %}{% endblock %}
     </head>
 

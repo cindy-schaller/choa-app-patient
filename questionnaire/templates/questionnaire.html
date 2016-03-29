@@ -42,14 +42,16 @@
 {% endblock %}
 
 {% block content %}
-    <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
-    <form id="questionnaire">
-        <div id="questionnaire-wrapper"></div>
-        <div id="submit-wrapper">
-            <button id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
-            <button id="submit" onclick="javascript:submitResponse()">Submit</button>
-        </div>
-    </form>
+    <div class="container">
+        <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
+        <form id="questionnaire">
+            <div id="questionnaire-wrapper"></div>
+            <div id="submit-wrapper">
+                <button id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
+                <button id="submit" onclick="javascript:submitResponse()">Submit</button>
+            </div>
+        </form>
+    </div>
     <script type="text/javascript">
         function getCookie(cname) {
             var name = cname + "=";
