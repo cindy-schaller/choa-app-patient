@@ -1,0 +1,79 @@
+{
+    "resourceType":"Patient",
+    "extension":[
+        {
+            "url":"http://hl7.org/fhir/StructureDefinition/us-core-race",
+            "valueCodeableConcept":{
+                "coding":[
+                    {
+                        "system":"http://hl7.org/fhir/v3/Race",
+                        "code":"2054-5",
+                        "display":"Black or African American"
+                    }
+                ]
+            }
+        },
+        {
+            "url":"http://hl7.org/fhir/StructureDefinition/us-core-ethnicity",
+            "valueCodeableConcept":{
+                "coding":[
+                    {
+                        "system":"http://hl7.org/fhir/v3/Ethnicity",
+                        "code":"2186-5",
+                        "display":"Not Hispanic or Latino"
+                    }
+                ]
+            }
+        }
+    ],
+
+    "identifier":[
+        {
+            "use":"official",
+            "type":{
+                "coding":[
+                    {
+                        "system":"http://hl7.org/fhir/v2/0203",
+                        "code":"TAX"
+                    }
+                ],
+                "text":"US Social Security Number"
+            },
+            "system":"http://hl7.org/fhir/sid/us-ssn",
+            "value":"123121234"
+        }
+    ],
+    "active":false,
+    "name":[
+        {
+            "family":[
+                "Prior"
+            ],
+            "given":[
+                "Beatrice"
+            ],
+            "suffix":[
+                ""
+            ]
+        }
+    ],
+    "telecom":[
+        {
+            "system":"phone",
+            "value":"312.555.5678",
+            "use":"home"
+        }
+    ],
+    "gender":"female",
+    "birthDate":"2001-10-07",
+    "address":[
+        {
+            "line":[
+                "123 Main Street"
+            ],
+            "city":"Chicago",
+            "state":"IL",
+            "postalCode":"60601"
+        }
+    ]
+}

@@ -1,0 +1,245 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "healthy-habits-child",
+  "text": {
+    "status": "generated",
+    "div": "<div><p><b>Generated Narrative with Details</b></p><p><b>id</b>: questionnaire-healthy-habits-child</p><p><b>status</b>: published</p><p><b>title</b>: Healthy Habits Tracker</p></div>"
+  },
+  "status": "draft",
+  "title": "Healthy Habits Tracker",
+  "group":{
+        "linkId":"root",
+        "required":true,
+        "question":[
+            {
+                "linkId":"1",
+                "text":"My child eats veggies and fruits:",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"0-1 times a day"
+                    },
+                    {
+                        "code":"2",
+                        "display":"1-2 times a day"
+                    },
+                    {
+                        "code":"3",
+                        "display":"3-4 times a day"
+                    },
+                    {
+                        "code":"4",
+                        "display":"5 or more times a day"
+                    }
+                ]
+            },
+            {
+                "linkId":"2",
+                "text":"My child is active:",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"Not very often"
+                    },
+                    {
+                        "code":"2",
+                        "display":"Less than 30 minutes a day"
+                    },
+                    {
+                        "code":"3",
+                        "display":"30-60 minutes a day"
+                    },
+                    {
+                        "code":"4",
+                        "display":"More than 60 minutes a day"
+                    }
+                ]
+            },
+            {
+                "linkId":"3",
+                "text":"My child drinks 100% juice:",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"More than 3 cups a day"
+                    },
+                    {
+                        "code":"2",
+                        "display":"2 cups a day"
+                    },
+                    {
+                        "code":"3",
+                        "display":"1 cup a day"
+                    },
+                    {
+                        "code":"4",
+                        "display":"Not very often"
+                    }
+                  ]
+            },
+            {
+                "linkId":"4",
+                "text":"My child has sweet drinks (soda, sweet tea, sports drinks, other fruit drinks):",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"More than 3 cups a day"
+                    },
+                    {
+                        "code":"2",
+                        "display":"2 cups a day"
+                    },
+                    {
+                        "code":"3",
+                        "display":"1 cup a day"
+                    },
+                    {
+                        "code":"4",
+                        "display":"Not very often"
+                    }
+                ]
+            },
+            {
+                "linkId":"5",
+                "text":"My child eats foods like brownies, muffins, cakes or cookies:",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"Not very often"
+                    },
+                    {
+                        "code":"2",
+                        "display":"1-2 times per week"
+                    },
+                    {
+                        "code":"3",
+                        "display":"3-4 times per week"
+                    },
+                    {
+                        "code":"4",
+                        "display":"5 or more times per week"
+                    }
+                ]
+            },
+            {
+                "linkId":"6",
+                "text":"My child watches television, plays video games, spends (non-school related) time on a computer, tablet or cell phone:",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"Not very often"
+                    },
+                    {
+                        "code":"2",
+                        "display":"1 hour a day"
+                    },
+                    {
+                        "code":"3",
+                        "display":"1-2 hours a day"
+                    },
+                    {
+                        "code":"4",
+                        "display":"3-4 hours a day"
+                    },
+                    {
+                        "code":"5",
+                        "display":"5 or more hours a day"
+                    }
+                ]
+            },
+            {
+                "linkId":"7",
+                "text":"If you and your child could work on one healthy habit, which would it be?",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"Make half your plate veggies and fruits"
+                    },
+                    {
+                        "code":"2",
+                        "display":"Be more active"
+                    },
+                    {
+                        "code":"3",
+                        "display":"Limit screen time"
+                    },
+                    {
+                        "code":"4",
+                        "display":"Drink more water and limit sugary drinks"
+                    }
+                ]
+            },
+            {
+                "linkId":"8",
+                "text":"How important is it to you that your child work on this healthy habit?",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"1"
+                    },
+                    {
+                        "code":"2",
+                        "display":"2"
+                    },
+                    {
+                        "code":"3",
+                        "display":"3"
+                    },
+                    {
+                        "code":"4",
+                        "display":"4"
+                    }
+                ]
+            },
+            {
+                "linkId":"9",
+                "text":"How confident are you that your child can improve on this healthy habit?",
+                "type":"integer",
+                "required":true,
+                "repeats":false,
+                "option":[
+                    {
+                        "code":"1",
+                        "display":"1"
+                    },
+                    {
+                        "code":"2",
+                        "display":"2"
+                    },
+                    {
+                        "code":"3",
+                        "display":"3"
+                    },
+                    {
+                        "code":"4",
+                        "display":"4"
+                    }
+                ]
+            }
+        ]
+    }
+}
