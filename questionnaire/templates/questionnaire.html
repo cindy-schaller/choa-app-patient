@@ -121,7 +121,6 @@
                 node.append('</div>');
 
                 $('#questionnaire-wrapper').append(node);
-                $('#questionnaire-wrapper').append("</form>");
                 $('#questionnaire-wrapper').append("<hr/>");
             }
         }
@@ -140,14 +139,13 @@
                 }
             }
         }
-        alert (errors);
         return errors;
     }
 
     function submitResponse() {
         var formErrors = validateForm();
         if (formErrors.length == 0) {
-            alert("YAY!  You completed the form!  We haven't connected it to FHIR yet, though.");
+
         } else {
             alert(formErrors[0]);
         }
