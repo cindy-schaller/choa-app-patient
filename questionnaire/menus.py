@@ -9,7 +9,7 @@ Menu.add_item("main", MenuItem("About",
                                reverse("questionnaire.views.about")))
 
 Menu.add_item("main", MenuItem("Questionnaire",
-                               reverse("questionnaire.views.questionnaire")))
+                               reverse("questionnaire.views.respond")))
 
 # this item will be shown to users who are not logged in
 # Menu.add_item("main", MenuItem("Login",

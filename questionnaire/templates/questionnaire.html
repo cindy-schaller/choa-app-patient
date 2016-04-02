@@ -47,166 +47,28 @@
     }
 
     function getDisplayName() {
-        var samplePatientNames = ["Leonardo", "Raphael", "Donatello", "Michaelangelo", "Zach", "Caitlin"];
-        var userId = parseInt(getCookie("userId"));
-        return samplePatientNames[userId-1];
+        return "{{ patientName }}";
     }
 
     function getQuestionnaire() {
         var patientQuestionnaire = [
-            {
-                "id": "1",
-                "type": "scale",
-                "prompt": "I eat veggies and fruits:",
-                "choices": ["0-1 times a day", "1-2 times a day", "3-4 times a day", "More than 4 times a day"],
-                "lowImg": "/static/fruit.jpg",
-                "highImg": "/static/vegetables-basket.jpg"
-            },
-            {
-                "id": "2",
-                "type": "scale",
-                "prompt": "I eat out:",
-                "choices": ["More than 4 times a week", "3-4 times a week", "1-2 times a week", "0-1 times a week"],
-                "lowImg": "/static/restaurant-crop.png",
-                "highImg": "/static/pizza.jpg"
-            },
-            {
-                "id": "3",
-                "type": "scale",
-                "prompt": "I am active:",
-                "choices": ["Not very often", "Less than 30 minutes a day", "30-60 minutes a day", "More than 60 minutes a day"],
-                "lowText": "Placeholder",
-                "highText": "Placeholder"
-            },
-            {
-                "id": "4",
-                "type": "scale",
-                "prompt": "I have sweet drinks (soda, sweet tea, sports drinks, 100% fruit juice, other fruit drinks):",
-                "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "/static/beverage-boxes.jpg",
-                "highImg": "/static/milk-crop.png"
-            },
-            {
-                "id": "5",
-                "type": "scale",
-                "prompt": "I watch television, play video games, spend (non-school related) time on a computer, tablet or cell phone:",
-                "choices": ["More than 2 hours a day", "1-2 hours a day", "30-60 minutes a day", "Not very often"],
-                "lowText": "Placeholder",
-                "highText": "Placeholder"
-            },
-            {
-                "id": "6",
-                "type": "multi",
-                "prompt": "If you could work on one healthy habit, which would it be?",
-                "choices": ["Make half your plate veggies and fruits", "Be more active",
-                    "Limit screen time", "Drink more water and limit sugary drinks"],
-                "images": ["/static/fruit.jpg", "/static/placeholder.jpg", "/static/placeholder.jpg", "/static/water-splash.jpg"]
-            },
-            {
-                "id": "7",
-                "type": "scale",
-                "prompt": "How important is it to you to work on this healthy habit?",
-                "choices": ["1", "2", "3", "4"],
-                "lowText": "not at all",
-                "highText": "very"
-            },
-            {
-                "id": "8",
-                "type": "scale",
-                "prompt": "How confident are you that you can improve this healthy habit?",
-                "choices": ["1", "2", "3", "4"],
-                "lowText": "not at all",
-                "highText": "very"
-            }
+            {% for question in questionnaire %}
+                {
+                    "id": "{{ question.linkId }}",
+                    "type": "scale",
+                    "prompt": "{{ question.text }}",
+                    "choices": [
+                        {% for answer in question.option %}
+                            {
+                                "code": "{{ answer.code }}",
+                                "text": "{{ answer.display }}"
+                            }{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                },
+            {% endfor %}
         ];
-        var parentQuestionnaire = [
-            {
-                "id": "1",
-                "type": "scale",
-                "prompt": "%1$s eats veggies and fruits:",
-                "choices": ["0-1 times a day", "1-2 times a day", "3-4 times a day", "More than 4 times a day"],
-                "lowImg": "/static/fruit.jpg",
-                "highImg": "/static/vegetables-basket.jpg"
-            },
-            {
-                "id": "2",
-                "type": "scale",
-                "prompt": "%1$s is active:",
-                "choices": ["Not very often", "Less than 30 minutes a day", "30-60 minutes a day", "More than 60 minutes a day"],
-                "lowText": "Placeholder",
-                "highText": "Placeholder"
-            },
-            {
-                "id": "3",
-                "type": "scale",
-                "prompt": "%1$s drinks 100% fruit juice:",
-                "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "/static/placeholder.jpg",
-                "highImg": "/static/placeholder.jpg"
-            },
-            {
-                "id": "4",
-                "type": "scale",
-                "prompt": "%1$s has sweet drinks (soda, sweet tea, sports drinks, other fruit drinks):",
-                "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "/static/beverage-boxes.jpg",
-                "highImg": "/static/milk-crop.png"
-            },
-            {
-                "id": "5",
-                "type": "scale",
-                "prompt": "%1$s watches television, plays video games, spends (non-school related) time on a computer, tablet or cell phone:",
-                "choices": ["More than 2 hours a day", "1-2 hours a day", "30-60 minutes a day", "Not very often"],
-                "lowText": "Placeholder",
-                "highText": "Placeholder"
-            },
-            {
-                "id": "6",
-                "type": "multi",
-                "prompt": "If you and %1$s could work on one healthy habit, which would it be?",
-                "choices": ["Make half your plate veggies and fruits", "Be more active",
-                    "Limit screen time", "Drink more water and limit sugary drinks"],
-                "images": ["/static/fruit.jpg", "/static/placeholder.jpg", "/static/placeholder.jpg", "/static/water-splash.jpg"]
-            },
-            {
-                "id": "7",
-                "type": "scale",
-                "prompt": "How important is it to you that %1$s works on this healthy habit?",
-                "choices": ["1", "2", "3", "4"],
-                "lowText": "not at all",
-                "highText": "very"
-            },
-            {
-                "id": "8",
-                "type": "scale",
-                "prompt": "How confident are you that %1$s can improve on this healthy habit?",
-                "choices": ["1", "2", "3", "4"],
-                "lowText": "not at all",
-                "highText": "very"
-            }
-        ];
-
-        var questionnaire = patientQuestionnaire;
-
-        var userId = getCookie("userId");
-        switch (parseInt(userId)) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                questionnaire = patientQuestionnaire;
-                break;
-            case 5:
-            case 6:
-                questionnaire = parentQuestionnaire;
-                break;
-            default:
-                // invalid user ID, not in the demo users
-                alert("Oops!  Select a user first to experience the demo.");
-                window.location.href = "/questionnaire/";
-                return [];
-        }
-        return questionnaire;
+        return patientQuestionnaire;
     }
 
     function resetSelections() {
@@ -239,11 +101,11 @@
                 var choicesNode = $("<div class='answer-choices'>");
                 for (var j = 0; j < choices.length; j++) {
                     var choice = $("<div class='radio-inline answer-choice'>");
-                    if ((typeof question["images"] != "undefined") && (typeof question["images"][j] != "undefined"))
-                        choice.append("<img src='"+question["images"][j]+"' />");
-                    choice.append("<input type='radio' name='"+questionId+"' />");
+                    if (typeof choice["image"] != "undefined")
+                        choice.append("<img src='"+choice["image"][j]+"' />");
+                    choice.append("<input type='radio' name='"+questionId+"' value='"+choices[j]["code"]+"' />");
                     choice.append("<br/>");
-                    choice.append("<label for=''>"+choices[j]+"</label>");
+                    choice.append("<label for=''>"+choices[j]["text"]+"</label>");
                     choicesNode.append(choice);
                 }
                 node.append(choicesNode);
