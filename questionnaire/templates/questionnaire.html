@@ -26,7 +26,8 @@
 
 <div class="container-fluid main">
     <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
-    <form id="questionnaire">
+    <form id="questionnaire" action="/questionnaire/respond/" method="post">
+        {% csrf_token %}
         <div id="questionnaire-wrapper"></div>
         <div id="submit-wrapper">
             <button class="btn btn-default" type="button" id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
@@ -145,13 +146,19 @@
     function submitResponse() {
         var formErrors = validateForm();
         if (formErrors.length == 0) {
-
+            return true;
         } else {
             alert(formErrors[0]);
+            return false;
         }
     }
 
     $(function () { resetSelections(); });
+    $('#questionnaire').submit(function (event) {
+        if (!submitResponse()) event.preventDefault();
+    });
+
+alert("{{ json }}");
 
 </script>
 
