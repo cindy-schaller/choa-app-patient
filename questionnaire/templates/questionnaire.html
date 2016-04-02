@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,75 +8,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/fgh-cdc-style.css' %}" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        #questionnaire-name {
-            text-align: center;
-            font-weight: bold;
-        }
-        /*#questionnaire {*/
-        /*width: 800pt;*/
-        /*margin: auto;*/
-        /*}*/
-        #submit-wrapper {
-            text-align: right;
-            margin: 20pt 0;
-        }
-        .prompt {
-            font-weight: bold;
-        }
-        .question {
-            text-align: center;
-            font-weight: bold;
-        }
-        /*.question div.low-scale {*/
-        /*float: left;*/
-        /*}*/
-        /*.question div.high-scale {*/
-        /*float: right;*/
-        /*}*/
-        .question img {
-            width: 80pt;
-        }
-        .question div.answer-choices {
-            display: inline-block;
-            vertical-align: top;
-            margin: 10pt 90pt;
-        }
-        .question div.answer-choices div.answer-choice {
-            display: inline-block;
-            vertical-align: top;
-            text-align: center;
-            width: 100pt;
-        }
-        h4 {
-
-        }
-    </style>
 
 </head>
 
 <body>
-<h1 style="padding:0 10pt">Main Menu</h1>
+<h1 class="main">Main Menu</h1>
 <ul>
-
-
     <li><a href="/questionnaire/">Home</a></li>
-
-
     <li><a href="/questionnaire/about/">About</a></li>
-
-
     <li><a href="/questionnaire/respond/">Questionnaire</a></li>
-
 </ul>
-
 
 <hr/>
 
-<div class="container-fluid main" style="padding:0 10pt">
+<div class="container-fluid main">
     <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
     <form id="questionnaire">
         <div id="questionnaire-wrapper"></div>
@@ -109,16 +59,16 @@
                 "type": "scale",
                 "prompt": "I eat veggies and fruits:",
                 "choices": ["0-1 times a day", "1-2 times a day", "3-4 times a day", "More than 4 times a day"],
-                "lowImg": "../static/fruit.jpg",
-                "highImg": "../static/vegetables-basket.jpg"
+                "lowImg": "/static/fruit.jpg",
+                "highImg": "/static/vegetables-basket.jpg"
             },
             {
                 "id": "2",
                 "type": "scale",
                 "prompt": "I eat out:",
                 "choices": ["More than 4 times a week", "3-4 times a week", "1-2 times a week", "0-1 times a week"],
-                "lowImg": "../static/restaurant-crop.png",
-                "highImg": "../static/pizza.jpg"
+                "lowImg": "/static/restaurant-crop.png",
+                "highImg": "/static/pizza.jpg"
             },
             {
                 "id": "3",
@@ -133,8 +83,8 @@
                 "type": "scale",
                 "prompt": "I have sweet drinks (soda, sweet tea, sports drinks, 100% fruit juice, other fruit drinks):",
                 "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "../static/beverage-boxes.jpg",
-                "highImg": "../static/milk-crop.png"
+                "lowImg": "/static/beverage-boxes.jpg",
+                "highImg": "/static/milk-crop.png"
             },
             {
                 "id": "5",
@@ -150,7 +100,7 @@
                 "prompt": "If you could work on one healthy habit, which would it be?",
                 "choices": ["Make half your plate veggies and fruits", "Be more active",
                     "Limit screen time", "Drink more water and limit sugary drinks"],
-                "images": ["../static/fruit.jpg", "../static/placeholder.jpg", "../static/placeholder.jpg", "../static/water-splash.jpg"]
+                "images": ["/static/fruit.jpg", "/static/placeholder.jpg", "/static/placeholder.jpg", "/static/water-splash.jpg"]
             },
             {
                 "id": "7",
@@ -175,8 +125,8 @@
                 "type": "scale",
                 "prompt": "%1$s eats veggies and fruits:",
                 "choices": ["0-1 times a day", "1-2 times a day", "3-4 times a day", "More than 4 times a day"],
-                "lowImg": "../static/fruit.jpg",
-                "highImg": "../static/vegetables-basket.jpg"
+                "lowImg": "/static/fruit.jpg",
+                "highImg": "/static/vegetables-basket.jpg"
             },
             {
                 "id": "2",
@@ -191,16 +141,16 @@
                 "type": "scale",
                 "prompt": "%1$s drinks 100% fruit juice:",
                 "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "../static/placeholder.jpg",
-                "highImg": "../static/placeholder.jpg"
+                "lowImg": "/static/placeholder.jpg",
+                "highImg": "/static/placeholder.jpg"
             },
             {
                 "id": "4",
                 "type": "scale",
                 "prompt": "%1$s has sweet drinks (soda, sweet tea, sports drinks, other fruit drinks):",
                 "choices": ["More than 3 cups a day", "2 cups a day", "1 cup a day", "Not very often"],
-                "lowImg": "../static/beverage-boxes.jpg",
-                "highImg": "../static/milk-crop.png"
+                "lowImg": "/static/beverage-boxes.jpg",
+                "highImg": "/static/milk-crop.png"
             },
             {
                 "id": "5",
@@ -216,7 +166,7 @@
                 "prompt": "If you and %1$s could work on one healthy habit, which would it be?",
                 "choices": ["Make half your plate veggies and fruits", "Be more active",
                     "Limit screen time", "Drink more water and limit sugary drinks"],
-                "images": ["../static/fruit.jpg", "../static/placeholder.jpg", "../static/placeholder.jpg", "../static/water-splash.jpg"]
+                "images": ["/static/fruit.jpg", "/static/placeholder.jpg", "/static/placeholder.jpg", "/static/water-splash.jpg"]
             },
             {
                 "id": "7",
@@ -278,9 +228,9 @@
                 if (question["type"] == "scale") {
                     var lowImg = question["lowImg"];
                     var lowText = question["lowText"];
-                    var lowNode = $("<div class='low-scale'>");
+                    var lowNode = $("<div class='radio-inline'>");
                     if (lowImg) lowNode.append("<img src='" + lowImg + "' />");
-                    if (lowText) lowNode.append("<span>" + lowText + "</span>");
+                    if (lowText) lowNode.append("<span class='answer-label'>" + lowText + "</span>");
                     node.append(lowNode);
                 }
 
@@ -301,9 +251,9 @@
                 if (question["type"] == "scale") {
                     var highImg = question["highImg"];
                     var highText = question["highText"];
-                    var highNode = $("<div class='high-scale'>");
+                    var highNode = $("<div class='radio-inline'>");
                     if (highImg) highNode.append("<img src='" + highImg + "' />");
-                    if (highText) highNode.append("<span>" + highText + "</span>");
+                    if (highText) highNode.append("<span class='answer-label'>" + highText + "</span>");
                     node.append(highNode);
                 }
                 node.append('</div>');
