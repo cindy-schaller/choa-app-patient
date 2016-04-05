@@ -57,12 +57,12 @@
                 {
                     "id": "{{ question.linkId }}",
                     "type": "scale",
-                    "prompt": "{{ question.text }}",
+                    "prompt": "{{ question.text|linebreaks }}",
                     "choices": [
                         {% for answer in question.option %}
                             {
                                 "code": "{{ answer.code }}",
-                                "text": "{{ answer.display }}"
+                                "text": "{{ answer.display|linebreaksbr }}"
                             }{% if not forloop.last %},{% endif %}
                         {% endfor %}
                     ]
@@ -106,7 +106,7 @@
                         choice.append("<img src='"+choice["image"][j]+"' />");
                     choice.append("<input type='radio' name='"+questionId+"' value='"+choices[j]["code"]+"' />");
                     choice.append("<br/>");
-                    choice.append("<label for=''>"+choices[j]["text"]+"</label>");
+                    choice.append("<label for='"+choices[j]["code"]+"'>"+choices[j]["text"]+"</label>");
                     choicesNode.append(choice);
                 }
                 node.append(choicesNode);
