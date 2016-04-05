@@ -73,7 +73,8 @@
     }
 
     function textDecode(fhirText) {
-        fhirText = fhirText.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+        if (typeof fhirText !== "undefined")
+            fhirText = fhirText.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         return fhirText;
     }
 
