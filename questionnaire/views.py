@@ -25,7 +25,7 @@ def respond(request):
 
     form = questionnaire.Questionnaire.read("18791835", smart.server)
     if age < 13:
-        form = questionnaire.Questionnaire.read("18791830", smart.server)
+            form = questionnaire.Questionnaire.read("18791830", smart.server)
 
     jsonResponse = []
     if request.method == 'POST':
