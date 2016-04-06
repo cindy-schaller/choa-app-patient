@@ -2,12 +2,16 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+
 from fhirclient import client
 from fhirclient.models import patient, questionnaire, questionnaireresponse
 
 from datetime import datetime
 
 # Create views here.
+from fhirclient.server import FHIRNotFoundException
+
+
 def index(request):
     return render_to_response('index.html',
                               context_instance=RequestContext(request))
@@ -20,32 +24,35 @@ def respond(request):
     smart = client.FHIRClient(settings=settings)
     patientId = request.COOKIES.get('userId')
 
-    childRecord = patient.Patient.read(patientId, smart.server)
-    age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
+    try:
+        childRecord = patient.Patient.read(patientId, smart.server)
+        age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
 
-    form = questionnaire.Questionnaire.read("18791835", smart.server)
-    if age < 13:
-            form = questionnaire.Questionnaire.read("18791830", smart.server)
+        form = questionnaire.Questionnaire.read("18791835", smart.server)
+        if age < 13:
+                form = questionnaire.Questionnaire.read("18791830", smart.server)
 
-    jsonResponse = []
-    if request.method == 'POST':
-        jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
-                        "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
-                        "subject": {"reference": "Patient/"+childRecord.id},
-                        "author": {"reference": "Patient/"+childRecord.id}}
-        for question in form.group.question:
-            questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
-            jsonResponse["group"]["question"].append(questionJson)
-        smart.server.post_json('QuestionnaireResponse', jsonResponse)
+        jsonResponse = []
+        if request.method == 'POST':
+            jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
+                            "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
+                            "subject": {"reference": "Patient/"+childRecord.id},
+                            "author": {"reference": "Patient/"+childRecord.id}}
+            for question in form.group.question:
+                questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
+                jsonResponse["group"]["question"].append(questionJson)
+            smart.server.post_json('QuestionnaireResponse', jsonResponse)
 
-    context = RequestContext(request)
-    context['patientName'] = smart.human_name(childRecord.name[0])
-    context['questionnaire'] = form.group.question
-    context['json'] = jsonResponse
+        context = RequestContext(request)
+        context['patientName'] = smart.human_name(childRecord.name[0])
+        context['questionnaire'] = form.group.question
+        context['json'] = jsonResponse
 
-    #return JsonResponse(jsonResponse)
-    return render_to_response('questionnaire.html',
-                              context_instance=context)
+        #return JsonResponse(jsonResponse)
+        return render_to_response('questionnaire.html',
+                                  context_instance=context)
+    except FHIRNotFoundException:
+        return HttpResponse("The user you've selected appears to be invalid.  Please return to <a href='/questionnaire/'>the index</a> and select a different user.")
 
 def about(request):
     return render_to_response('about.html',
