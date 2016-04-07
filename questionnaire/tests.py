@@ -26,19 +26,28 @@ PATIENT_ID_AGE19 = 'Patient-17458' #dob 1997-02-04
 #         self.assertTrue(test_value,"Add model tests when models available")
 
 class View_Index_Tests(TestCase):
+    """
+    test main view
+    """
     def test_index_view_exists(self):
-        """
-        test main view
-        """
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Questionnaire")
+        self.assertContains(response, "<title>Questionnaire</title>")
+
+    def test_index_has_login(self):
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Username")
+        self.assertContains(response, "Password")
+        self.assertContains(response, "Login")
+
 
 class View_About_Tests(TestCase):
+    """
+    test about view
+    """
     def test_index_view_exists(self):
-        """
-        test about view
-        """
+
         response = self.client.get(reverse('about'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "A project of the Frogs")
@@ -168,5 +177,224 @@ class View_Respond_Tests(TestCase):
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "I eat")
+
+# test all child questions
+    '''
+    checks to see if the text is on the page but does not
+    verify that it is correctly located or that radio buttons are there
+    '''
+    def test_child_question1_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child eats veggies and fruits:")
+        self.assertContains(response, "0-1 times a day")
+        self.assertContains(response, "1-2 times a day")
+        self.assertContains(response, "3-4 times a day")
+        self.assertContains(response, "5 or more times a day")
+
+    def test_child_question2_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child is active:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "Less than 30 minutes a day")
+        self.assertContains(response, "30-60 minutes a day")
+        self.assertContains(response, "More than 60 minutes a day")
+
+    def test_child_question3_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child drinks 100\x25 fruit juice:")
+        self.assertContains(response, "More than 3 cups a day")
+        self.assertContains(response, "2 cups a day")
+        self.assertContains(response, "1 cup a day")
+        self.assertContains(response, "Not very often")
+
+    def test_child_question4_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child has sweet drinks (soda, sweet tea, sports drinks, other fruit drinks):")
+        self.assertContains(response, "More than 3 cups a day")
+        self.assertContains(response, "2 cups a day")
+        self.assertContains(response, "1 cup a day")
+        self.assertContains(response, "Not very often")
+
+    def test_child_question5_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child eats foods like brownies, muffins, cakes or cookies:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "1-2 times per week")
+        self.assertContains(response, "3-4 times per week")
+        self.assertContains(response, "5 or more times a week")
+
+    def test_child_question6_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "My child watches television, plays video games, spends (non-school related) time on a computer, tablet or cell phone:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "1-2 hours a day")
+        self.assertContains(response, "3-4 hours a day")
+        self.assertContains(response, "5 or more hours a day")
+
+    def test_child_question7_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "If you and your child could work on one healthy habit, which would it be?")
+        self.assertContains(response, "Make half your plate veggies and fruits")
+        self.assertContains(response, "Limit screen time")
+        self.assertContains(response, "Be more active")
+        self.assertContains(response, "Drink more water and limit sugary drinks")
+
+    def test_child_question8_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "How important is it to you that your child works on this healthy habit?")
+        self.assertContains(response, "Not at all")
+        self.assertContains(response, "Very")
+
+    def test_child_question9_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"]= PATIENT_ID_DIANA
+        self.client.cookies=C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "How confident are you that your child can improve on this healthy habit?")
+        self.assertContains(response, "Not at all")
+        self.assertContains(response, "Very")
+
+# test all adolescent questions
+    '''
+    checks to see if the text is on the page but does not
+    verify that it is correctly located or that radio buttons are there
+    '''
+    def test_teen_question1_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I eat veggies and fruits:")
+        self.assertContains(response, "0-1 times a day")
+        self.assertContains(response, "1-2 times a day")
+        self.assertContains(response, "3-4 times a day")
+        self.assertContains(response, "5 or more times a day")
+
+    def test_teen_question2_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I eat out:")
+        self.assertContains(response, "More than 4 times a week")
+        self.assertContains(response, "3-4 times a week")
+        self.assertContains(response, "1-2 times a week")
+        self.assertContains(response, "0-1 times a week")
+
+    def test_teen_question3_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I am active:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "Less than 30 minutes a day")
+        self.assertContains(response, "30-60 minutes a day")
+        self.assertContains(response, "More than 60 minutes a day")
+
+    def test_teen_question4_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I have sweet drinks (soda, sweet tea, sports drinks, 100\x25 fruit juice, other fruit drinks):")
+        self.assertContains(response, "3 or more cups a day")
+        self.assertContains(response, "2 cups a day")
+        self.assertContains(response, "1 cup a day")
+        self.assertContains(response, "Not very often")
+
+    def test_teen_question5_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I eat foods like brownies, muffins, cakes or cookies:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "1 time a day")
+        self.assertContains(response, "2 times a day")
+        self.assertContains(response, "3 or more times a day")
+
+    def test_teen_question6_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I watch television, play video games, spend (non-school related) time on a computer, tablet or cell phone:")
+        self.assertContains(response, "Not very often")
+        self.assertContains(response, "1 hour a day")
+        self.assertContains(response, "1-2 hours a day")
+        self.assertContains(response, "3-4 hours a day")
+        self.assertContains(response, "5 or more hours a day")
+
+    def test_teen_question7_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "If you could work on one healthy habit, which would it be?")
+        self.assertContains(response, "Make half your plate veggies and fruits")
+        self.assertContains(response, "Limit screen time")
+        self.assertContains(response, "Be more active")
+        self.assertContains(response, "Drink more water and limit sugary drinks")
+
+    def test_teen_question8_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "How important is it to you to work on this healthy habit?")
+        self.assertContains(response, "Not at all")
+        self.assertContains(response, "Very")
+
+    def test_teen_question9_onpage(self):
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "How confident are you that you can improve this healthy habit?")
+        self.assertContains(response, "Not at all")
+        self.assertContains(response, "Very")
 
 
