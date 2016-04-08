@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 import Cookie
 
+
 '''
 All tests can be run by executing from terminal:
 python manage.py test questionnaire
@@ -29,32 +30,38 @@ class View_Index_Tests(TestCase):
     """
     test main view
     """
-    def test_index_view_exists(self):
+    def test_view_exists(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Questionnaire</title>")
 
-    def test_index_has_login(self):
+    def test_has_login(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Username")
         self.assertContains(response, "Password")
         self.assertContains(response, "Login")
 
+    def test_footer_found(self):
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Terms of Use")
+        self.assertContains(response, "Privacy Statement")
+        self.assertContains(response, "FAQs")
+        self.assertContains(response, "Support")
 
 class View_About_Tests(TestCase):
     """
     test about view
     """
-    def test_index_view_exists(self):
-
+    def test_view_exists(self):
         response = self.client.get(reverse('about'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "A project of the Frogs")
 
 class View_Respond_Tests(TestCase):
 
-    def test_no_id_view(self):
+    def test_no_id(self):
         """
         test respond view when no id is set yet, i.e. no login has occurred
         """
@@ -62,7 +69,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "The user you've selected appears to be invalid.")
 
-    def test_badID_view(self):
+    def test_badID(self):
         """
         test respond view when patient is adolescent
         set cookie to userID for Tobias age 15
@@ -85,7 +92,21 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['patientName'], PATIENT_NAME_DIANA)
 
-    def test_child_view(self):
+    def test_footer_found_child(self):
+        """
+        test respond view footer items
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Terms of Use")
+        self.assertContains(response, "Privacy Statement")
+        self.assertContains(response, "FAQs")
+        self.assertContains(response, "Support")
+
+    def test_child_questionnaire(self):
         """
         test respond view when patient is child
         set cookie to userID for Diana age 8
@@ -97,7 +118,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "My child eats")
 
-    def test_adolescent_view(self):
+    def test_teen_questionnaire(self):
         """
         test respond view when patient is adolescent
         set cookie to userID for Tobias age 15
@@ -109,8 +130,32 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "I eat")
 
+    def test_child_name_shown(self):
+        """
+        test respond view when patient is adolescent
+        set cookie to userID for Tobias age 15
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_DIANA
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Diana")
+
+    def test_teen_name_shown(self):
+        """
+        test respond view when patient is adolescent
+        set cookie to userID for Tobias age 15
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_TOBIAS
+        self.client.cookies=C
+        response = self.client.get(reverse('respond'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Tobias")
+
 # age edge cases
-    def test_child_below_min_age(self):
+    def test_below_min_age(self):
         """
         test respond view when patient is <2 years old
         """
@@ -123,7 +168,7 @@ class View_Respond_Tests(TestCase):
         # self.assertEqual(response.context['patientName'], 'Aaron Daryl Conner')
 
 
-    def test_child_over_max_age_view(self):
+    def test_over_max_age_view(self):
         """
         test respond view when patient is >18 years old
         """
@@ -134,7 +179,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Patient is older than 18")
 
-    def test_child_age_2_view(self):
+    def test_child_age_2(self):
         """
         test respond view when patient is 2 years old (edge case)
         """
@@ -145,7 +190,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "My child eats")
 
-    def test_child_age_12_view(self):
+    def test_child_age_12(self):
         """
         test respond view when patient is 12 years old
         """
@@ -156,7 +201,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "My child eats")
 
-    def test_adolescent_age_13_view(self):
+    def test_teen_age_13(self):
         """
         test respond view when patient is 13 years old
         """
@@ -167,7 +212,7 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "I eat")
 
-    def test_adolescent_age_18_view(self):
+    def test_teen_age_18(self):
         """
         test respond view when patient is <2 years old
         """
@@ -274,8 +319,8 @@ class View_Respond_Tests(TestCase):
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "How important is it to you that your child works on this healthy habit?")
-        self.assertContains(response, "Not at all")
-        self.assertContains(response, "Very")
+        self.assertContains(response, "NOT AT ALL")
+        self.assertContains(response, "VERY")
 
     def test_child_question9_onpage(self):
         C = Cookie.SimpleCookie()
@@ -284,8 +329,8 @@ class View_Respond_Tests(TestCase):
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "How confident are you that your child can improve on this healthy habit?")
-        self.assertContains(response, "Not at all")
-        self.assertContains(response, "Very")
+        self.assertContains(response, "NOT AT ALL")
+        self.assertContains(response, "VERY")
 
 # test all adolescent questions
     '''
@@ -384,8 +429,8 @@ class View_Respond_Tests(TestCase):
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "How important is it to you to work on this healthy habit?")
-        self.assertContains(response, "Not at all")
-        self.assertContains(response, "Very")
+        self.assertContains(response, "NOT AT ALL")
+        self.assertContains(response, "VERY")
 
     def test_teen_question9_onpage(self):
         C = Cookie.SimpleCookie()
@@ -394,7 +439,7 @@ class View_Respond_Tests(TestCase):
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "How confident are you that you can improve this healthy habit?")
-        self.assertContains(response, "Not at all")
-        self.assertContains(response, "Very")
+        self.assertContains(response, "NOT AT ALL")
+        self.assertContains(response, "VERY")
 
 
