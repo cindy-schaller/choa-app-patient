@@ -63,9 +63,9 @@
                             "lowText": "{{ extension.valueString }}",
                         {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel" %}
                             "highText": "{{ extension.valueString }}",
-                        {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeImage" %}
+                        {% elif extension.url == "http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage" %}
                             "lowImg": "{{ extension.valueString }}",
-                        {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeImage" %}
+                        {% elif extension.url == "http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage" %}
                             "highImg": "{{ extension.valueString }}",
                         {% endif %}
                     {% endfor %}
