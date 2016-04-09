@@ -58,6 +58,17 @@
                     "id": "{{ question.linkId }}",
                     "type": "scale",
                     "prompt": "{{ question.text }}",
+                    {% for extension in question.group.0.extension %}
+                        {% if extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel" %}
+                            "lowText": "{{ extension.valueString }}",
+                        {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel" %}
+                            "highText": "{{ extension.valueString }}",
+                        {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeImage" %}
+                            "lowImg": "{{ extension.valueString }}",
+                        {% elif extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeImage" %}
+                            "highImg": "{{ extension.valueString }}",
+                        {% endif %}
+                    {% endfor %}
                     "choices": [
                         {% for answer in question.option %}
                             {
