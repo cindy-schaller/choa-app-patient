@@ -1,14 +1,18 @@
 {
-  "resourceType": "Questionnaire",
-  "id": "healthy-habits-child",
-  "text": {
-    "status": "generated",
-    "div": "<div><p><b>Generated Narrative with Details</b></p><p><b>id</b>: questionnaire-healthy-habits-child</p><p><b>status</b>: published</p><p><b>title</b>: Healthy Habits Tracker</p></div>"
-  },
-  "status": "draft",
-  "title": "Healthy Habits Tracker",
-  "group":{
+    "resourceType":"Questionnaire",
+    "id":"18791830",
+    "meta":{
+        "versionId":"11",
+        "lastUpdated":"2016-04-09T15:01:19.233-04:00"
+    },
+    "text":{
+        "status":"generated",
+        "div":"<div xmlns=\"http://www.w3.org/1999/xhtml\"> <p> <b>Generated Narrative with Details</b> </p> <p> <b>id</b>: questionnaire-healthy-habits-child </p> <p> <b>status</b>: published </p> <p> <b>title</b>: Healthy Habits Tracker </p> </div>"
+    },
+    "status":"draft",
+    "group":{
         "linkId":"root",
+        "title":"Healthy Habits Questionnaire",
         "required":true,
         "question":[
             {
@@ -33,6 +37,20 @@
                     {
                         "code":"4",
                         "display":"5 or more times a day"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage"
+                            },
+                            {
+                                "url":"http://www.example.com/fhir/tbd",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q1R.jpg"
+                            }
+                        ]
                     }
                 ]
             },
@@ -59,6 +77,20 @@
                         "code":"4",
                         "display":"More than 60 minutes a day"
                     }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q2L.jpg"
+                            },
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q2R.jpg"
+                            }
+                        ]
+                    }
                 ]
             },
             {
@@ -84,7 +116,21 @@
                         "code":"4",
                         "display":"Not very often"
                     }
-                  ]
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q3L.jpg"
+                            },
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q3R.jpg"
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 "linkId":"4",
@@ -108,6 +154,20 @@
                     {
                         "code":"4",
                         "display":"Not very often"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q4L.jpg"
+                            },
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q4R.jpg"
+                            }
+                        ]
                     }
                 ]
             },
@@ -133,6 +193,20 @@
                     {
                         "code":"4",
                         "display":"5 or more times per week"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q5L.jpg"
+                            },
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q5R.jpg"
+                            }
+                        ]
                     }
                 ]
             },
@@ -162,6 +236,20 @@
                     {
                         "code":"5",
                         "display":"5 or more hours a day"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q6L.jpg"
+                            },
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "valueString":"http://54.164.154.218:8000/images/child/Q6R.jpg"
+                            }
+                        ]
                     }
                 ]
             },
@@ -213,6 +301,20 @@
                         "code":"4",
                         "display":"4"
                     }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
+                                "valueString":"Not At All"
+                            },
+                            {
+                                "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
+                                "valueString":"Very"
+                            }
+                        ]
+                    }
                 ]
             },
             {
@@ -237,6 +339,20 @@
                     {
                         "code":"4",
                         "display":"4"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
+                                "valueString":"Not At All"
+                            },
+                            {
+                                "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
+                                "valueString":"Very"
+                            }
+                        ]
                     }
                 ]
             }
