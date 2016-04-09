@@ -39,7 +39,7 @@ def respond(request):
                             "subject": {"reference": "Patient/"+childRecord.id},
                             "author": {"reference": "Patient/"+childRecord.id}}
             for question in form.group.question:
-                questionJson = {"linkId": question.linkId, "answer": [{"valueString": request.POST[question.linkId]}]}
+                questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
                 jsonResponse["group"]["question"].append(questionJson)
             smart.server.post_json('QuestionnaireResponse', jsonResponse)
 
