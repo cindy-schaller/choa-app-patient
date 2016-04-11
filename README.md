@@ -1,7 +1,7 @@
 # fgh-web
 Frogs' Greatest HITs web prototype
 
-Images in the mock up have been used with the permission and license of http://www.freeimages.com/
+Images in the prototype have been used with the permission and license of http://www.freeimages.com/
 
 ## Setting up for development
 
