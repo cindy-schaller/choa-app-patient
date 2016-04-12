@@ -1,4 +1,6 @@
 {% load menu %}{% generate_menu %}
+
+{% load staticfiles %}
 <!doctype html>
 {# SRL: Adding Bootstrap specific coding for mobile first design#}
 <html>
@@ -8,6 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{%  static 'css/fgh-cdc-style.css' %}" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block headextra %}{% endblock %}
