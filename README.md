@@ -1,6 +1,8 @@
 # fgh-web
 Frogs' Greatest HITs web prototype
 
+Images in the prototype have been used with the permission and license of http://www.freeimages.com/
+
 ## Setting up for development
 
 Note: if you don't have Python installed, you can install it on Mac using Homebrew:
