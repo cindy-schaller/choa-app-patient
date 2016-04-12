@@ -47,6 +47,7 @@ def respond(request):
                     questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
                     jsonResponse["group"]["question"].append(questionJson)
                 smart.server.post_json('QuestionnaireResponse', jsonResponse)
+                return redirect("/questionnaire/")
 
             context = RequestContext(request)
             context['patientName'] = smart.human_name(childRecord.name[0])
