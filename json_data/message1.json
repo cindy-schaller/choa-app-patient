@@ -1,0 +1,42 @@
+{
+    "resourceType":"Communication",
+    "meta":{
+        "versionId":"1",
+        "lastUpdated":"2016-03-28T21:17:04.651-04:00"
+    },
+    "text":{
+        "status":"generated",
+        "div":"<div>Healthy Weight message</div>"
+    },
+    "category":{
+        "coding":[
+            {
+                "system":"http://acme.org/messagetypes",
+                "code":"general"
+            }
+        ],
+        "text":"general"
+    },
+    "sender":{
+        "reference":"Practitioner/Practitioner-2189",
+        "display":"Your Care Coordinator"
+    },
+    "recipient":[
+        {
+            "reference":"Patient/18791962",
+            "display":"Diana's parent or guardian"
+        }
+    ],
+    "payload":[
+        {
+            "contentString":"The YMCA near your home just started a new dance club for girls age 8-10!"
+        }
+    ],
+    "status":"completed",
+    "sent":"2016-03-29T01:17:04-0700",
+    "reason":[
+        {
+            "text":"Resource referral"
+        }
+    ]
+}
