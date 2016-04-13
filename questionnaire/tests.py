@@ -15,11 +15,15 @@ PATIENT_NAME_DIANA = 'Diana Prince'
 PATIENT_ID_BEATRICE = '18791983' #age 14
 PATIENT_ID_TOBIAS = '18792004' #age 15
 PATIENT_ID_UNDERAGE = 'Patient-13244' #dob 2016-01-08
+PATIENT_ID_INVALID = '19999999' #assume does not exist!
 PATIENT_ID_AGE2 = 'Patient-22774' #dob 2013-12-29
 PATIENT_ID_AGE12 = 'Patient-12611' #dob 2004-02-27
 PATIENT_ID_AGE13 = 'Patient-20090' #dob 2003-02-23
 PATIENT_ID_AGE18 = 'Patient-17877' #dob 1998-04-01
 PATIENT_ID_AGE19 = 'Patient-17458' #dob 1997-02-04
+INVALID_ID_MSG = "The user you've selected appears to be invalid."
+ABOUT_MSG = "A project of the Frogs"
+HISTORY_RESPONSES_MSG = "Your past responses:"
 
 # class Model_Tests_1(TestCase):
 #     def test_model_placeholder(self):
@@ -57,17 +61,16 @@ class View_About_Tests(TestCase):
     def test_view_exists(self):
         response = self.client.get(reverse('about'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "A project of the Frogs")
+        self.assertContains(response, ABOUT_MSG)
 
-class View_Respond_Tests(TestCase):
-
+class View_Messages_Tests(TestCase):
+    """
+    test Messages view
+    """
     def test_no_id(self):
-        """
-        test respond view when no id is set yet, i.e. no login has occurred
-        """
-        response = self.client.get(reverse('respond'))
+        response = self.client.get(reverse('messages'),follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "The user you've selected appears to be invalid.")
+        self.assertContains(response, INVALID_ID_MSG)
 
     def test_badID(self):
         """
@@ -77,9 +80,77 @@ class View_Respond_Tests(TestCase):
         C = Cookie.SimpleCookie()
         C["userId"] = 19999999
         self.client.cookies = C
-        response = self.client.get(reverse('respond'))
+        response = self.client.get(reverse('messages'),follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "The user you've selected appears to be invalid.")
+        self.assertContains(response, INVALID_ID_MSG)
+
+    def test_patient_found(self):
+        """
+        test respond view when valid patient chosen
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"]= PATIENT_ID_DIANA
+        self.client.cookies=C
+        response = self.client.get(reverse('messages'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "messages")  # find narrower check for with and without messages but valid
+
+class View_History_Tests(TestCase):
+    """
+    test History view
+    """
+    def test_no_id(self):
+        """
+        test respond view when no id is set yet, i.e. no login has occurred
+        """
+        response = self.client.get(reverse('history'),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, INVALID_ID_MSG)
+
+    def test_badID(self):
+        """
+        test respond view when patient is adolescent
+        set cookie to userID for Tobias age 15
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"] = PATIENT_ID_INVALID
+        self.client.cookies = C
+        response = self.client.get(reverse('history'),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, INVALID_ID_MSG)
+
+    def test_patient_found(self):
+        """
+        test respond view when valid patient chosen
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"]= PATIENT_ID_DIANA
+        self.client.cookies=C
+        response = self.client.get(reverse('history'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, HISTORY_RESPONSES_MSG)
+
+class View_Respond_Tests(TestCase):
+
+    def test_no_id(self):
+        """
+        test respond view when no id is set yet, i.e. no login has occurred
+        """
+        response = self.client.get(reverse('respond'),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, INVALID_ID_MSG)
+
+    def test_badID(self):
+        """
+        test respond view when patient is adolescent
+        set cookie to userID for Tobias age 15
+        """
+        C = Cookie.SimpleCookie()
+        C["userId"] = 19999999
+        self.client.cookies = C
+        response = self.client.get(reverse('respond'),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, INVALID_ID_MSG)
 
     def test_patient_found(self):
         """

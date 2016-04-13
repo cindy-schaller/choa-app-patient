@@ -572,8 +572,8 @@ jQuery.cookie = function(name, value, options) {
 <body>
 <div id="container">
 <div id="header">
-<div class="time">10.89 s</div>
-<h1>Test: questionnaire.tests: <strong><span class="total">36 total, </span><span class="error">2 error, </span><span class="failed">12 failed, </span><span class="passed">22 passed</span></strong>
+<div class="time">11.34 s</div>
+<h1>Test: questionnaire.tests: <strong><span class="total">42 total, </span><span class="error">1 error, </span><span class="failed">15 failed, </span><span class="passed">26 passed</span></strong>
 </h1>
 <div id="treecontrol">
 <ul>
@@ -591,106 +591,155 @@ jQuery.cookie = function(name, value, options) {
 <ul id="tree">
 <li xmlns="" class="level top open">
 <span><em class="time">
-<div class="time">79 ms</div>
+<div class="time">154 ms</div>
 </em>questionnaire.tests.View_About_Tests</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">79 ms</div>
+<div class="time">154 ms</div>
 </em><em class="status">passed</em>test_view_exists</span>
 </li>
 </ul>
 </li>
 <li class="level top failed open">
 <span><em class="time">
-<div class="time">25 ms</div>
-</em>questionnaire.tests.View_Index_Tests</span>
-<ul>
-<li class="level test failed open">
-<span><em class="time">
-<div class="time">17 ms</div>
-</em><em class="status">error</em>test_footer_found</span>
-</li>
-<li class="level test failed open">
-<span><em class="time">
-<div class="time">5 ms</div>
-</em><em class="status">failed</em>test_has_login</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">3 ms</div>
-</em><em class="status">passed</em>test_view_exists</span>
-</li>
-</ul>
-</li>
-<li class="level top failed open">
-<span><em class="time">
-<div class="time">10.79 s</div>
-</em>questionnaire.tests.View_Respond_Tests</span>
+<div class="time">488 ms</div>
+</em>questionnaire.tests.View_History_Tests</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">144 ms</div>
+<div class="time">276 ms</div>
 </em><em class="status">passed</em>test_badID</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">427 ms</div>
+<div class="time">62 ms</div>
+</em><em class="status">error</em>test_no_id</span>
+</li>
+<li class="level test">
+<span><em class="time">
+<div class="time">150 ms</div>
+</em><em class="status">passed</em>test_patient_found</span>
+</li>
+</ul>
+</li>
+<li class="level top failed open">
+<span><em class="time">
+<div class="time">23 ms</div>
+</em>questionnaire.tests.View_Index_Tests</span>
+<ul>
+<li class="level test failed open">
+<span><em class="time">
+<div class="time">1 ms</div>
+</em><em class="status">failed</em>test_footer_found</span>
+<ul>
+<li class="text">
+<span class="stderr">C:\Python27\lib\site-packages\django\template\defaulttags.py:499: RemovedInDjango110Warning: Reversing by dotted path is deprecated (questionnaire.views.details).<br/>  url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)<br/>C:\Python27\lib\site-packages\django\shortcuts.py:204: RemovedInDjango110Warning: Reversing by dotted path is deprecated (questionnaire.views.index).<br/>  return urlresolvers.reverse(to, args=args, kwargs=kwargs)<br/></span>
+</li>
+</ul>
+</li>
+<li class="level test failed open">
+<span><em class="time">
+<div class="time">12 ms</div>
+</em><em class="status">failed</em>test_has_login</span>
+</li>
+<li class="level test">
+<span><em class="time">
+<div class="time">10 ms</div>
+</em><em class="status">passed</em>test_view_exists</span>
+</li>
+</ul>
+</li>
+<li class="level top failed open">
+<span><em class="time">
+<div class="time">243 ms</div>
+</em>questionnaire.tests.View_Messages_Tests</span>
+<ul>
+<li class="level test failed open">
+<span><em class="time">
+<div class="time">118 ms</div>
+</em><em class="status">failed</em>test_badID</span>
+</li>
+<li class="level test">
+<span><em class="time">
+<div class="time">2 ms</div>
+</em><em class="status">passed</em>test_no_id</span>
+</li>
+<li class="level test">
+<span><em class="time">
+<div class="time">123 ms</div>
+</em><em class="status">passed</em>test_patient_found</span>
+</li>
+</ul>
+</li>
+<li class="level top failed open">
+<span><em class="time">
+<div class="time">10.43 s</div>
+</em>questionnaire.tests.View_Respond_Tests</span>
+<ul>
+<li class="level test">
+<span><em class="time">
+<div class="time">115 ms</div>
+</em><em class="status">passed</em>test_badID</span>
+</li>
+<li class="level test failed open">
+<span><em class="time">
+<div class="time">402 ms</div>
 </em><em class="status">failed</em>test_below_min_age</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">421 ms</div>
+<div class="time">399 ms</div>
 </em><em class="status">passed</em>test_child_age_12</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">422 ms</div>
+<div class="time">397 ms</div>
 </em><em class="status">passed</em>test_child_age_2</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">419 ms</div>
+<div class="time">390 ms</div>
 </em><em class="status">passed</em>test_child_name_shown</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">417 ms</div>
+<div class="time">391 ms</div>
 </em><em class="status">passed</em>test_child_question1_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">430 ms</div>
+<div class="time">398 ms</div>
 </em><em class="status">passed</em>test_child_question2_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">418 ms</div>
+<div class="time">422 ms</div>
 </em><em class="status">failed</em>test_child_question3_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">419 ms</div>
+<div class="time">431 ms</div>
 </em><em class="status">passed</em>test_child_question4_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">418 ms</div>
+<div class="time">398 ms</div>
 </em><em class="status">failed</em>test_child_question5_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">420 ms</div>
+<div class="time">421 ms</div>
 </em><em class="status">passed</em>test_child_question6_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">419 ms</div>
+<div class="time">394 ms</div>
 </em><em class="status">passed</em>test_child_question7_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">415 ms</div>
+<div class="time">409 ms</div>
 </em><em class="status">failed</em>test_child_question8_onpage</span>
 </li>
 <li class="level test failed open">
@@ -700,92 +749,92 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">415 ms</div>
+<div class="time">403 ms</div>
 </em><em class="status">passed</em>test_child_questionnaire</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">422 ms</div>
+<div class="time">418 ms</div>
 </em><em class="status">failed</em>test_footer_found_child</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">12 ms</div>
-</em><em class="status">error</em>test_no_id</span>
+<div class="time">10 ms</div>
+</em><em class="status">failed</em>test_no_id</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">283 ms</div>
+<div class="time">251 ms</div>
 </em><em class="status">failed</em>test_over_max_age_view</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">416 ms</div>
+<div class="time">422 ms</div>
 </em><em class="status">passed</em>test_patient_found</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">278 ms</div>
+<div class="time">277 ms</div>
 </em><em class="status">passed</em>test_teen_age_13</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">278 ms</div>
+<div class="time">259 ms</div>
 </em><em class="status">passed</em>test_teen_age_18</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">281 ms</div>
+<div class="time">274 ms</div>
 </em><em class="status">passed</em>test_teen_name_shown</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">279 ms</div>
+<div class="time">273 ms</div>
 </em><em class="status">passed</em>test_teen_question1_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">276 ms</div>
+<div class="time">291 ms</div>
 </em><em class="status">passed</em>test_teen_question2_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">282 ms</div>
+<div class="time">273 ms</div>
 </em><em class="status">passed</em>test_teen_question3_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">279 ms</div>
+<div class="time">274 ms</div>
 </em><em class="status">failed</em>test_teen_question4_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">280 ms</div>
+<div class="time">271 ms</div>
 </em><em class="status">failed</em>test_teen_question5_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">280 ms</div>
+<div class="time">269 ms</div>
 </em><em class="status">passed</em>test_teen_question6_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">280 ms</div>
+<div class="time">290 ms</div>
 </em><em class="status">passed</em>test_teen_question7_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">282 ms</div>
+<div class="time">275 ms</div>
 </em><em class="status">failed</em>test_teen_question8_onpage</span>
 </li>
 <li class="level test failed open">
 <span><em class="time">
-<div class="time">279 ms</div>
+<div class="time">252 ms</div>
 </em><em class="status">failed</em>test_teen_question9_onpage</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">280 ms</div>
+<div class="time">263 ms</div>
 </em><em class="status">passed</em>test_teen_questionnaire</span>
 </li>
 </ul>
@@ -794,7 +843,7 @@ jQuery.cookie = function(name, value, options) {
 </div>
 </div>
 <div id="footer">
-<p>Generated by PyCharm on 4/7/16 8:16 PM</p>
+<p>Generated by PyCharm on 4/13/16 10:41 AM</p>
 </div>
 </body>
 </html>
