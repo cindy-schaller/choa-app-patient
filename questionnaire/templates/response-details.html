@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load fhir_formatting %}
+
+{% block content %}
+    <style>
+        span.item-label {
+            font-weight: bold;
+        }
+    </style>
+    <div>Details for response submitted on {{ response.meta.lastUpdated.date }}:</div>
+    <div class="response">
+        {% for question in response.group.question %}
+            {% for original_question in questionnaire.group.question %}
+                {% if original_question.linkId == question.linkId %}
+                    <div class="item">
+                        <span class="item-label">{{ original_question.text }}</span>
+                    {% for answer in original_question.option %}
+                        {% if answer.code|stringformat:"s" == question.answer.0.valueInteger|stringformat:"s" %}
+                            {{ answer.display }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

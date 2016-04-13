@@ -14,6 +14,9 @@ Menu.add_item("main", MenuItem("Questionnaire",
 Menu.add_item("main", MenuItem("Messages",
                                reverse("questionnaire.views.messages")))
 
+Menu.add_item("main", MenuItem("History",
+                               reverse("questionnaire.views.history")))
+
 # this item will be shown to users who are not logged in
 # Menu.add_item("main", MenuItem("Login",
 #                                reverse('django.contrib.auth.views.login'),

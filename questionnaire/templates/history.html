@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load fhir_formatting %}
+
+{% block content %}
+    <style>
+        span.label {
+            font-weight: bold;
+        }
+    </style>
+    <div>Your past responses:</div>
+    {% for response in pastResponses %}
+        <div class="response">
+            <span class="label">Submitted:</span>
+            <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
