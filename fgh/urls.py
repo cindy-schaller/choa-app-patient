@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^questionnaire/', include('questionnaire.urls')),
+    url(r'^fhir/StructureDefinition/questionnaire-lowRangeImage', views.low_range_image),
+    url(r'^fhir/StructureDefinition/questionnaire-highRangeImage', views.high_range_image),
 ] + static(settings.IMAGE_URL, document_root="./images/")
