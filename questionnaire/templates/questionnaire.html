@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container-fluid main">
-    <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
+    <h2 id="questionnaire-name"><img src="../../images/HealthyHabitTrackerTitle.jpg"/></h2>
     <form id="questionnaire" action="/questionnaire/respond/" method="post">
         {% csrf_token %}
         <div id="questionnaire-wrapper"></div>
@@ -119,7 +119,7 @@
                 node.append('</div>');
 
                 $('#questionnaire-wrapper').append(node);
-                $('#questionnaire-wrapper').append("<hr/>");
+                $('#questionnaire-wrapper').append("<hr class='hrDec'/>");
             }
         }
     }
