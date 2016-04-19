@@ -21,7 +21,8 @@
         <h1 style="padding:0 10pt">Main Menu</h1>
         {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
 
-        <hr/>
+		<h2 id="questionnaire-name">Healthy Habits Tracker</h2>
+        <hr class="myHR"/>
 
         <div class="main" style="padding:0 10pt">{% block content %}</div>
         {% endblock %}

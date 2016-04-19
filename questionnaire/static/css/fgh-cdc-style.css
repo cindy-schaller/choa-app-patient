@@ -29,10 +29,15 @@
 #questionnaire-name {
     text-align: center;
     font-weight: bold;
+	/*Edited by Wade Ashby 4-18-16*/
+	font-size: 36px;
+	font-family: cursive;
+	color: #A93AC0;
+	/*End of edit*/
 }
 
 #submit-wrapper {
-    text-align: right;
+    text-align: center; /*Changed from right by Wade Ashby 4-16-18 */
     margin: 20pt 0;
 }
 .main {
@@ -68,8 +73,40 @@
     vertical-align: middle;
 }
 
-hr{
-    height: 12px;
+/*Lines below editted by Wade Ashby - 4/18/16 */
+.myHR {
+    height: 6px;
     border: 0;
-    box-shadow: inset 0 12px 12px -2px #7DC734;
+    box-shadow: inset 0 6px 6px -2px #7DC734;
+}
+
+.mainMenuul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #3434dd;
+    overflow: hidden;
+}
+
+.mainMenuli {
+    float: left;
+    padding: 2;
+}
+
+.mainMenua {
+    display: block;
+    padding: 8px;
+    color: #ffffff;
+}
+
+.btn-reset{
+	color: #ffffff;
+	background-color: #ff0000;
+	border-color: #222222;
+}
+
+.btn-submit{
+	color: #ffffff;
+	background-color: #3434dd;
+	border-color: #222222;
 }
