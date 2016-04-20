@@ -37,7 +37,7 @@
 }
 
 #submit-wrapper {
-    text-align: center; /*Changed from right by Wade Ashby 4-16-18 */
+    text-align: center; /*Changed from right by Wade Ashby 4-18-16 */
     margin: 20pt 0;
 }
 .main {
@@ -45,6 +45,7 @@
 }
 .prompt {
     font-weight: bold;
+	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
 .question {
     font-weight: bold;
@@ -63,6 +64,7 @@
 .question div.answer-choices {
     display: inline-block;
     margin: 10pt 90pt;
+	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
 .question div.answer-choices div.answer-choice {
     display: inline-block;
@@ -71,6 +73,8 @@
 
 .question span.answer-label {
     vertical-align: middle;
+	color: #A93AC0;/*Add by Wade Ashby 4-19-16*/
+	font-weight: bold;
 }
 
 /*Lines below editted by Wade Ashby - 4/18/16 */
@@ -96,7 +100,11 @@
 .mainMenua {
     display: block;
     padding: 8px;
-    color: #ffffff;
+	color: #ffffff;
+}
+
+a.mainMenua:hover{
+	color: #ffffff;
 }
 
 .btn-reset{
@@ -108,5 +116,6 @@
 .btn-submit{
 	color: #ffffff;
 	background-color: #3434dd;
+	/*background-color: #ff7010; change background color after radio buttons are set to orange*/
 	border-color: #222222;
 }
