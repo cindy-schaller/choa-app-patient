@@ -110,14 +110,15 @@ a.mainMenua:hover{
 
 .btn-reset{
 	color: #ffffff;
-	background-color: #333333;
+	/*background-color: #333333; to have better contrast with orange*/
+	background-color: #3434dd; /*to contrast with blue*/
 	border-color: #222222;
 }
 
 .btn-submit{
 	color: #ffffff;
-	background-color: #ff7010;
-	/*background-color: #3434dd; reset to blue if needed*/
+	background-color: #ff7010; /*reset to blue if needed*/
+	/*background-color: #ff7010; set to orange to have click consistency */
 	border-color: #222222;
 }
 
