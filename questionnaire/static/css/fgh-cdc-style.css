@@ -110,14 +110,14 @@ a.mainMenua:hover{
 
 .btn-reset{
 	color: #ffffff;
-	background-color: #ff0000;
+	background-color: #333333;
 	border-color: #222222;
 }
 
 .btn-submit{
 	color: #ffffff;
-	background-color: #3434dd;
-	/*background-color: #ff7010; change background color after radio buttons are set to orange*/
+	background-color: #ff7010;
+	/*background-color: #3434dd; reset to blue if needed*/
 	border-color: #222222;
 }
 

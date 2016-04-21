@@ -100,9 +100,9 @@
                     var choice = $("<div class='radio-inline answer-choice'>");
                     if (typeof choice["image"] != "undefined")
                         choice.append("<img src='"+choice["image"][j]+"' />");
-                    choice.append("<input type='radio' id='"+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");
+                    choice.append("<input type='radio' id='"+questionId+"."+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");
                     //choice.append("<br/>");
-                    choice.append("<label for='"+choices[j]["code"]+"'><span></span>"+text+"</label>");
+                    choice.append("<label for='"+questionId+"."+choices[j]["code"]+"'><span></span><br/>"+text+"</label>");
                     choicesNode.append(choice);
                 }
                 node.append(choicesNode);
