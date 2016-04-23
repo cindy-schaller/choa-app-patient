@@ -4,13 +4,12 @@
 
 {% block content %}
 <div class="container-fluid main">
-    <h2 id="questionnaire-name">Healthy Habits Tracker</h2>
     <form id="questionnaire" action="/questionnaire/respond/" method="post">
         {% csrf_token %}
         <div id="questionnaire-wrapper"></div>
         <div id="submit-wrapper">
-            <button class="btn btn-default" type="button" id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
-            <button class="btn btn-default" type="submit" id="submit" onclick="javascript:submitResponse()">Submit</button>
+            <button class="btn btn-reset" type="button" id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
+            <button class="btn btn-submit" type="submit" id="submit" onclick="javascript:submitResponse()">Submit ></button>
         </div>
     </form>
 </div>
@@ -101,9 +100,9 @@
                     var choice = $("<div class='radio-inline answer-choice'>");
                     if (typeof choice["image"] != "undefined")
                         choice.append("<img src='"+choice["image"][j]+"' />");
-                    choice.append("<input type='radio' name='"+questionId+"' value='"+choices[j]["code"]+"' />");
-                    choice.append("<br/>");
-                    choice.append("<label for='"+choices[j]["code"]+"'>"+text+"</label>");
+                    choice.append("<input type='radio' id='"+questionId+"."+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");
+                    //choice.append("<br/>");
+                    choice.append("<label for='"+questionId+"."+choices[j]["code"]+"'><span></span><br/>"+text+"</label>");
                     choicesNode.append(choice);
                 }
                 node.append(choicesNode);
@@ -119,7 +118,7 @@
                 node.append('</div>');
 
                 $('#questionnaire-wrapper').append(node);
-                $('#questionnaire-wrapper').append("<hr/>");
+                $('#questionnaire-wrapper').append("<hr class='myHR' />");
             }
         }
     }

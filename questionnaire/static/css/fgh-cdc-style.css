@@ -29,10 +29,15 @@
 #questionnaire-name {
     text-align: center;
     font-weight: bold;
+	/*Edited by Wade Ashby 4-18-16*/
+	font-size: 36px;
+	font-family: cursive;
+	color: #A93AC0;
+	/*End of edit*/
 }
 
 #submit-wrapper {
-    text-align: right;
+    text-align: center; /*Changed from right by Wade Ashby 4-18-16 */
     margin: 20pt 0;
 }
 .main {
@@ -40,6 +45,7 @@
 }
 .prompt {
     font-weight: bold;
+	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
 .question {
     font-weight: bold;
@@ -58,6 +64,7 @@
 .question div.answer-choices {
     display: inline-block;
     margin: 10pt 90pt;
+	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
 .question div.answer-choices div.answer-choice {
     display: inline-block;
@@ -66,4 +73,90 @@
 
 .question span.answer-label {
     vertical-align: middle;
+	color: #A93AC0;/*Add by Wade Ashby 4-19-16*/
+	font-weight: bold;
+}
+
+
+/*Lines below editted by Wade Ashby - 4/18/16 */
+.myHR {
+    height: 6px;
+    border: 0;
+    box-shadow: inset 0 6px 6px -2px #7DC734;
+}
+
+.mainMenuul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #3434dd;
+    overflow: hidden;
+}
+
+.mainMenuli {
+    float: left;
+    padding: 2;
+}
+
+.mainMenua {
+    display: block;
+    padding: 8px;
+	color: #ffffff;
+}
+
+a.mainMenua:hover{
+	color: #ffffff;
+}
+
+.btn-reset{
+	color: #ffffff;
+	background-color: #3434dd; 
+	border-color: #222222;
+}
+
+.btn-submit{
+	color: #ffffff;
+	background-color: #ff7010; 
+	border-color: #222222;
+}
+
+
+/*Below section of code was helped gathered by http://codepen.io/mitchmc/pen/pebIx */
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  color: #3434dd;
+}
+
+input[type="radio"] + label span {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  /*margin: -1px 4px 0 0;*/
+  vertical-align: middle;
+  cursor: pointer;
+  /*
+  -moz-border-radius: 50%;
+  border-radius: 50%; 
+  */
+}
+
+input[type="radio"] + label span {
+  /*background-color: #ff7010;*/
+  background: url('../../images/unchecked.png') no-repeat;
+}
+
+input[type="radio"]:checked + label span {
+  /*background-color: #00ff00;*/
+  background: url('../../images/checked.png') no-repeat;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
 }
