@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<h1>Extension: Image for low end of slider</h1>
+
+<p>URL for this extension: </p>
+<pre>http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeImage</pre>
+
+<p>Status: draft.</p>
+
+<p>
+<p>When a coded ordered value is selected from a range, indicates the image to the left of the first value; e.g. The &quot;&lt;img&gt;&quot; in &quot;<strong>&lt;img&gt;</strong> 1 2 3 4 5 &lt;img&gt;&quot;.</p>
+
+</p>
+
+<p>Context of Use: Use on element: @Questionnaire.group.question</p>
+
+<p>usage info: points to a location (URL) of the image</p>
+
+<p><b>JSON Template</b></p>
+ <div id="json-inner">
+  <pre class="spec">
+{ // <span style="color: navy; opacity: 0.8">Image for low end of slider</span>
+  // from Element: <a href="extensibility.html">extension</a>
+    "<a href="extension-questionnaire-lowrangeimage-definitions.html#extension.url" title="Source of the definition for the extension code - a logical name or a URL" class="dict"><span style="text-decoration: underline">url</span></a>" : "http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage", <span style="color: Gray">//</span> <span style="color: brown" title="This element is required"><b>R!</b></span>
+    "<a href="extension-questionnaire-lowrangeimage-definitions.html#extension.valueString" title="Value of extension - may be a resource or one of a constrained set of the data types (see Extensibility in the spec for list)" class="dict"><span style="text-decoration: underline">valueString</span></a>" : "&lt;<span style="color: darkgreen"><a href="datatypes.html#string">string</a></span>&gt;" <span style="color: Gray">//</span> <span style="color: brown" title="This element is required"><b>R!</b></span> <span style="color: navy; opacity: 0.8">Value of extension</span>
+  }
+</pre>
+
+{% endblock %}
