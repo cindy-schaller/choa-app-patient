@@ -2,8 +2,8 @@
     "resourceType":"Questionnaire",
     "id":"18791830",
     "meta":{
-        "versionId":"15",
-        "lastUpdated":"2016-04-18T21:50:38.303-04:00"
+        "versionId":"11",
+        "lastUpdated":"2016-04-09T15:01:19.233-04:00"
     },
     "text":{
         "status":"generated",
@@ -44,10 +44,10 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q1L.jpg"
+                                "valueString":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage"
                             },
                             {
-                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
+                                "url":"http://www.example.com/fhir/tbd",
                                 "valueString":"http://54.164.154.218:8000/images/child/Q1R.jpg"
                             }
                         ]
@@ -95,7 +95,7 @@
             },
             {
                 "linkId":"3",
-                "text":"My child drinks 100% fruit juice:",
+                "text":"My child drinks 100% juice:",
                 "type":"integer",
                 "required":true,
                 "repeats":false,
@@ -192,7 +192,7 @@
                     },
                     {
                         "code":"4",
-                        "display":"5 or more times a week"
+                        "display":"5 or more times per week"
                     }
                 ],
                 "group":[
@@ -280,7 +280,7 @@
             },
             {
                 "linkId":"8",
-                "text":"How important is it to you that your child works on this healthy habit?",
+                "text":"How important is it to you that your child work on this healthy habit?",
                 "type":"integer",
                 "required":true,
                 "repeats":false,
@@ -307,11 +307,11 @@
                         "extension":[
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
-                                "valueString":"NOT AT ALL"
+                                "valueString":"Not At All"
                             },
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
-                                "valueString":"VERY"
+                                "valueString":"Very"
                             }
                         ]
                     }
@@ -346,11 +346,11 @@
                         "extension":[
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
-                                "valueString":"NOT AT ALL"
+                                "valueString":"Not At All"
                             },
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
-                                "valueString":"VERY"
+                                "valueString":"Very"
                             }
                         ]
                     }
