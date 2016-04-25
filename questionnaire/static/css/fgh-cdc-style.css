@@ -25,6 +25,12 @@
 }
 
 /* Custom FGH CDC Healthy Habits Styles */
+@media (max-width: 850px) {
+    .main {
+        margin: auto;
+        width: 400px;
+    }
+}
 
 #questionnaire-name {
     text-align: center;
@@ -47,6 +53,7 @@
     font-weight: bold;
 	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
+
 .question {
     font-weight: bold;
     text-align: center;
@@ -55,30 +62,36 @@
 .question div.low-scale {
     float: left;
 }
+
 .question div.high-scale {
     float: right;
 }
-.question img {
-    width: 80pt;
-}
+
 .question div.answer-choices {
     display: inline-block;
-    margin: 10pt 90pt;
+    margin: 10pt 10pt;
 	color: #3434dd; /*Add by Wade Ashby 4-19-16*/
 }
 .question div.answer-choices div.answer-choice {
     display: inline-block;
+    vertical-align: top;
     width: 100pt;
 }
 
+.question img {
+    max-width: 80px;
+}
 .question span.answer-label {
-    vertical-align: middle;
 	color: #A93AC0;/*Add by Wade Ashby 4-19-16*/
 	font-weight: bold;
+    vertical-align: middle;
 }
 
+.questionnaire-wrapper {
+    margin: auto;
+}
 
-/*Lines below editted by Wade Ashby - 4/18/16 */
+/*Lines below edited by Wade Ashby - 4/18/16 */
 .myHR {
     height: 6px;
     border: 0;
@@ -95,7 +108,7 @@
 
 .mainMenuli {
     float: left;
-    padding: 2;
+    padding: 2px;
 }
 
 .mainMenua {
@@ -139,7 +152,7 @@ input[type="radio"] + label span {
   cursor: pointer;
   /*
   -moz-border-radius: 50%;
-  border-radius: 50%; 
+  border-radius: 50%;
   */
 }
 
