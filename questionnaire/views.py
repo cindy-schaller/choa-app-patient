@@ -1,5 +1,4 @@
 from django.shortcuts import render,render_to_response,redirect
-from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
@@ -132,7 +131,11 @@ def respond(request):
             return render_to_response('questionnaire.html',
                                       context_instance=context)
         except Exception:
-            return HttpResponse("The user you've selected appears to be invalid.  Please return to <a href='/questionnaire/'>the index</a> and select a different user.")
+            context = RequestContext(request)
+            context['error_text'] = "The user you've selected appears to be invalid. \
+             Please return to <a href='/questionnaire/'>the index</a> and select a different user."
+            return render_to_response('error.html',
+                                      context_instance=context)
     else:
         return redirect("questionnaire.views.index")
 
@@ -151,10 +154,17 @@ def messages(request):
             return render_to_response('messages.html',
                                       context_instance=context)
         else:
-            return HttpResponse("No messages yet.  Check back soon!")
+            context = RequestContext(request)
+            context['error_text'] = "No messages yet.  Check back soon!"
+            return render_to_response('error.html',
+                                      context_instance=context)
 
     except Exception:
-        return HttpResponse("The user you've selected appears to be invalid.  Please return to <a href='/questionnaire/'>the index</a> and select a different user.")
+        context = RequestContext(request)
+        context['error_text'] = "The user you've selected appears to be invalid. \
+         Please return to <a href='/questionnaire/'>the index</a> and select a different user."
+        return render_to_response('error.html',
+                                  context_instance=context)
 
 
 def history(request):
@@ -172,8 +182,12 @@ def history(request):
                                       context_instance=context)
         else:
             return redirect("questionnaire.views.respond")
-    except FHIRNotFoundException:
-        return HttpResponse("The user you've selected appears to be invalid.  Please return to <a href='/questionnaire/'>the index</a> and select a different user.")
+    except Exception:
+        context = RequestContext(request)
+        context['error_text'] = "The user you've selected appears to be invalid. \
+         Please return to <a href='/questionnaire/'>the index</a> and select a different user."
+        return render_to_response('error.html',
+                                  context_instance=context)
 
 
 def details(request, responseid):
@@ -190,7 +204,11 @@ def details(request, responseid):
         return render_to_response('response-details.html',
                                   context_instance=context)
     except FHIRNotFoundException:
-        return HttpResponse("The response you've selected appears to be invalid.  Please return to <a href='/questionnaire/history'>the index</a> and select another.")
+        context = RequestContext(request)
+        context['error_text'] = "The response you've selected appears to be invalid. \
+         Please return to <a href='/questionnaire/history'>the index</a> and select another."
+        return render_to_response('error.html',
+                                  context_instance=context)
 
 
 def about(request):
