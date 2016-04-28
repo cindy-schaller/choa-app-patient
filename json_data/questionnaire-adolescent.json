@@ -2,8 +2,8 @@
     "resourceType":"Questionnaire",
     "id":"18791835",
     "meta":{
-        "versionId":"11",
-        "lastUpdated":"2016-04-09T15:00:10.040-04:00"
+        "versionId":"15",
+        "lastUpdated":"2016-04-18T21:55:39.353-04:00"
     },
     "text":{
         "status":"generated",
@@ -141,7 +141,7 @@
                 "option":[
                     {
                         "code":"1",
-                        "display":"More than 3 cups a day"
+                        "display":"3 or more cups a day"
                     },
                     {
                         "code":"2",
@@ -192,7 +192,7 @@
                     },
                     {
                         "code":"4",
-                        "display":"More than 3 times a day"
+                        "display":"3 or more times a day"
                     }
                 ],
                 "group":[
@@ -307,11 +307,11 @@
                         "extension":[
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
-                                "valueString":"Not At All"
+                                "valueString":"NOT AT ALL"
                             },
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
-                                "valueString":"Very"
+                                "valueString":"VERY"
                             }
                         ]
                     }
@@ -319,7 +319,7 @@
             },
             {
                 "linkId":"9",
-                "text":"How confident are you that you can improve on this healthy habit?",
+                "text":"How confident are you that you can improve this healthy habit?",
                 "type":"integer",
                 "required":true,
                 "repeats":false,
@@ -346,11 +346,11 @@
                         "extension":[
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel",
-                                "valueString":"Not At All"
+                                "valueString":"NOT AT ALL"
                             },
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
-                                "valueString":"Very"
+                                "valueString":"VERY"
                             }
                         ]
                     }
@@ -358,293 +358,4 @@
             }
         ]
     }
-}{
-  "resourceType": "Questionnaire",
-  "id": "healthy-habits-teen",
-  "text": {
-    "status": "generated",
-    "div": "<div><p><b>Generated Narrative with Details</b></p><p><b>id</b>: questionnaire-healthy-habits-adolescent</p><p><b>status</b>: published</p><p><b>title</b>: Healthy Habits Tracker</p></div>"
-  },
-  "status": "draft",
-  "title": "Healthy Habits Tracker",
-  "group": {
-    "linkId" : "root",
-    "required": true,
-    "group" : [
-      {
-      "linkId": "1",
-      "question": [
-        {
-          "linkId": "1.1",
-          "text": "I eat veggies and fruits:",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "VF1",
-              "display": "0-1 times a day"
-            },
-            {
-              "code": "VF2",
-              "display": "1-2 times a day"
-            },
-            {
-              "code": "VF3",
-              "display": "3-4 times a day"
-            },
-            {
-              "code": "VF4",
-              "display": "5 or more times a day"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "2",
-      "question": [
-        {
-          "linkId": "2.1",
-          "text": "I eat out:",
-          "type": "choice",
-          "required": false,
-          "repeats": false,
-          "option": [
-            {
-              "code": "O1",
-              "display": "More than 4 times a week"
-            },
-            {
-              "code": "O2",
-              "display": "3-4 times a week"
-            },
-            {
-              "code": "O3",
-              "display": "1-2 times a week"
-            },
-            {
-              "code": "O4",
-              "display": "0-1 times a week"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "3",
-      "question": [
-        {
-          "linkId": "3.1",
-          "text": "I am active:",
-          "type": "choice",
-          "required": false,
-          "repeats": false,
-          "option": [
-            {
-              "code": "A1",
-              "display": "Not very often"
-            },
-            {
-              "code": "A2",
-              "display": "Less than 30 minutes a day"
-            },
-            {
-              "code": "A3",
-              "display": "30-60 minutes a day"
-            },
-            {
-              "code": "A4",
-              "display": "More than 60 minutes a day"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "4",
-      "question": [
-        {
-          "linkId": "4.1",
-          "text": "I have sweet drinks (soda, sweet tea, sports drinks, 100% fruit juice, other fruit drinks):",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "SD1",
-              "display": "More than 3 cups a day"
-            },
-            {
-              "code": "SD2",
-              "display": "2 cups a day"
-            },
-            {
-              "code": "SD3",
-              "display": "1 cup a day"
-            },
-            {
-              "code": "SD4",
-              "display": "Not very often"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "5",
-      "question": [
-        {
-          "linkId": "5.1",
-          "text": "I eat foods like brownies, muffins, cakes or cookies:",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "SF1",
-              "display": "Not very often"
-            },
-            {
-              "code": "SF2",
-              "display": "1 time a day"
-            },
-            {
-              "code": "SF3",
-              "display": "2 times a day"
-            },
-            {
-              "code": "SF4",
-              "display": "More than 3 times a day"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "6",
-      "question": [
-        {
-          "linkId": "6.1",
-          "text": "I watch television, play video games, spend (non-school related) time on a computer, tablet or cell phone:",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "SC1",
-              "display": "Not very often"
-            },
-            {
-              "code": "SC2",
-              "display": "1 hour a day"
-            },
-            {
-              "code": "SC3",
-              "display": "1-2 hours a day"
-            },
-            {
-              "code": "SC4",
-              "display": "3-4 hours a day"
-            },
-            {
-              "code": "SC5",
-              "display": "5 or more hours a day"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "7",
-      "question": [
-        {
-          "linkId": "7.1",
-          "text": "If you could work on one healthy habit, which would it be?",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "HH1",
-              "display": "Make half your plate veggies and fruits"
-            },
-            {
-              "code": "HH2",
-              "display": "Be more active"
-            },
-            {
-              "code": "HH3",
-              "display": "Limit screen time"
-            },
-            {
-              "code": "HH4",
-              "display": "Drink more water and limit sugary drinks"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "8",
-      "question": [
-        {
-          "linkId": "8.1",
-          "text": "How important is it to you to work on this healthy habit?",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "I1",
-              "display": 1
-            },
-            {
-              "code": "I2",
-              "display": 2
-            },
-            {
-              "code": "I3",
-              "display": 3
-            },
-            {
-              "code": "I4",
-              "display": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "9",
-      "question": [
-        {
-          "linkId": "9.1",
-          "text": "How confident are you that you can improve on this healthy habit?",
-          "type": "choice",
-          "required": true,
-          "repeats": false,
-          "option": [
-            {
-              "code": "C1",
-              "display": 1
-            },
-            {
-              "code": "C2",
-              "display": 2
-            },
-            {
-              "code": "C3",
-              "display": 3
-            },
-            {
-              "code": "C4",
-              "display": 4
-            }
-          ]
-        }
-      ]
-    }
-  ]
-  }
 }
