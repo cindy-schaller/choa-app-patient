@@ -6,7 +6,7 @@
     <div><i>{{ server_id }} server:</i></div>
     <ul>
         {% for patient_id, patient_desc in patients.items %}
-        <li><a href="#" onclick="setUser({{ patient_id }}, '{{ server_id }}')">{{ patient_desc }}</a></li>
+        <li><a href="#" onclick="setUser('{{ patient_id }}', '{{ server_id }}')">{{ patient_desc }}</a></li>
         {% endfor %}
     </ul>
     {% endfor %}

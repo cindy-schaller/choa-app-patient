@@ -2,6 +2,8 @@ from django.shortcuts import render,render_to_response,redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
+import json
+
 from fhirclient import client
 from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner
 
@@ -14,7 +16,7 @@ from fhirclient.server import FHIRNotFoundException
 
 MIHIN = 'MiHIN'
 SMART = 'SMART'
-TEEN_FORM = 'questionnaire-healthy-habits-teen'
+TEEN_FORM = 'questionnaire-healthy-habits-adolescent'
 CHILD_FORM = 'questionnaire-healthy-habits-child'
 
 
@@ -41,10 +43,10 @@ def getPatientMap():
             '18792004': 'Tobias, age 15'
         },
         SMART: {
-            '571ada5e0cf20e9addb27239': 'Parent/guardian of Clark, age 10',
-            '571ada5e0cf20e9addb2723a': 'Parent/guardian of Diana, age 8',
-            '571ada5d0cf20e9addb27238': 'Beatrice, age 14',
-            '571ada5e0cf20e9addb2723b': 'Tobias, age 15'
+            '5722014c0cf20e9addb273be': 'Parent/guardian of Clark, age 10',
+            '5722014c0cf20e9addb273bf': 'Parent/guardian of Diana, age 8',
+            '5722014b0cf20e9addb273bd': 'Beatrice, age 14',
+            '5722014c0cf20e9addb273c0': 'Tobias, age 15'
         }
     }
 
@@ -56,8 +58,8 @@ def getQuestionnaireMap():
             CHILD_FORM: '18791830'
         },
         SMART: {
-            TEEN_FORM: '571adc040cf20e9addb27240',
-            CHILD_FORM: '571adc030cf20e9addb2723f'
+            TEEN_FORM: '5722008e0cf20e9addb273bb',
+            CHILD_FORM: '5722008e0cf20e9addb273ba'
         }
     }
 
@@ -87,6 +89,49 @@ def resolveFhirReference(fhir_reference, server):
         return klass.read(ref_id, server)
     else:
         raise FHIRNotFoundException("Unsupported class "+klassname+" in reference "+fhir_reference.reference)
+
+
+def setupFhirServer(server):
+    patients = {'18791941': 'patient1.json', '18791962': 'patient2.json', '18791983': 'patient3.json', '18792004': 'patient4.json'}
+    for patient in patients.keys():
+        with open('json_data/'+patients[patient], 'r') as h:
+            pjson = json.load(h)
+            #server.post_json('Patient', pjson)
+            #server.put_json('Patient/'+patient, pjson)
+    questionnaires = {'18791835': 'questionnaire-adolescent.json', '18791830': 'questionnaire-child.json'}
+    for questionnaire in questionnaires:
+        with open('json_data/'+questionnaires[questionnaire], 'r') as h:
+            qjson = json.load(h)
+            #server.post_json('Questionnaire', qjson)
+            #server.put_json('Questionnaire/'+questionnaire, qjson)
+    for message in ['message1.json']:
+       with open('json_data/'+message, 'r') as h:
+            mjson = json.load(h)
+            #server.post_json('Communication', mjson)
+
+
+def getResources(server):
+    print "Loading"
+    search = patient.Patient.where(struct={"name": "Kent"})
+    patients = search.perform(server)
+    print patients.entry[0].resource.id
+    search = patient.Patient.where(struct={"name": "Prince"})
+    patients = search.perform(server)
+    print patients.entry[0].resource.id
+    search = patient.Patient.where(struct={"name": "Prior"})
+    patients = search.perform(server)
+    print patients.entry[0].resource.id
+    search = patient.Patient.where(struct={"name": "Eaton"})
+    patients = search.perform(server)
+    print patients.entry[0].resource.id
+
+    search = questionnaire.Questionnaire.where(struct={"title": "Health Habits Tracker (adolescent)"})
+    questionnaires = search.perform(server)
+    print questionnaires.entry[0].resource.id
+
+    search = questionnaire.Questionnaire.where(struct={"title": "Healthy Habits Questionnaire"})
+    questionnaires = search.perform(server)
+    print questionnaires.entry[0].resource.id
 
 
 def index(request):
