@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^about/', views.about, name='about'),
     url(r'^messages/', views.messages, name='messages'),
     url(r'^history/', views.history, name='history'),
-    url(r'^response-details/(?P<responseid>[0-9]*)/$', views.details, name='details')
+    url(r'^response-details/(?P<responseid>[0-9a-f]*)/$', views.details, name='details')
 ]
