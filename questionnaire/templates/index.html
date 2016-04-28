@@ -2,25 +2,27 @@
 
 {% block content %}
     <div>Select a patient with whom to "log in":</div>
+    {% for server_id, patients in patientGroups.items %}
+    <div><i>{{ server_id }} server:</i></div>
     <ul>
-    <!--
-        <li><a href="#" onclick="setUser(1)">Leonardo, age 16</a></li>
-        <li><a href="#" onclick="setUser(2)">Raphael, age 15</a></li>
-        <li><a href="#" onclick="setUser(3)">Donatello, age 14</a></li>
-        <li><a href="#" onclick="setUser(4)">Michaelangelo, age 13</a></li>
-        <li><a href="#" onclick="setUser(5)">Parent/guardian of Zach, age 10</a></li>
-        <li><a href="#" onclick="setUser(6)">Parent/guardian of Caitlin, age 10</a></li>
-    -->
-        <li><a href="#" onclick="setUser(18791941)">Parent/guardian of Clark, age 10</a></li>
-        <li><a href="#" onclick="setUser(18791962)">Parent/guardian of Diana, age 8</a></li>
-        <li><a href="#" onclick="setUser(18791983)">Beatrice, age 14</a></li>
-        <li><a href="#" onclick="setUser(18792004)">Tobias, age 15</a></li>
+        {% for patient_id, patient_desc in patients.items %}
+        <li><a href="#" onclick="setUser({{ patient_id }}, '{{ server_id }}')">{{ patient_desc }}</a></li>
+        {% endfor %}
     </ul>
-    <label for="free-patient-id">Or, specify another patient from the MiHIN database:</label><br/><input id="free-patient-id" type="text" />
-    <input type="button" name="Choose other patient" value="Choose" onclick="setUser($('#free-patient-id').val())" />
+    {% endfor %}
+    <label for="free-patient-id">Or, specify another patient from one of our supported database:</label><br/><input id="free-patient-id" type="text" />
+    <select id="free-patient-server">
+    {% for server_id in patientGroups %}
+        <option value="{{ server_id }}">{{ server_id }}</option>
+    {% endfor %}
+    </select>
+    <input type="button" name="Choose other patient" value="Choose" onclick="setUser($('#free-patient-id').val(), $('#free-patient-server').val());" />
     <script type="text/javascript">
-        function setUser(userId) {
-            document.cookie="userId="+userId+"; path=/";
+        function setUser(userId, serverId) {
+            if (typeof serverId != "undefined") {
+                document.cookie = "serverId="+serverId+"; path=/";
+            }
+            document.cookie = "userId="+userId+"; path=/";
             window.location.href = "/questionnaire/respond";
         }
     </script>

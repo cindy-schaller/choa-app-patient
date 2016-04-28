@@ -13,15 +13,70 @@ from importlib import import_module
 from fhirclient.server import FHIRNotFoundException
 
 
-def getFhirConnectionInfo():
+MIHIN = 'MiHIN'
+SMART = 'SMART'
+TEEN_FORM = 'questionnaire-healthy-habits-teen'
+CHILD_FORM = 'questionnaire-healthy-habits-child'
+
+
+def getFhirConnectionInfo(serverId):
+    serverMap = {
+        MIHIN: {
+            'app_id': 'omscs-hit-cdc',
+            'api_base': 'http://52.72.172.54:8080/fhir/baseDstu2'
+        },
+        SMART: {
+            'app_id': 'omscs-hit-cdc',
+            'api_base': 'https://fhir-open-api-dstu2.smarthealthit.org/'
+        }
+    }
+    return serverMap[serverId]
+
+
+def getPatientMap():
     return {
-        'app_id': 'omscs-hit-cdc',
-        'api_base': 'http://52.72.172.54:8080/fhir/baseDstu2'
+        MIHIN: {
+            '18791941': 'Parent/guardian of Clark, age 10',
+            '18791962': 'Parent/guardian of Diana, age 8',
+            '18791983': 'Beatrice, age 14',
+            '18792004': 'Tobias, age 15'
+        },
+        SMART: {
+            '571ada5e0cf20e9addb27239': 'Parent/guardian of Clark, age 10',
+            '571ada5e0cf20e9addb2723a': 'Parent/guardian of Diana, age 8',
+            '571ada5d0cf20e9addb27238': 'Beatrice, age 14',
+            '571ada5e0cf20e9addb2723b': 'Tobias, age 15'
+        }
     }
 
 
-def getFhirClient():
-    return client.FHIRClient(settings=getFhirConnectionInfo())
+def getQuestionnaireMap():
+    return {
+        MIHIN: {
+            TEEN_FORM: '18791835',
+            CHILD_FORM: '18791830'
+        },
+        SMART: {
+            TEEN_FORM: '571adc040cf20e9addb27240',
+            CHILD_FORM: '571adc030cf20e9addb2723f'
+        }
+    }
+
+
+def resolveServerId(patientId, serverId):
+    # Allowing this kind of fallback is a little dubious, since in principle nothing prevents the same patient ID
+    # from occurring on two separate servers.  But it makes life a little more convenient for people who are already
+    # logged in, so we'll allow it.
+    patientMap = getPatientMap()
+    if serverId is None:
+        for key in patientMap.keys():
+            if patientId in patientMap[key].keys():
+                serverId = key
+    return serverId
+
+
+def getFhirClient(serverId):
+    return client.FHIRClient(settings=getFhirConnectionInfo(serverId))
 
 
 def resolveFhirReference(fhir_reference, server):
@@ -34,21 +89,27 @@ def resolveFhirReference(fhir_reference, server):
     else:
         raise FHIRNotFoundException("Unsupported class "+klassname+" in reference "+fhir_reference.reference)
 
+
 def index(request):
+    context = RequestContext(request)
+    context['patientGroups'] = getPatientMap()
     return render_to_response('index.html',
-                              context_instance=RequestContext(request))
+                              context_instance=context)
+
 
 def respond(request):
-    smart = getFhirClient()
     patientId = request.COOKIES.get('userId')
+    serverId = resolveServerId(patientId,request.COOKIES.get('serverId'))
+    smart = getFhirClient(serverId)
     if patientId:
         try:
             childRecord = patient.Patient.read(patientId, smart.server)
             age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
 
-            form = questionnaire.Questionnaire.read("18791835", smart.server)
+            qMap = getQuestionnaireMap()
+            form = questionnaire.Questionnaire.read(qMap[serverId][TEEN_FORM], smart.server)
             if age < 13:
-                    form = questionnaire.Questionnaire.read("18791830", smart.server)
+                    form = questionnaire.Questionnaire.read(qMap[serverId][CHILD_FORM], smart.server)
 
             jsonResponse = []
             if request.method == 'POST':
@@ -77,8 +138,9 @@ def respond(request):
 
 
 def messages(request):
-    smart = getFhirClient()
     patientId = request.COOKIES.get('userId')
+    serverId = resolveServerId(patientId,request.COOKIES.get('serverId'))
+    smart = getFhirClient(serverId)
 
     try:
         search = communication.Communication.where(struct={"recipient": "Patient/"+patientId})
@@ -96,8 +158,9 @@ def messages(request):
 
 
 def history(request):
-    smart = getFhirClient()
     patientId = request.COOKIES.get('userId')
+    serverId = resolveServerId(patientId,request.COOKIES.get('serverId'))
+    smart = getFhirClient(serverId)
 
     try:
         search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId})
@@ -114,8 +177,9 @@ def history(request):
 
 
 def details(request, responseid):
-    smart = getFhirClient()
     patientId = request.COOKIES.get('userId')
+    serverId = resolveServerId(patientId,request.COOKIES.get('serverId'))
+    smart = getFhirClient(serverId)
 
     try:
         response = questionnaireresponse.QuestionnaireResponse.read(responseid, smart.server)
