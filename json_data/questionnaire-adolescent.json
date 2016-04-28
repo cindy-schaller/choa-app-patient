@@ -2,8 +2,8 @@
     "resourceType":"Questionnaire",
     "id":"18791835",
     "meta":{
-        "versionId":"15",
-        "lastUpdated":"2016-04-18T21:55:39.353-04:00"
+        "versionId":"16",
+        "lastUpdated":"2016-04-28T18:07:46.527-04:00"
     },
     "text":{
         "status":"generated",
@@ -180,19 +180,19 @@
                 "option":[
                     {
                         "code":"1",
-                        "display":"Not very often"
+                        "display":"3 or more times a day"
                     },
                     {
                         "code":"2",
-                        "display":"1 time a day"
-                    },
-                    {
-                        "code":"3",
                         "display":"2 times a day"
                     },
                     {
+                        "code":"3",
+                        "display":"1 time a day"
+                    },
+                    {
                         "code":"4",
-                        "display":"3 or more times a day"
+                        "display":"Not very often"
                     }
                 ],
                 "group":[
