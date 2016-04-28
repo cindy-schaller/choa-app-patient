@@ -219,11 +219,11 @@
                 "option":[
                     {
                         "code":"1",
-                        "display":"Not very often"
+                        "display":"5 or more hours a day"
                     },
                     {
                         "code":"2",
-                        "display":"1 hour a day"
+                        "display":"3-4 hours a day"
                     },
                     {
                         "code":"3",
@@ -231,11 +231,11 @@
                     },
                     {
                         "code":"4",
-                        "display":"3-4 hours a day"
+                        "display":"1 hour a day"
                     },
                     {
                         "code":"5",
-                        "display":"5 or more hours a day"
+                        "display":"Not very often"
                     }
                 ],
                 "group":[
