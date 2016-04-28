@@ -192,6 +192,10 @@ def messages(request):
 
     try:
         search = communication.Communication.where(struct={"recipient": "Patient/"+patientId})
+        # This is a hack to work around a bug in the SMART on FHIR server.
+        # The bug should go away when they finish their switch to a HAPI FHIR-based implementation.
+        if serverId == SMART:
+            search = communication.Communication.where(struct={"recipient": patientId})
         messages = search.perform(smart.server)
         if messages.total > 0:
             context = RequestContext(request)
