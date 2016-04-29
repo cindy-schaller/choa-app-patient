@@ -3,8 +3,53 @@
 {% load staticfiles %}
 
 {% block content %}
-<p>A project of the Frogs' Greatest HITs team at Georgia Institute of Technology, Atlanta, GA.</p>
-<p>Members:</p>
+<h2>Disclaimer: This is a prototype that was created as a class project. If you've somehow found your way here and don't know anything about the project, please don't put any actual personal information into the forms. If you have concerns about your health, consult with a medical professional.</h2>
+
+<p><b>The following information is presented as if to a real user of the program.</b></p>
+<h3>What is this site?</h3>
+<p>This site contains a short list of questions intended to be filled out with information about a child or teenager. Your responses will be made available to your doctor, and you may receive followup information on resources available in your community.</p>
+<h3>Why is this important?</h3>
+<p>Children and teenagers who are overweight or obese are at risk for serious health problems, both immediately and later in life. They're also growing quickly, and it's not a good idea for them to try to diet or lose weight without help from a doctor. This app is designed to help identify what may put children or teenagers are risk, and to help doctors to provide the right guidance so each individual can live a healthier life.</p>
+<h3>How do I use this page?</h3>
+<p>You start by using the login information that you've been given. <b>(Not yet implemented. In reality, testers need to choose a patient from the list or one that's available on the test servers.)</b> Then, you can go to the <b>Questionnaire</b> page to fill in your information. It will give you a short list of questions and possible answers. Choose the bubble that you feel is most accurate for each question and then click <b>Submit</b> at the bottom of the page.</p>
+<h3>What if I'm not sure how to answer?</h3>
+<p>It's okay if your answers aren't perfect; just do as well as you can. Please don't change answers to try to avoid sounding bad. Everything here is confidential and is meant to allow doctors to help. They can do that best when they know what's really going on.<b> (Reminder: This is a prototype. This system is not yet actually secured. Please don't submit personal information.)</b></p>
+<h3>What kind of resources are available?</h3>
+<p>We hope for the system to provide information and referrals related to both healthy eating and an active lifestyle. This may include information about local farmer's markets, cooking classes, and activities like dance classes or athletic teams.</p>
+<p>In some cases, the doctor may need to run tests before deciding what steps are best for a particular patient.</p>
+<h3>Can I see my past responses?</h3>
+<p>Yes! These are available in the <b>History</b> tab.</p>
+<h3>How do I get messages from my care provider?</h3>
+<p>Go to the <b>Messages</b> tab. Any messages the system has for you will be there, and will be clearly marked with a date and time of arrival.</p>
+<h3>What if I change my mind about answering the questions?</h3>
+<p>If you haven't finished filling out the questionnaire and you decide you'd like to stop, simply leave the site without submitting your information. Nothing will be sent to the server unless you choose to hit <b>Submit</b>.</p>
+
+<hr>
+<h2>Prototype Testing and Usage</h2>
+<h3>How can I test this prototype?</h3>
+<p>The main page of the webapp has a list of potential patients you can pretend to be while using the application. You can also select a FHIR server and provide the name of a patient yourself.</p>
+<p>Once you're acting as a patient, you can go to the <b>Questionnaire</b> page to see what the questionnaire looks like and to try filling it out and submitting it. You can go to the <b>History</b> page to see past submissions related to the same patient. You can also go to the <b>Messages</b> page to see what messages have been sent to this patient by the care-provider.</p>
+<h3>Why is there a list of patients instead of an actual login process?</h3>
+<p>Proper secure handling of data with FHIR databases is a complicated issue that the community hasn't fully addressed. In our case, we still need to develop a separate system that will allow a patient to securely generate (or receive) login information that will tie the data they put into the form to their identity in the FHIR server. Since this step of the design isn't yet complete, the prototype includes several example links that allow you to view what the system would look like to different hypothetical patients.</p>
+<h3>Why do some entries list only a name and others say "Parent/guardian of"?</h3>
+<p>The current intention is that parents or guardians will fill out the form on behalf of young children. Teenagers, on the other hand, usually know their own habits well enough that they can best do this for themselves. There are also some differences in the questions asked, and minor adjustments to look and layout to better suit different age groups.</p>
+<h3>What technologies were used to build this?</h3>
+<p>It's a python web server using django and an SQLite database. All form responses are sent to a FHIR server. While there are other teams who built related projects, all communication between this app and others is managed by storing information on, and retrieving information from, the appropriate FHIR server.</p>
+<h3>What FHIR server does this use?</h3>
+<p>On the main page of the questionnaire, the app has a drop-down box that allows you to select either the MiHIN server or the SMART server. These are both FHIR servers, and our team provided support for both to maximize compatibility with other teams who were developing their projects on different servers.</p>
+<hr>
+<h2>Real Background Information</h2>
+
+<h3>What is the purpose of the Healthy Habits Tracker?</h3>
+<p>This is a prototype web application that's intended to help the CDC combat the obesity epidemic. It demonstrates that patients could fill out a simple form online that would make the information available to their doctors and to community health workers who could then contact them if needed and help to ensure that they have the resources needed to lead healthier lives.</p>
+
+<h3>What's the next step?</h3>
+<p>Now that there's a prototype system showing that this technology can work for information gathering, the plan is to extend the project through the summer of 2016. The team will continue to polish and expand its functionality, in hopes of creating a system that can be tested in the community and eventually used to improve lives.</p>
+<p>The ultimate intention is to release the entire system as open source software so that it can be improved further, and perhaps used as the basis for additional programs that will help with the tracking and treatment of other health problems.</p>
+
+<h3>Who created this project?</h3>
+<p>This is a product of the Frogs' Greatest HITs team at Georgia Institute of Technology, Atlanta, GA. It's for the course CS6440 Introduction to Health Informatics during the spring term of 2016.</p>
+<p>Team Members:</p>
 <ul>
     <li>Wade Ashby - UI Lead</li>
     <li>Bobbie Eicher - Documentation Lead</li>
