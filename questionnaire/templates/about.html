@@ -17,16 +17,16 @@
 <h3>Why is this important?</h3>
 <p>Children and teenagers who are overweight or obese are at risk for serious health problems, both immediately and later in life. They're also growing quickly, and it's not a good idea for them to try to diet or lose weight without help from a doctor. This app is designed to help identify what may put children or teenagers are risk, and to help doctors to provide the right guidance so each individual can live a healthier life.</p>
 <h3>How do I use this page?</h3>
-<p>You start by using the login information that you've been given. <b>(Not yet implemented. In reality, testers need to choose a patient from the list or one that's available on the test servers.)</b> Then, you can go to the <b>Questionnaire</b> page to fill in your information. It will give you a short list of questions and possible answers. Choose the bubble that you feel is most accurate for each question and then click <b>Submit</b> at the bottom of the page.</p>
+<p>You start by using the login information that you've been given. <b>(Not yet implemented. In reality, testers need to choose a patient from the list or one that's available on the test servers.)</b> Then, you can go to the  <a href="/questionnaire/respond/">Questionnaire</a>  page to fill in your information. It will give you a short list of questions and possible answers. Choose the bubble that you feel is most accurate for each question and then click <b>Submit</b> at the bottom of the page.</p>
 <h3>What if I'm not sure how to answer?</h3>
 <p>It's okay if your answers aren't perfect; just do as well as you can. Please don't change answers to try to avoid sounding bad. Everything here is confidential and is meant to allow doctors to help. They can do that best when they know what's really going on.<b> (Reminder: This is a prototype. This system is not yet actually secured. Please don't submit personal information.)</b></p>
 <h3>What kind of resources are available?</h3>
 <p>We hope for the system to provide information and referrals related to both healthy eating and an active lifestyle. This may include information about local farmer's markets, cooking classes, and activities like dance classes or athletic teams.</p>
 <p>In some cases, the doctor may need to run tests before deciding what steps are best for a particular patient.</p>
 <h3>Can I see my past responses?</h3>
-<p>Yes! These are available in the <b>History</b> tab.</p>
+<p>Yes! These are available in the <a href="/questionnaire/history/">History</a> tab.</p>
 <h3>How do I get messages from my care provider?</h3>
-<p>Go to the <b>Messages</b> tab. Any messages the system has for you will be there, and will be clearly marked with a date and time of arrival.</p>
+<p>Go to the <a href="/questionnaire/messages/">Messages</a>  tab. Any messages the system has for you will be there, and will be clearly marked with a date and time of arrival.</p>
 <h3>What if I change my mind about answering the questions?</h3>
 <p>If you haven't finished filling out the questionnaire and you decide you'd like to stop, simply leave the site without submitting your information. Nothing will be sent to the server unless you choose to hit <b>Submit</b>.</p>
 
@@ -34,7 +34,7 @@
 <h2 id="testing">Prototype Testing and Usage</h2>
 <h3>How can I test this prototype?</h3>
 <p>The main page of the webapp has a list of potential patients you can pretend to be while using the application. You can also select a FHIR server and provide the name of a patient yourself.</p>
-<p>Once you're acting as a patient, you can go to the <b>Questionnaire</b> page to see what the questionnaire looks like and to try filling it out and submitting it. You can go to the <b>History</b> page to see past submissions related to the same patient. You can also go to the <b>Messages</b> page to see what messages have been sent to this patient by the care-provider.</p>
+<p>Once you're acting as a patient, you can go to the <a href="/questionnaire/respond/">Questionnaire</a>  page to see what the questionnaire looks like and to try filling it out and submitting it. You can go to the <a href="/questionnaire/history/">History</a>  page to see past submissions related to the same patient. You can also go to the <a href="/questionnaire/messages/">Messages</a>  page to see what messages have been sent to this patient by the care-provider.</p>
 <h3>Why is there a list of patients instead of an actual login process?</h3>
 <p>Proper secure handling of data with FHIR databases is a complicated issue that the community hasn't fully addressed. In our case, we still need to develop a separate system that will allow a patient to securely generate (or receive) login information that will tie the data they put into the form to their identity in the FHIR server. Since this step of the design isn't yet complete, the prototype includes several example links that allow you to view what the system would look like to different hypothetical patients.</p>
 <h3>Why do some entries list only a name and others say "Parent/guardian of"?</h3>
