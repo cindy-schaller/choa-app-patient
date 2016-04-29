@@ -33,6 +33,8 @@
 <p>Proper secure handling of data with FHIR databases is a complicated issue that the community hasn't fully addressed. In our case, we still need to develop a separate system that will allow a patient to securely generate (or receive) login information that will tie the data they put into the form to their identity in the FHIR server. Since this step of the design isn't yet complete, the prototype includes several example links that allow you to view what the system would look like to different hypothetical patients.</p>
 <h3>Why do some entries list only a name and others say "Parent/guardian of"?</h3>
 <p>The current intention is that parents or guardians will fill out the form on behalf of young children. Teenagers, on the other hand, usually know their own habits well enough that they can best do this for themselves. There are also some differences in the questions asked, and minor adjustments to look and layout to better suit different age groups.</p>
+<h3>How were these questions chosen?</h3>
+<p>The list of questions, and the range of possibilities as responses, were provided to us by the CDC for the purpose of working on this project. They're the same questions that are already in use on paper questionnaires used to health professionals.</p>
 <h3>What technologies were used to build this?</h3>
 <p>It's a python web server using django and an SQLite database. All form responses are sent to a FHIR server. While there are other teams who built related projects, all communication between this app and others is managed by storing information on, and retrieving information from, the appropriate FHIR server.</p>
 <h3>What FHIR server does this use?</h3>
