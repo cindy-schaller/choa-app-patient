@@ -23,13 +23,13 @@
     },
     "recipient":[
         {
-            "reference":"Patient/18791962",
-            "display":"Diana's parent or guardian"
+            "reference":"Patient/18791941",
+            "display":"Clark's parent or guardian"
         }
     ],
     "payload":[
         {
-            "contentString":"The YMCA near your home just started a new dance club for girls age 8-10!"
+            "contentString":"The YMCA near your home just started a new hip hop dance class for boys ages 8-10!"
         }
     ],
     "status":"completed",
