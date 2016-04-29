@@ -32,9 +32,9 @@ def getPatientMap():
         },
         SMART: {
             '572353510cf20e9addb2a706': 'Parent/guardian of Clark, age 10',
-            '572353510cf20e9addb2a707': 'Parent/guardian of Diana, age 8',
-            '572353510cf20e9addb2a708': 'Beatrice, age 14',
-            '572353510cf20e9addb2a709': 'Tobias, age 15'
+            '572353520cf20e9addb2a707': 'Parent/guardian of Diana, age 8',
+            '572353520cf20e9addb2a708': 'Beatrice, age 14',
+            '572353530cf20e9addb2a709': 'Tobias, age 15'
         }
     }
 
