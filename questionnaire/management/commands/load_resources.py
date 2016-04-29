@@ -12,7 +12,7 @@ class Command(BaseCommand):
     help = 'Load resources into a FHIR server from the reference JSON.'
 
     def add_arguments(self, parser):
-        parser.add_argument('server-id', nargs=1)
+        parser.add_argument('server-id')
         parser.add_argument('include-patients',
             action='store_true',
             default=False,
@@ -33,7 +33,8 @@ class Command(BaseCommand):
             for filename in patients:
                 with open('json_data/'+filename, 'r') as h:
                     pjson = json.load(h)
-                    name = " ".join(pjson["name"][0].values())
+                    name = " ".join(map(lambda x: x[0], pjson["name"][0].values()))
+                    print name
 
                     search = patient.Patient.where(struct={"name": name})
                     existing = search.perform(server)
@@ -42,8 +43,9 @@ class Command(BaseCommand):
                         for entry in existing.entry:
                             server.put_json('Patient/'+entry.id, pjson)
                     else:
-                        response = server.post_json('Patient', pjson)
-                        print response
+                        pass
+                        #response = server.post_json('Patient', pjson)
+                        #print response
         if include_questionnaires:
             questionnaires = ['questionnaire-adolescent.json', 'questionnaire-child.json']
             for filename in questionnaires:
