@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!doctype html>
+{# SRL: Adding Bootstrap specific coding for mobile first design#}
+<html>
+    <head>
+        <title>{% block title %}Questionnaire{% endblock %}</title>
+        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="{%  static 'css/fgh-cdc-style.css' %}" />
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block headextra %}{% endblock %}
+    </head>
+
+    <body>
+        <div class="main" style="padding:0 10pt">{% block content %}</div>
+        {% endblock %}
+    </body>
+</html>
