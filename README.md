@@ -12,11 +12,13 @@ Or you can install it on Windows using the instructions at http://docs.python-gu
 
 You may also need to install sqlite and/or sqlite3-devel depending on your operating system.
 
-To run the app, you need to install Django and dependencies:
+To run the app, you need to install Django and dependencies by executing the following commands:
 
     git clone https://github.gatech.edu/cdchealthyweight/fgh-web.git fgh
     cd fgh
     pip install -r requirements.txt
+
+_Note: installing Django using apt-get may install an older, incompatible version_
 
 After this, you can set up the app locally:
 
