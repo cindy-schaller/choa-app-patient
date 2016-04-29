@@ -10,7 +10,7 @@
         {% endfor %}
     </ul>
     {% endfor %}
-    <label for="free-patient-id">Or, specify another patient from one of our supported database:</label><br/><input id="free-patient-id" type="text" />
+    <label for="free-patient-id">Or, specify another patient from one of our supported databases:</label><br/><input id="free-patient-id" type="text" />
     <select id="free-patient-server">
     {% for server_id in patientGroups %}
         <option value="{{ server_id }}">{{ server_id }}</option>
