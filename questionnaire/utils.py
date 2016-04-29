@@ -31,10 +31,10 @@ def getPatientMap():
             '18792004': 'Tobias, age 15'
         },
         SMART: {
-            '5722014c0cf20e9addb273be': 'Parent/guardian of Clark, age 10',
-            '5722014c0cf20e9addb273bf': 'Parent/guardian of Diana, age 8',
-            '5722014b0cf20e9addb273bd': 'Beatrice, age 14',
-            '5722014c0cf20e9addb273c0': 'Tobias, age 15'
+            '572353510cf20e9addb2a706': 'Parent/guardian of Clark, age 10',
+            '572353510cf20e9addb2a707': 'Parent/guardian of Diana, age 8',
+            '572353510cf20e9addb2a708': 'Beatrice, age 14',
+            '572353510cf20e9addb2a709': 'Tobias, age 15'
         }
     }
 
@@ -46,8 +46,8 @@ def getQuestionnaireMap():
             CHILD_FORM: '18791830'
         },
         SMART: {
-            TEEN_FORM: '5722008e0cf20e9addb273bb',
-            CHILD_FORM: '5722008e0cf20e9addb273ba'
+            TEEN_FORM: '572357f90cf20e9addb2a71a',
+            CHILD_FORM: '572358140cf20e9addb2a71b'
         }
     }
 
