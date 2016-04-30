@@ -1,4 +1,8 @@
+import pytz as pytz
+
 from functools import wraps
+
+from django.utils import timezone
 from django.utils.decorators import available_attrs
 from django.core.urlresolvers import reverse
 
@@ -84,6 +88,7 @@ def respond(request):
 
 @require_valid_user
 def messages(request):
+    timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
@@ -92,10 +97,14 @@ def messages(request):
     # The bug should go away when they finish their switch to a HAPI FHIR-based implementation.
     if serverId == utils.SMART:
         search = communication.Communication.where(struct={"recipient": patientId})
-    messages = search.perform(smart.server)
-    if messages.total > 0:
+    messages = search.perform_resources(smart.server)
+    if len(messages) > 0:
         context = RequestContext(request)
-        context['messages'] = map(lambda(entry): entry.resource, messages.entry)
+
+        def timestamp_key(entry):
+            return entry.sent.date
+
+        context['messages'] = sorted(messages, key=timestamp_key, reverse=True)
         return render_to_response('messages.html',
                                   context_instance=context)
     else:
@@ -107,14 +116,19 @@ def messages(request):
 
 @require_valid_user
 def history(request):
+    timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
     search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId})
-    responses = search.perform(smart.server)
-    if responses.total > 0:
+    responses = search.perform_resources(smart.server)
+    if len(responses) > 0:
         context = RequestContext(request)
-        context['pastResponses'] = map(lambda(entry): entry.resource, responses.entry)
+
+        def timestamp_key(entry):
+            return entry.meta.lastUpdated.date
+
+        context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
         return render_to_response('history.html',
                                   context_instance=context)
     else:
@@ -127,6 +141,7 @@ def history(request):
 
 @require_valid_user
 def details(request, responseid):
+    timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
