@@ -21,8 +21,9 @@ PATIENT_ID_AGE12 = 'Patient-12611' #dob 2004-02-27
 PATIENT_ID_AGE13 = 'Patient-20090' #dob 2003-02-23
 PATIENT_ID_AGE18 = 'Patient-17877' #dob 1998-04-01
 PATIENT_ID_AGE19 = 'Patient-17458' #dob 1997-02-04
-INVALID_ID_MSG = "The user you've selected appears to be invalid."
-ABOUT_MSG = "A project of the Frogs"
+MAIN_PAGE = "Select a patient"
+INVALID_ID_MSG = "appears to be invalid"
+ABOUT_MSG = "Usage Information"
 HISTORY_RESPONSES_MSG = "Your past responses:"
 
 # class Model_Tests_1(TestCase):
@@ -39,20 +40,21 @@ class View_Index_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Questionnaire</title>")
 
-    def test_has_login(self):
-        response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Username")
-        self.assertContains(response, "Password")
-        self.assertContains(response, "Login")
-
-    def test_footer_found(self):
-        response = self.client.get(reverse('respond'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Terms of Use")
-        self.assertContains(response, "Privacy Statement")
-        self.assertContains(response, "FAQs")
-        self.assertContains(response, "Support")
+    # not implemented
+    # def test_has_login(self):
+    #     response = self.client.get(reverse('index'))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertContains(response, "Username")
+    #     self.assertContains(response, "Password")
+    #     self.assertContains(response, "Login")
+    #
+    # def test_footer_found(self):
+    #     response = self.client.get(reverse('respond'))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertContains(response, "Terms of Use")
+    #     self.assertContains(response, "Privacy Statement")
+    #     self.assertContains(response, "FAQs")
+    #     self.assertContains(response, "Support")
 
 class View_About_Tests(TestCase):
     """
@@ -70,7 +72,7 @@ class View_Messages_Tests(TestCase):
     def test_no_id(self):
         response = self.client.get(reverse('messages'),follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, INVALID_ID_MSG)
+        self.assertContains(response, MAIN_PAGE)
 
     def test_badID(self):
         """
@@ -90,6 +92,7 @@ class View_Messages_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"]= PATIENT_ID_DIANA
+        C["serverId"] = "MiHIN"
         self.client.cookies=C
         response = self.client.get(reverse('messages'))
         self.assertEqual(response.status_code, 200)
@@ -105,7 +108,7 @@ class View_History_Tests(TestCase):
         """
         response = self.client.get(reverse('history'),follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, INVALID_ID_MSG)
+        self.assertContains(response, MAIN_PAGE)
 
     def test_badID(self):
         """
@@ -114,6 +117,7 @@ class View_History_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"] = PATIENT_ID_INVALID
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('history'),follow=True)
         self.assertEqual(response.status_code, 200)
@@ -138,7 +142,7 @@ class View_Respond_Tests(TestCase):
         """
         response = self.client.get(reverse('respond'),follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, INVALID_ID_MSG)
+        self.assertContains(response, MAIN_PAGE)
 
     def test_badID(self):
         """
@@ -147,6 +151,7 @@ class View_Respond_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"] = 19999999
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('respond'),follow=True)
         self.assertEqual(response.status_code, 200)
@@ -163,19 +168,20 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['patientName'], PATIENT_NAME_DIANA)
 
-    def test_footer_found_child(self):
-        """
-        test respond view footer items
-        """
-        C = Cookie.SimpleCookie()
-        C["userId"] = PATIENT_ID_DIANA
-        self.client.cookies = C
-        response = self.client.get(reverse('respond'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Terms of Use")
-        self.assertContains(response, "Privacy Statement")
-        self.assertContains(response, "FAQs")
-        self.assertContains(response, "Support")
+    # not implemented
+    # def test_footer_found_child(self):
+    #     """
+    #     test respond view footer items
+    #     """
+    #     C = Cookie.SimpleCookie()
+    #     C["userId"] = PATIENT_ID_DIANA
+    #     self.client.cookies = C
+    #     response = self.client.get(reverse('respond'))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertContains(response, "Terms of Use")
+    #     self.assertContains(response, "Privacy Statement")
+    #     self.assertContains(response, "FAQs")
+    #     self.assertContains(response, "Support")
 
     def test_child_questionnaire(self):
         """
@@ -225,37 +231,38 @@ class View_Respond_Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Tobias")
 
-# age edge cases
-    def test_below_min_age(self):
-        """
-        test respond view when patient is <2 years old
-        """
-        C = Cookie.SimpleCookie()
-        C["userId"] = PATIENT_ID_UNDERAGE
-        self.client.cookies = C
-        response = self.client.get(reverse('respond'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Patient is younger than 2")
-        # self.assertEqual(response.context['patientName'], 'Aaron Daryl Conner')
-
-
-    def test_over_max_age_view(self):
-        """
-        test respond view when patient is >18 years old
-        """
-        C = Cookie.SimpleCookie()
-        C["userId"] = PATIENT_ID_AGE19
-        self.client.cookies = C
-        response = self.client.get(reverse('respond'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Patient is older than 18")
-
+# age edge cases - not implemented
+#     def test_below_min_age(self):
+#         """
+#         test respond view when patient is <2 years old
+#         """
+#         C = Cookie.SimpleCookie()
+#         C["userId"] = PATIENT_ID_UNDERAGE
+#         self.client.cookies = C
+#         response = self.client.get(reverse('respond'))
+#         self.assertEqual(response.status_code, 200)
+#         self.assertContains(response, "Patient is younger than 2")
+#         # self.assertEqual(response.context['patientName'], 'Aaron Daryl Conner')
+#
+#
+#     def test_over_max_age_view(self):
+#         """
+#         test respond view when patient is >18 years old
+#         """
+#         C = Cookie.SimpleCookie()
+#         C["userId"] = PATIENT_ID_AGE19
+#         self.client.cookies = C
+#         response = self.client.get(reverse('respond'))
+#         self.assertEqual(response.status_code, 200)
+#         self.assertContains(response, "Patient is older than 18")
+#
     def test_child_age_2(self):
         """
         test respond view when patient is 2 years old (edge case)
         """
         C = Cookie.SimpleCookie()
         C["userId"] = PATIENT_ID_AGE2
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
@@ -267,6 +274,7 @@ class View_Respond_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"] = PATIENT_ID_AGE12
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
@@ -278,6 +286,7 @@ class View_Respond_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"] = PATIENT_ID_AGE13
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
@@ -289,6 +298,7 @@ class View_Respond_Tests(TestCase):
         """
         C = Cookie.SimpleCookie()
         C["userId"] = PATIENT_ID_AGE18
+        C["serverId"] = "MiHIN"
         self.client.cookies = C
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
