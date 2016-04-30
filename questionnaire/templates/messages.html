@@ -9,6 +9,7 @@
         }
     </style>
     <div>Your recent messages:</div>
+    <hr/>
     {% for message in messages %}
         <div class="message">
         <div><span class="message-label">Date:</span> {{ message.sent.date }} </div>
