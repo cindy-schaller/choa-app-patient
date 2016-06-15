@@ -25,10 +25,10 @@ def getFhirConnectionInfo(serverId):
 def getPatientMap():
     return {
         MIHIN: {
-            '18791941': 'Parent/guardian of Clark, age 10',
-            '18791962': 'Parent/guardian of Diana, age 8',
-            '18791983': 'Beatrice, age 14',
-            '18792004': 'Tobias, age 15'
+            '11034584': 'Parent/guardian of Clark, age 10',
+            '11034779': 'Parent/guardian of Diana, age 8',
+            '11034968': 'Beatrice, age 14',
+            '11035751': 'Tobias, age 15'
         },
         SMART: {
             '572353510cf20e9addb2a706': 'Parent/guardian of Clark, age 10',
