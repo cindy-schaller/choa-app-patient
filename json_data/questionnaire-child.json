@@ -1,11 +1,6 @@
 {
     "resourceType":"Questionnaire",
-    "id":"18791830",
     "identifier":"questionnaire-healthy-habits-child",
-    "meta":{
-        "versionId":"16",
-        "lastUpdated":"2016-04-28T18:10:35.945-04:00"
-    },
     "text":{
         "status":"generated",
         "div":"<div xmlns=\"http://www.w3.org/1999/xhtml\"> <p> <b>Generated Narrative with Details</b> </p> <p> <b>id</b>: questionnaire-healthy-habits-child </p> <p> <b>status</b>: published </p> <p> <b>title</b>: Healthy Habits Tracker </p> </div>"
