@@ -43,9 +43,8 @@ class Command(BaseCommand):
                         for entry in existing.entry:
                             server.put_json('Patient/'+entry.id, pjson)
                     else:
-                        pass
-                        #response = server.post_json('Patient', pjson)
-                        #print response
+                        response = server.post_json('Patient', pjson)
+                        print response
         if include_questionnaires:
             questionnaires = ['questionnaire-adolescent.json', 'questionnaire-child.json']
             for filename in questionnaires:
@@ -53,7 +52,7 @@ class Command(BaseCommand):
                     qjson = json.load(h)
                     name = qjson["group"]["title"]
 
-                    search = questionnaire.Questionnaire.where(struct={"group": {"title": name}})
+                    search = questionnaire.Questionnaire.where(struct={"title": name})
                     existing = search.perform(server)
                     if existing.total > 0:
                         print "Warning - questionnaire "+name+" already exists, attempting update"
