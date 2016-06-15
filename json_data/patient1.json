@@ -1,9 +1,5 @@
 {
     "resourceType":"Patient",
-    "meta":{
-        "versionId":"1",
-        "lastUpdated":"2016-03-27T22:27:27.905-04:00"
-    },
     "extension":[
         {
             "url":"http://hl7.org/fhir/StructureDefinition/us-core-race",
