@@ -33,15 +33,16 @@ class Command(BaseCommand):
             for filename in patients:
                 with open('json_data/'+filename, 'r') as h:
                     pjson = json.load(h)
+                    identifier = pjson["identifier"][0]["value"]
                     name = " ".join(map(lambda x: x[0], pjson["name"][0].values()))
                     print name
 
-                    search = patient.Patient.where(struct={"name": name})
+                    search = patient.Patient.where(struct={"identifier": identifier})
                     existing = search.perform(server)
                     if existing.total > 0:
                         print "Warning - patient "+name+" already exists, attempting update"
                         for entry in existing.entry:
-                            server.put_json('Patient/'+entry.id, pjson)
+                            server.put_json('Patient/'+entry.resource.id, pjson)
                     else:
                         response = server.post_json('Patient', pjson)
                         print response
@@ -57,7 +58,7 @@ class Command(BaseCommand):
                     if existing.total > 0:
                         print "Warning - questionnaire "+name+" already exists, attempting update"
                         for entry in existing.entry:
-                            server.put_json('Questionnaire/'+entry.id, qjson)
+                            server.put_json('Questionnaire/'+entry.resource.id, qjson)
                     else:
                         response = server.post_json('Questionnaire', qjson)
                         print response
