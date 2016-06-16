@@ -1,50 +1,50 @@
 {
+    "status": "draft",
+    "resourceType": "Questionnaire",
+    "date": "2016-06-15",
     "identifier": [
         {
             "value": "questionnaire-food-insecurity"
         }
     ],
-    "resourceType": "Questionnaire",
     "publisher": "GT CS8903 HOC Team",
-    "date": "2016-06-15",
-    "status": "draft",
     "group": {
+        "linkId": "root",
         "question": [
             {
+                "option": [
+                    {
+                        "code": true,
+                        "display": "Yes"
+                    },
+                    {
+                        "code": false,
+                        "display": "No"
+                    }
+                ],
+                "linkId": "1",
+                "required": true,
                 "text": "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
                 "repeats": false,
-                "required": true,
-                "type": "integer",
-                "linkId": "1",
-                "option": [
-                    {
-                        "display": "Yes",
-                        "code": "1"
-                    },
-                    {
-                        "display": "No",
-                        "code": "2"
-                    }
-                ]
+                "type": "boolean"
             },
             {
-                "text": "In the last year, did the food you bought just not last and you didn't have money to get more?",
-                "repeats": false,
-                "required": true,
-                "type": "integer",
-                "linkId": "2",
                 "option": [
                     {
-                        "display": "Yes",
-                        "code": "1"
+                        "code": true,
+                        "display": "Yes"
                     },
                     {
-                        "display": "No",
-                        "code": "2"
+                        "code": false,
+                        "display": "No"
                     }
-                ]
+                ],
+                "linkId": "2",
+                "required": true,
+                "text": "In the last year, did the food you bought just not last and you didn't have money to get more?",
+                "repeats": false,
+                "type": "boolean"
             }
-        ],
-        "linkId": "root"
+        ]
     }
 }

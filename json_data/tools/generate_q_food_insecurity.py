@@ -1,8 +1,9 @@
+from __future__ import print_function
 import json
 from collections import OrderedDict
 from fhirclient.models import questionnaire, fhirdate
 import datetime
-
+from questionnaire_commons import *
 CDC_QUESTIONS = [
     "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
     "In the last year, did the food you bought just not last and you didn't have money to get more?",
@@ -32,11 +33,10 @@ if __name__ == '__main__':
         item = questionnaire.QuestionnaireGroupQuestion()
         item.linkId = str(i)
         item.text = CDC_QUESTIONS[i-1]
-        item.type = 'integer'
+        item.type = 'boolean'
         item.required = True
         item.repeats = False
-        item.option = [{'code':'1', 'display':'Yes'},
-                       {'code':'2', 'display':'No'}]
+        item.option = YESNO
         questions.append(item)
 
     with open('questionnaire-food-insecurity.json','w') as f:
