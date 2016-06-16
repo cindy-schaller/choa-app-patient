@@ -42,8 +42,8 @@ def getPatientMap():
 def getQuestionnaireMap():
     return {
         MIHIN: {
-            TEEN_FORM: '18791835',
-            CHILD_FORM: '18791830'
+            TEEN_FORM: '11034668',
+            CHILD_FORM: '11034671'
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
