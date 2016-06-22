@@ -1,0 +1,32 @@
+{
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "code": " 8302-2",
+                "system": "http://loinc.org",
+                "display": "Height"
+            }
+        ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+        "unit": "cm",
+        "value": 92.1
+    },
+    "performer": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "effectiveDateTime": "2013-09-30T00:00:00",
+    "encounter": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "subject": {
+        "display": "Clark Kent",
+        "reference": "Patient/11034584"
+    }
+}

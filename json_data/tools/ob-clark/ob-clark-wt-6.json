@@ -1,0 +1,32 @@
+{
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "code": "3141-9",
+                "system": "http://loinc.org",
+                "display": "Weight"
+            }
+        ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+        "unit": "kg",
+        "value": 20.0
+    },
+    "performer": [
+        {
+            "display": "MD"
+        }
+    ],
+    "effectiveDateTime": "2015-06-30T00:00:00",
+    "encounter": [
+        {
+            "display": "MD"
+        }
+    ],
+    "subject": {
+        "display": "Clark Kent",
+        "reference": "Patient/11034584"
+    }
+}

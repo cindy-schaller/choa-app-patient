@@ -1,0 +1,32 @@
+{
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "code": "39156-5",
+                "system": "http://loinc.org",
+                "display": "BMI"
+            }
+        ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+        "unit": "kg/m2",
+        "value": 19.9
+    },
+    "performer": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "effectiveDateTime": "2015-09-30T00:00:00",
+    "encounter": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "subject": {
+        "display": "Clark Kent",
+        "reference": "Patient/11034584"
+    }
+}
