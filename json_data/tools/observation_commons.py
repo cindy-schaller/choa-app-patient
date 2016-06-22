@@ -12,7 +12,7 @@ coding_weight = {"coding": [{
 
 coding_height = {"coding": [{
             "system": "http://loinc.org",
-            "code": " 8302-2",
+            "code": "8302-2",
             "display": "Height"
 }]}
 
