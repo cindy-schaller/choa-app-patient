@@ -1,0 +1,25 @@
+{
+    "status": "completed",
+    "resourceType": "FamilyMemberHistory",
+    "patient": {
+        "display": "Clark Kent",
+        "reference": "Patient/11034584"
+    },
+    "relationship": {
+        "coding": [
+            {
+                "code": "FTH",
+                "system": "http://hl7.org/fhir/familial-relationship"
+            }
+        ]
+    },
+    "extension": [
+        {
+            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height",
+            "valueQuantity": {
+                "value": 177,
+                "unit": "cm"
+            }
+        }
+    ]
+}

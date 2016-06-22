@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 import os
 from collections import OrderedDict
-from fhirclient.models import fhirdate, observation, patient
+from fhirclient.models import fhirdate, observation, patient, familymemberhistory, quantity
 from observation_commons import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -61,6 +61,28 @@ if __name__ == '__main__':
         o.valueQuantity = {"value": bmi, "unit": "kg/m2"}
         with open(os.path.join('ob-clark', 'ob-clark-bmi-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+        h = familymemberhistory.FamilyMemberHistory()
+        h.patient = {"reference":patient_id_ref, "display":patient_name}
+        h.status = 'completed'
+        h.relationship = {"coding":[{"code":"MTH","system":"http://hl7.org/fhir/familial-relationship"}]}
+        measurement = quantity.Quantity()
+        measurement.unit = "cm"
+        measurement.value = 162
+        h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 162}}]
+        with open(os.path.join('ob-clark', 'ob-clark-mth.json'), 'w') as f:
+            print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+        h = familymemberhistory.FamilyMemberHistory()
+        h.patient = {"reference":patient_id_ref, "display":patient_name}
+        h.status = 'completed'
+        h.relationship = {"coding":[{"code":"FTH","system":"http://hl7.org/fhir/familial-relationship"}]}
+        measurement = quantity.Quantity()
+        measurement.unit = "cm"
+        measurement.value = 177
+        h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 177}}]
+        with open(os.path.join('ob-clark', 'ob-clark-fth.json'), 'w') as f:
+            print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
 
 
         # o = observation.Observation()
