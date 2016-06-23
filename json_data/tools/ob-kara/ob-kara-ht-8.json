@@ -1,0 +1,32 @@
+{
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "code": "8302-2",
+                "system": "http://loinc.org",
+                "display": "Height"
+            }
+        ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+        "unit": "cm",
+        "value": 85.1
+    },
+    "performer": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "effectiveDateTime": "2016-02-01T00:00:00",
+    "encounter": [
+        {
+            "display": "WIC"
+        }
+    ],
+    "subject": {
+        "display": "Kara Kent",
+        "reference": "Patient/11037781"
+    }
+}

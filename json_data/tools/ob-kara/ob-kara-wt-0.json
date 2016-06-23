@@ -1,0 +1,32 @@
+{
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "code": "3141-9",
+                "system": "http://loinc.org",
+                "display": "Weight"
+            }
+        ]
+    },
+    "resourceType": "Observation",
+    "valueQuantity": {
+        "unit": "kg",
+        "value": 3.2
+    },
+    "performer": [
+        {
+            "display": "MD"
+        }
+    ],
+    "effectiveDateTime": "2014-05-15T00:00:00",
+    "encounter": [
+        {
+            "display": "MD"
+        }
+    ],
+    "subject": {
+        "display": "Kara Kent",
+        "reference": "Patient/11037781"
+    }
+}
