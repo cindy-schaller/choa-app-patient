@@ -9,9 +9,10 @@ python manage.py test questionnaire
 '''
 
 # patient id's for testing in MiHIN server 4/2016
-PATIENT_ID_CLARK = '18791941' #age 10
+PATIENT_ID_CLARK = '11034584' #age 5
 PATIENT_ID_DIANA = '18791962' #age 8
 PATIENT_NAME_DIANA = 'Diana Prince'
+PATIENT_NAME_CLARK = 'Clark Kent'
 PATIENT_ID_BEATRICE = '18791983' #age 14
 PATIENT_ID_TOBIAS = '18792004' #age 15
 PATIENT_ID_UNDERAGE = 'Patient-13244' #dob 2016-01-08
@@ -162,11 +163,11 @@ class View_Respond_Tests(TestCase):
         test respond view when valid patient chosen
         """
         C = Cookie.SimpleCookie()
-        C["userId"]= PATIENT_ID_DIANA
+        C["userId"]= PATIENT_ID_CLARK
         self.client.cookies=C
         response = self.client.get(reverse('respond'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['patientName'], PATIENT_NAME_DIANA)
+        self.assertEqual(response.context['patientName'], PATIENT_NAME_CLARK)
 
     # not implemented
     # def test_footer_found_child(self):
