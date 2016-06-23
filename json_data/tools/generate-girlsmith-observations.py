@@ -8,9 +8,9 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 #TODO set up the patient and verify these connections
-patient_id = "TBD"
+patient_id = "11037781"
 patient_id_ref = "Patient/"+patient_id
-patient_name = "Lois Kent"
+patient_name = "Kara Kent"
 patient_dob = datetime(2014,5,1)
 
 # data for generation (provided by Aly)
@@ -49,17 +49,17 @@ if __name__ == '__main__':
 
         o.code = coding_weight
         o.valueQuantity = {"value":lbs_to_kg(wt_lbs),"unit":"kg"}
-        with open(os.path.join('ob-lois','ob-lois-wt-'+str(i)+'.json'),'w') as f:
+        with open(os.path.join('ob-kara','ob-kara-wt-'+str(i)+'.json'),'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         o.code = coding_height
         o.valueQuantity = {"value":in_to_cm(ht_in),"unit":"cm"}
-        with open(os.path.join('ob-lois', 'ob-lois-ht-' + str(i) + '.json'), 'w') as f:
+        with open(os.path.join('ob-kara', 'ob-kara-ht-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         # o.code = coding_bmi
         # o.valueQuantity = {"value": bmi, "unit": "kg/m2"}
-        # with open(os.path.join('ob-lois', 'ob-lois-bmi-' + str(i) + '.json'), 'w') as f:
+        # with open(os.path.join('ob-kara', 'ob-kara-bmi-' + str(i) + '.json'), 'w') as f:
         #     print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
     h = familymemberhistory.FamilyMemberHistory()
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     measurement.unit = "cm"
     measurement.value = 162
     h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 162}}]
-    with open(os.path.join('ob-lois', 'ob-lois-mth.json'), 'w') as f:
+    with open(os.path.join('ob-kara', 'ob-kara-mth.json'), 'w') as f:
         print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
 
     h = familymemberhistory.FamilyMemberHistory()
@@ -81,5 +81,5 @@ if __name__ == '__main__':
     measurement.unit = "cm"
     measurement.value = 177
     h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 177}}]
-    with open(os.path.join('ob-lois', 'ob-lois-fth.json'), 'w') as f:
+    with open(os.path.join('ob-kara', 'ob-kara-fth.json'), 'w') as f:
         print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
