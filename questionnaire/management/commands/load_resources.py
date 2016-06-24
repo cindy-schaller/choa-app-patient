@@ -29,7 +29,7 @@ class Command(BaseCommand):
         include_questionnaires = options['include-questionnaires']
 
         if include_patients:
-            patients = ['patient1.json', 'patient2.json', 'patient3.json', 'patient4.json']
+            patients = ['patient1.json', 'patient2.json', 'patient3.json', 'patient4.json', 'patient5.json']
             for filename in patients:
                 with open('json_data/'+filename, 'r') as h:
                     pjson = json.load(h)
@@ -47,7 +47,8 @@ class Command(BaseCommand):
                         response = server.post_json('Patient', pjson)
                         print response
         if include_questionnaires:
-            questionnaires = ['questionnaire-adolescent.json', 'questionnaire-child.json']
+            questionnaires = ['questionnaire-adolescent.json', 'questionnaire-child.json',
+                              'questionnaire-food-insecurity.json', 'questionnaire-wic-child-nutrition.json']
             for filename in questionnaires:
                 with open('json_data/'+filename, 'r') as h:
                     qjson = json.load(h)
