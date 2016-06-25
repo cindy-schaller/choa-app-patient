@@ -86,7 +86,7 @@ def gen_hist():
 def gen_rel():
     r = relatedperson.RelatedPerson()
     r.patient = {"reference":patient_id_ref, "display":patient_name}
-    r.relationship = {"code": "MTH","system":"http://hl7.org/fhir/v3/RoleCode","display":"mother"}
+    r.relationship = {"coding":[{"code": "MTH","system":"http://hl7.org/fhir/v3/RoleCode","display":"mother"}]}
     r.name = kent_mom_name
     r.telecom = kent_telecom
     r.address = kent_address
@@ -97,7 +97,7 @@ def gen_rel():
 
     r = relatedperson.RelatedPerson()
     r.patient = {"reference":patient_id_ref, "display":patient_name}
-    r.relationship = {"code": "SIB","system":"http://hl7.org/fhir/v3/RoleCode","display":"sibling"}
+    r.relationship = {"coding":[{"code": "SIB","system":"http://hl7.org/fhir/v3/RoleCode","display":"sibling"}]}
     r.name = kent_clark_name
     r.telecom = kent_telecom
     r.address = kent_address

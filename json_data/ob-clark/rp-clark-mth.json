@@ -14,9 +14,13 @@
         }
     ],
     "relationship": {
-        "code": "MTH",
-        "system": "http://hl7.org/fhir/v3/RoleCode",
-        "display": "mother"
+        "coding": [
+            {
+                "code": "MTH",
+                "system": "http://hl7.org/fhir/v3/RoleCode",
+                "display": "mother"
+            }
+        ]
     },
     "telecom": [
         {

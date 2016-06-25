@@ -14,9 +14,13 @@
         }
     ],
     "relationship": {
-        "code": "SIB",
-        "system": "http://hl7.org/fhir/v3/RoleCode",
-        "display": "sibling"
+        "coding": [
+            {
+                "code": "SIB",
+                "system": "http://hl7.org/fhir/v3/RoleCode",
+                "display": "sibling"
+            }
+        ]
     },
     "telecom": [
         {
