@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 import os
 from collections import OrderedDict
-from fhirclient.models import fhirdate, observation, patient, familymemberhistory, quantity
+from fhirclient.models import fhirdate, observation, patient, familymemberhistory, quantity, relatedperson
 from observation_commons import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -34,72 +34,78 @@ def lbs_to_kg(lbs):
     return round(lbs*0.453592,1)
 def in_to_cm(ins):
     return round(ins*2.54,1)
-
-if __name__ == '__main__':
+def gen_obs():
     # set up observation structure from model
     for i in range(len(observation_list)):
         performer, age_mos, wt_lbs, ht_in, bmi = observation_list[i]
         o = observation.Observation()
         o.status = 'final'
-        o.subject = {"reference":patient_id_ref, "display":patient_name}
-        o.encounter = [{"display":performer}]
-        o.performer = [{"display":performer}]
+        o.subject = {"reference": patient_id_ref, "display": patient_name}
+        o.encounter = [{"display": performer}]
+        o.performer = [{"display": performer}]
         date_seen = patient_dob + relativedelta(months=age_mos)
         o.effectiveDateTime = date_seen.isoformat()
 
         o.code = coding_weight
-        o.valueQuantity = {"value":lbs_to_kg(wt_lbs),"unit":"kg"}
-        with open(os.path.join('ob-clark','ob-clark-wt-'+str(i)+'.json'),'w') as f:
+        o.valueQuantity = {"value": lbs_to_kg(wt_lbs), "unit": "kg"}
+        with open(os.path.join('../ob-clark', 'ob-clark-wt-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         o.code = coding_height
-        o.valueQuantity = {"value":in_to_cm(ht_in),"unit":"cm"}
-        with open(os.path.join('ob-clark', 'ob-clark-ht-' + str(i) + '.json'), 'w') as f:
+        o.valueQuantity = {"value": in_to_cm(ht_in), "unit": "cm"}
+        with open(os.path.join('../ob-clark', 'ob-clark-ht-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         o.code = coding_bmi
         o.valueQuantity = {"value": bmi, "unit": "kg/m2"}
-        with open(os.path.join('ob-clark', 'ob-clark-bmi-' + str(i) + '.json'), 'w') as f:
+        with open(os.path.join('../ob-clark', 'ob-clark-bmi-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
-        h = familymemberhistory.FamilyMemberHistory()
-        h.patient = {"reference":patient_id_ref, "display":patient_name}
-        h.status = 'completed'
-        h.relationship = {"coding":[{"code":"MTH","system":"http://hl7.org/fhir/familial-relationship"}]}
-        measurement = quantity.Quantity()
-        measurement.unit = "cm"
-        measurement.value = 162
-        h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 162}}]
-        with open(os.path.join('ob-clark', 'ob-clark-mth.json'), 'w') as f:
-            print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
+def gen_hist():
+    h = familymemberhistory.FamilyMemberHistory()
+    h.patient = {"reference": patient_id_ref, "display": patient_name}
+    h.status = 'completed'
+    h.relationship = {"coding": [{"code": "MTH", "system": "http://hl7.org/fhir/familial-relationship"}]}
+    measurement = quantity.Quantity()
+    measurement.unit = "cm"
+    measurement.value = 162
+    h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height",
+                    "valueQuantity": {"unit": "cm", "value": 162}}]
+    with open(os.path.join('../ob-clark', 'ob-clark-mth.json'), 'w') as f:
+        print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
 
-        h = familymemberhistory.FamilyMemberHistory()
-        h.patient = {"reference":patient_id_ref, "display":patient_name}
-        h.status = 'completed'
-        h.relationship = {"coding":[{"code":"FTH","system":"http://hl7.org/fhir/familial-relationship"}]}
-        measurement = quantity.Quantity()
-        measurement.unit = "cm"
-        measurement.value = 177
-        h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 177}}]
-        with open(os.path.join('ob-clark', 'ob-clark-fth.json'), 'w') as f:
-            print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
+    h = familymemberhistory.FamilyMemberHistory()
+    h.patient = {"reference": patient_id_ref, "display": patient_name}
+    h.status = 'completed'
+    h.relationship = {"coding": [{"code": "FTH", "system": "http://hl7.org/fhir/familial-relationship"}]}
+    measurement = quantity.Quantity()
+    measurement.unit = "cm"
+    measurement.value = 177
+    h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height",
+                    "valueQuantity": {"unit": "cm", "value": 177}}]
+    with open(os.path.join('../ob-clark', 'ob-clark-fth.json'), 'w') as f:
+        print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+def gen_rel():
+    r = relatedperson.RelatedPerson()
+    r.patient = {"reference":patient_id_ref, "display":patient_name}
+    r.relationship = {"code": "MTH","system":"http://hl7.org/fhir/v3/RoleCode","display":"mother"}
+    r.name = kent_mom_name
+    r.telecom = kent_telecom
+    r.address = kent_address
+    r.gender = "female"
+    r.birthDate = str(kent_mom_dob.date())
+    with open(os.path.join('../ob-clark', 'rp-clark-mth.json'),'w') as f:
+        print(json.dumps(OrderedDict(r.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+def main():
+    gen_obs()
+    gen_hist()
+    gen_rel()
 
 
-        # o = observation.Observation()
-        # o.status = 'final'
-        # o.code = code_root
-        #
-        # # add subject, encounter, effectiveDateTime, performer ?
-        # o.subject = {"reference":patient_id_ref, "display":patient_name}
-        # o.encounter = [{"display":performer}]
-        # o.performer = [{"display":performer}]
-        # date_seen = patient_dob + relativedelta(months=age_mos)
-        # o.effectiveDateTime = date_seen.isoformat()
-        #
-        # o.component=[
-        #     {"code":coding_weight, "valueQuantity": {"value":wt_lbs,"unit":"lb_av"}},
-        #     {"code":coding_height, "valueQuantity": {"value":ht_in,"unit":"in_i"}},
-        #     {"code":coding_bmi,"valueQuantity": {"value":bmi,"unit":"kg/m2"}},
-        #     ]
-        # with open(os.path.join('ob-clark','ob-clark-'+str(i)+'.json'),'w') as f:
-        #     print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+if __name__ == '__main__':
+    main()
+
+
