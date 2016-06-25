@@ -13,9 +13,9 @@ obs_files_kara = ['ob-kara-ht-0.json', 'ob-kara-ht-1.json', 'ob-kara-ht-2.json',
                   'ob-kara-wt-5.json', 'ob-kara-wt-6.json', 'ob-kara-wt-7.json',
                   'ob-kara-wt-8.json', 'ob-kara-wt-9.json']
 fam_hist_files_kara = ['ob-kara-mth.json', 'ob-kara-fth.json']
-rel_person_files_kara = ['rp-kara-mth.json']
+rel_person_files_kara = ['rp-kara-mth.json', 'rp-kara-sib.json']
 obs_dir_clark = 'ob-clark'
-rel_person_files_clark = ['rp-clark-mth.json']
+rel_person_files_clark = ['rp-clark-mth.json','rp-clark-sib.json']
 
 
 def handle(dir_name, files, resource_type):
@@ -31,10 +31,16 @@ def handle(dir_name, files, resource_type):
 def main():
     # note: comment out what shouldn't be re-uploaded to avoid conflicts
     #       not hardened to detect updates and duplicates!
-    # handle(obs_dir_kara, obs_files_kara, 'Observation')
-    # handle(obs_dir_kara, fam_hist_files_kara, 'FamilyMemberHistory')
+    handle(obs_dir_kara, obs_files_kara, 'Observation')
+    handle(obs_dir_kara, fam_hist_files_kara, 'FamilyMemberHistory')
     handle(obs_dir_kara, rel_person_files_kara, 'RelatedPerson')
     handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
+
+    # one-off load
+    # handle(obs_dir_clark, ['rp-clark-sib.json'] , 'RelatedPerson')
+    # handle(obs_dir_kara, ['rp-kara-sib.json'] , 'RelatedPerson')
+
+
 
 if __name__ == '__main__':
     main()

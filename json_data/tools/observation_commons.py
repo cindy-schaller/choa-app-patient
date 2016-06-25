@@ -38,6 +38,10 @@ kent_address = [{
     "state":"NY",
     "postalCode":"10001" }]
 kent_mom_name = [{"family":["Kent"],"given":["Martha"]}]
+kent_clark_name = [{"family":["Kent"],"given":["Clark"]}]
+kent_kara_name = [{"family":["Kent"],"given":["Kara"]}]
 kent_mom_dob = datetime(1984,2,28)
+kent_clark_dob = datetime(2011,3,30)
+kent_kara_dob = datetime(2014,5,1)
 
 

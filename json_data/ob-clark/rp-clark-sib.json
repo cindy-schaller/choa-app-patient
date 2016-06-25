@@ -1,0 +1,41 @@
+{
+    "patient": {
+        "display": "Clark Kent",
+        "reference": "Patient/11034584"
+    },
+    "name": [
+        {
+            "given": [
+                "Kara"
+            ],
+            "family": [
+                "Kent"
+            ]
+        }
+    ],
+    "relationship": {
+        "code": "SIB",
+        "system": "http://hl7.org/fhir/v3/RoleCode",
+        "display": "sibling"
+    },
+    "telecom": [
+        {
+            "use": "home",
+            "system": "phone",
+            "value": "212.555.1234"
+        }
+    ],
+    "gender": "female",
+    "birthDate": "2014-05-01",
+    "resourceType": "RelatedPerson",
+    "address": [
+        {
+            "postalCode": "10001",
+            "city": "Metropolis",
+            "line": [
+                "123 Main Street"
+            ],
+            "state": "NY"
+        }
+    ]
+}

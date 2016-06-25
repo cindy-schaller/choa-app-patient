@@ -1,0 +1,41 @@
+{
+    "patient": {
+        "display": "Kara Kent",
+        "reference": "Patient/11037781"
+    },
+    "name": [
+        {
+            "given": [
+                "Clark"
+            ],
+            "family": [
+                "Kent"
+            ]
+        }
+    ],
+    "relationship": {
+        "code": "SIB",
+        "system": "http://hl7.org/fhir/v3/RoleCode",
+        "display": "sibling"
+    },
+    "telecom": [
+        {
+            "use": "home",
+            "system": "phone",
+            "value": "212.555.1234"
+        }
+    ],
+    "gender": "male",
+    "birthDate": "2011-03-30",
+    "resourceType": "RelatedPerson",
+    "address": [
+        {
+            "postalCode": "10001",
+            "city": "Metropolis",
+            "line": [
+                "123 Main Street"
+            ],
+            "state": "NY"
+        }
+    ]
+}

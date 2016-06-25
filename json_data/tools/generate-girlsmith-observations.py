@@ -10,7 +10,7 @@ from dateutil.relativedelta import relativedelta
 patient_id = "11037781"
 patient_id_ref = "Patient/"+patient_id
 patient_name = "Kara Kent"
-patient_dob = datetime(2014,5,1)
+patient_dob = kent_kara_dob
 
 # data for generation (provided by Aly)
 # Girl Smith 0-2 yr
@@ -95,9 +95,21 @@ def gen_rel():
     with open(os.path.join('../ob-kara', 'rp-kara-mth.json'),'w') as f:
         print(json.dumps(OrderedDict(r.as_json()), indent=4, separators=(',', ': ')), file=f)
 
+    r = relatedperson.RelatedPerson()
+    r.patient = {"reference":patient_id_ref, "display":patient_name}
+    r.relationship = {"code": "SIB","system":"http://hl7.org/fhir/v3/RoleCode","display":"sibling"}
+    r.name = kent_clark_name
+    r.telecom = kent_telecom
+    r.address = kent_address
+    r.gender = "male"
+    r.birthDate = str(kent_clark_dob.date())
+    with open(os.path.join('../ob-kara', 'rp-kara-sib.json'),'w') as f:
+        print(json.dumps(OrderedDict(r.as_json()), indent=4, separators=(',', ': ')), file=f)
+
+
 def main():
-    # gen_obs()
-    # gen_hist()
+    gen_obs()
+    gen_hist()
     gen_rel()
 
 
