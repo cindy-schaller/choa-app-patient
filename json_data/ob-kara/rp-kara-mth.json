@@ -1,0 +1,41 @@
+{
+    "patient": {
+        "display": "Kara Kent",
+        "reference": "Patient/11037781"
+    },
+    "name": [
+        {
+            "given": [
+                "Martha"
+            ],
+            "family": [
+                "Kent"
+            ]
+        }
+    ],
+    "relationship": {
+        "code": "MTH",
+        "system": "http://hl7.org/fhir/v3/RoleCode",
+        "display": "mother"
+    },
+    "telecom": [
+        {
+            "use": "home",
+            "system": "phone",
+            "value": "212.555.1234"
+        }
+    ],
+    "gender": "female",
+    "birthDate": "1984-02-28",
+    "resourceType": "RelatedPerson",
+    "address": [
+        {
+            "postalCode": "10001",
+            "city": "Metropolis",
+            "line": [
+                "123 Main Street"
+            ],
+            "state": "NY"
+        }
+    ]
+}
