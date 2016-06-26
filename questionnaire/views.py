@@ -85,6 +85,40 @@ def respond(request):
     return render_to_response('questionnaire.html',
                               context_instance=context)
 
+# FIXME: This should probably be merged with respond, time is running short so quick and dirty job for now.
+
+@require_valid_user
+def respond_wic(request):
+    (patientId, serverId) = get_login_info(request)
+    smart = utils.getFhirClient(serverId)
+
+    childRecord = patient.Patient.read(patientId, smart.server)
+    age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
+
+    qMap = utils.getWicQuestionnaireMap()
+    form = questionnaire.Questionnaire.read(qMap[serverId][utils.WIC_FORM], smart.server)
+
+    jsonResponse = []
+    if request.method == 'POST':
+        jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
+                        "questionnaire": {"reference": "Questionnaire/" + form.id}, "status": "completed",
+                        "subject": {"reference": "Patient/" + childRecord.id},
+                        "author": {"reference": "Patient/" + childRecord.id}}
+        for question_group in form.group.group:
+            for question in question_group.question:
+                questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST.get(question.linkId)}]}
+                jsonResponse["group"]["question"].append(questionJson)
+        smart.server.post_json('QuestionnaireResponse', jsonResponse)
+        return redirect("/questionnaire_wic/")
+
+    context = RequestContext(request)
+    context['patientName'] = smart.human_name(childRecord.name[0])
+    context['questionnaire'] = form.group.group
+    context['json'] = jsonResponse
+
+    return render_to_response('questionnaire_wic.html',
+                              context_instance=context)
+
 
 @require_valid_user
 def messages(request):

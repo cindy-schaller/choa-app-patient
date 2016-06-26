@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<style type="text/css">
+.group_heading {
+    text-align: center;
+}
+.response_freeform {
+    min-width: 400px;
+}
+/* FIXME: Workaround for incorrect capitilization in questionnaire put into FHIR... */
+.prompt::first-letter {
+    text-transform: capitalize;
+}
+</style>
+<div class="container-fluid main">
+    <form id="questionnaire" action="/questionnaire/respond_wic/" method="post">
+        {% csrf_token %}
+        <div id="questionnaire-wrapper"></div>
+        <div id="submit-wrapper">
+            <button class="btn btn-reset" type="button" id="reset-button" onclick="javascript:resetSelections()">Reset Selections</button>
+            <button class="btn btn-submit" type="submit" id="submit">Submit ></button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
+    function getDisplayName() {
+        return "{{ patientName }}";
+    }
+
+    function getQuestionnaire() {
+        var patientQuestionnaire = [
+            {% for question_group in questionnaire %}
+                {
+                    "id": "{{ question_group.linkId }}",
+                    "text": "{{ question_group.text }}",
+                    "questions": [
+                    {% for question in question_group.question %}
+                        {
+                            "id": "{{ question.linkId }}",
+                            "type": "scale",
+                            "prompt": "{{ question.text }}",
+                            "choices": [
+                                {% for answer in question.option %}
+                                    {
+                                        "code": "{{ answer.code }}",
+                                        "text": "{{ answer.display }}"
+                                    }{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ]
+                        },
+                    {% endfor %}
+                    ]
+                },
+            {% endfor %}
+        ];
+        return patientQuestionnaire;
+    }
+
+    function textDecode(fhirText) {
+        if (typeof fhirText !== "undefined")
+            fhirText = fhirText.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+        return fhirText;
+    }
+
+    function resetSelections() {
+        var questionnaire = getQuestionnaire();
+        var patientName = getDisplayName();
+
+        var paginate = false;
+        if (paginate) {
+            // TODO: multi-page version of the questionnaire
+        } else {
+            $('#questionnaire-wrapper').html('');
+            for (var i = 0; i < questionnaire.length; i++) {
+                // I don't know why this question group made it into the questionnaire, but that group
+                // of questions should be dealt with at FHIR level. We skip through it so they don't
+                // show up, even if they will end up being submitted empty into the QuestionnaireResponse.
+                if (i == 0) continue;
+
+                // FIXME: Workaround for empty heading.
+                if (questionnaire[i].text.length > 4)
+                    $('#questionnaire-wrapper').append($("<h2 class='group_heading'>" + questionnaire[i].text + "</h2>"));
+
+                for (var j = 0; j < questionnaire[i].questions.length; j++) {
+                    var question = questionnaire[i].questions[j];
+                    var node = $("<div class='row question " + question["type"] + "'>");
+
+                    var prompt = question["prompt"].replace("%1$s", patientName);
+                    node.append("<h4 class='prompt'>" + prompt + "</h4>");
+
+                    if (question["type"] == "scale") {
+                        var lowImg = question["lowImg"];
+                        var lowText = textDecode(question["lowText"]);
+                        var lowNode = $("<div class='radio-inline'>");
+                        if (lowImg) lowNode.append("<img src='" + lowImg + "' />");
+                        if (lowText) lowNode.append("<span class='answer-label'>" + lowText + "</span>");
+                        node.append(lowNode);
+                    }
+
+                    var choices = question["choices"];
+                    var questionId = question["id"];
+                    var choicesNode = $("<div class='answer-choices'>");
+                    for (var k = 0; k < choices.length; k++) {
+                        var text = textDecode(choices[k]["text"]);
+                        var choice = $("<div class='radio-inline answer-choice'>");
+                        if (typeof choice["image"] != "undefined")
+                            choice.append("<img src='" + choice["image"][k] + "' />");
+                        choice.append("<input type='radio' id='" + questionId + "." + choices[k]["code"] + "' name='" + questionId + "' value='" + choices[k]["code"] + "'/>");
+                        //choice.append("<br/>");
+                        choice.append("<label for='" + questionId + "." + choices[k]["code"] + "'><span></span><br/>" + text + "</label>");
+                        choicesNode.append(choice);
+                    }
+
+                    // Free form text answer
+                    if (choices.length == 0) {
+                        choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
+                    }
+
+                    node.append(choicesNode);
+
+                    if (question["type"] == "scale") {
+                        var highImg = question["highImg"];
+                        var highText = textDecode(question["highText"]);
+                        var highNode = $("<div class='radio-inline'>");
+                        if (highImg) highNode.append("<img src='" + highImg + "' />");
+                        if (highText) highNode.append("<span class='answer-label'>" + highText + "</span>");
+                        node.append(highNode);
+                    }
+                    node.append('</div>');
+
+                    $('#questionnaire-wrapper').append(node);
+                    $('#questionnaire-wrapper').append("<hr class='myHR' />");
+                }
+            }
+        }
+    }
+
+    function validateForm() {
+        errors = [];
+
+        var questionnaire = getQuestionnaire();
+        for (var i = 0; i < questionnaire.length; i++) {
+            if (i == 0) continue;
+
+            for (var j = 0; j < questionnaire[i].questions.length; j++) {
+                var question = questionnaire[i].questions[j];
+                if (question["id"]) {
+                    var selected = $('input[name=' + question["id"] + ']:checked').val();
+                    var text = $('input[name=' + question["id"] + ']').val();
+                    if (typeof selected == "undefined" || text == '') {
+                        errors.push("You must choose an answer for '" + question["prompt"] + "'");
+                    }
+                }
+            }
+        }
+        return errors;
+    }
+
+    function submitResponse() {
+        var formErrors = validateForm();
+        if (formErrors.length == 0) {
+            return true;
+        } else {
+            alert(formErrors[0]);
+            return false;
+        }
+    }
+
+    $(function () { resetSelections(); });
+    $('#questionnaire').submit(function (event) {
+        if (!submitResponse()) event.preventDefault();
+    });
+
+</script>
+
+{% endblock %}

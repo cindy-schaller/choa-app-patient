@@ -11,6 +11,9 @@ Menu.add_item("main", MenuItem("About",
 Menu.add_item("main", MenuItem("Questionnaire",
                                reverse("questionnaire.views.respond")))
 
+Menu.add_item("main", MenuItem("WIC Questionnaire",
+                               reverse("questionnaire.views.respond_wic")))
+
 Menu.add_item("main", MenuItem("Messages",
                                reverse("questionnaire.views.messages")))
 
