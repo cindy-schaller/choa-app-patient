@@ -16,6 +16,7 @@ fam_hist_files_kara = ['ob-kara-mth.json', 'ob-kara-fth.json']
 rel_person_files_kara = ['rp-kara-mth.json', 'rp-kara-sib.json']
 obs_dir_clark = 'ob-clark'
 rel_person_files_clark = ['rp-clark-mth.json','rp-clark-sib.json']
+this_dir = '.'
 
 
 def handle(dir_name, files, resource_type):
@@ -33,10 +34,11 @@ def main():
     #       not hardened to detect updates and duplicates!
     # handle(obs_dir_kara, obs_files_kara, 'Observation')
     # handle(obs_dir_kara, fam_hist_files_kara, 'FamilyMemberHistory')
-    handle(obs_dir_kara, rel_person_files_kara, 'RelatedPerson')
-    handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
+    # handle(obs_dir_kara, rel_person_files_kara, 'RelatedPerson')
+    # handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
 
     # one-off load
+    handle(this_dir, ['questionnaire-healthy-habit-goals.json'],'Questionnaire')
     # handle(obs_dir_clark, ['rp-clark-sib.json'] , 'RelatedPerson')
     # handle(obs_dir_kara, ['rp-kara-sib.json'] , 'RelatedPerson')
 

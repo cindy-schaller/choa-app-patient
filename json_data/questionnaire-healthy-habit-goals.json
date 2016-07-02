@@ -1,0 +1,51 @@
+{
+    "status": "draft",
+    "publisher": "GT CS8903 HOC Team",
+    "group": {
+        "linkId": "root",
+        "question": [
+            {
+                "linkId": "1",
+                "type": "string",
+                "repeats": false,
+                "text": "How will you work with your child on his goal? (e.g., He will ride his bike.)",
+                "required": true
+            },
+            {
+                "linkId": "2",
+                "type": "string",
+                "repeats": false,
+                "text": "When will you work with your child on his goal? (e.g., After school.)",
+                "required": true
+            },
+            {
+                "linkId": "3",
+                "type": "string",
+                "repeats": false,
+                "text": "How often will you work with your child on his goal? (e.g., 20 minutes, 3 days a week.)",
+                "required": true
+            },
+            {
+                "linkId": "4",
+                "type": "string",
+                "repeats": false,
+                "text": "Who can support your child? (e.g., M, his gradmother, etc.)",
+                "required": true
+            },
+            {
+                "linkId": "5",
+                "type": "string",
+                "repeats": false,
+                "text": "When will you start working on your child's goal? (e.g., Today, when I go to the grocery store, etc.)",
+                "required": true
+            }
+        ]
+    },
+    "resourceType": "Questionnaire",
+    "date": "2016-07-01",
+    "identifier": [
+        {
+            "value": "questionnaire-healthy-habit-goals"
+        }
+    ]
+}
