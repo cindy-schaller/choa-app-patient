@@ -178,11 +178,9 @@ def history(request):
 
         def timestamp_key(entry):
             try:
-                q=questionnaireresponse.QuestionnaireResponse
-                q.authored=entry.authored
-                ts = q.authored
+                ts = str(entry.authored.date)
             except:
-                ts = entry.meta.lastUpdated.date
+                ts = str(entry.meta.lastUpdated.date)
             return ts
 
         context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
