@@ -10,9 +10,16 @@
     </style>
     <div>Your past responses:</div>
     {% for response in pastResponses %}
-        <div class="response">
-            <span class="label">Submitted:</span>
-            <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
-        </div>
+        {% if response.authored %}
+            <div class="response">
+                <span class="label">Submitted:</span>
+                <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.authored.date }}</a>
+            </div>
+        {% else %}
+            <div class="response">
+                <span class="label">Submitted:</span>
+                <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
+            </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}

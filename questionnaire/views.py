@@ -69,7 +69,9 @@ def respond(request):
             jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
                             "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
                             "subject": {"reference": "Patient/"+childRecord.id},
-                            "author": {"reference": "Patient/"+childRecord.id}}
+                            "author": {"reference": "Patient/"+childRecord.id},
+                            "authored": datetime.today().isoformat(),
+                            }
             for question in form.group.question:
                 questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
                 jsonResponse["group"]["question"].append(questionJson)
@@ -175,7 +177,13 @@ def history(request):
         context = RequestContext(request)
 
         def timestamp_key(entry):
-            return entry.meta.lastUpdated.date
+            try:
+                q=questionnaireresponse.QuestionnaireResponse
+                q.authored=entry.authored
+                ts = q.authored
+            except:
+                ts = entry.meta.lastUpdated.date
+            return ts
 
         context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
         return render_to_response('history.html',
