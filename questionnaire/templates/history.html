@@ -16,7 +16,7 @@
                 <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.authored.date }}</a>
         {% else %}
                 <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
-            </div>
         {% endif %}
+            </div>
     {% endfor %}
 {% endblock %}
