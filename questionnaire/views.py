@@ -10,6 +10,7 @@ from django.shortcuts import render,render_to_response,redirect
 from django.template import RequestContext
 
 from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner
+# from fhirclient.models import bundle
 
 from datetime import datetime
 
@@ -171,8 +172,10 @@ def history(request):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
-    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId})
+    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
+                    "_sort:desc": "authored", "_count": "30"})
     responses = search.perform_resources(smart.server)
+
     if len(responses) > 0:
         context = RequestContext(request)
 

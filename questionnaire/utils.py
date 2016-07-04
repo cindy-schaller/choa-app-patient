@@ -26,7 +26,8 @@ def getFhirConnectionInfo(serverId):
 def getPatientMap():
     return {
         MIHIN: {
-            '11034584': 'Parent/guardian of Clark, age 5'
+            '11034584': 'Parent/guardian of Clark, age 5',
+            '11037781': 'Parent/guardian of Kara, age 2',
         }
     }
 
