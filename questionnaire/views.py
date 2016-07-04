@@ -10,6 +10,7 @@ from django.shortcuts import render,render_to_response,redirect
 from django.template import RequestContext
 
 from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner
+# from fhirclient.models import bundle
 
 from datetime import datetime
 
@@ -69,7 +70,9 @@ def respond(request):
             jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
                             "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
                             "subject": {"reference": "Patient/"+childRecord.id},
-                            "author": {"reference": "Patient/"+childRecord.id}}
+                            "author": {"reference": "Patient/"+childRecord.id},
+                            "authored": datetime.today().isoformat(),
+                            }
             for question in form.group.question:
                 questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
                 jsonResponse["group"]["question"].append(questionJson)
@@ -169,13 +172,19 @@ def history(request):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
-    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId})
+    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
+                    "_sort:desc": "authored", "_count": "30"})
     responses = search.perform_resources(smart.server)
+
     if len(responses) > 0:
         context = RequestContext(request)
 
         def timestamp_key(entry):
-            return entry.meta.lastUpdated.date
+            try:
+                ts = str(entry.authored.date)
+            except:
+                ts = str(entry.meta.lastUpdated.date)
+            return ts
 
         context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
         return render_to_response('history.html',
