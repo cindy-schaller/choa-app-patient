@@ -161,7 +161,6 @@ def history(request):
     smart = utils.getFhirClient(serverId)
 
     search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId, "_sort:desc": "authored", "_count": "30"})
-    print search.construct()
     responses = search.perform_resources(smart.server)
     if len(responses) > 0:
         context = RequestContext(request)
