@@ -35,22 +35,13 @@ def getQuestionnaireMap():
     return {
         MIHIN: {
             TEEN_FORM: '11034668',
-            CHILD_FORM: '11034671'
+            CHILD_FORM: '11034671',
+            WIC_FORM: '11036859'
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
-            CHILD_FORM: '572358140cf20e9addb2a71b'
-        }
-    }
-
-
-def getWicQuestionnaireMap():
-    return {
-        MIHIN: {
-            WIC_FORM: '11036859'
-        },
-        # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
-        SMART: {
+            CHILD_FORM: '572358140cf20e9addb2a71b',
+            # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
             WIC_FORM: '-1'
         }
     }
@@ -66,6 +57,11 @@ def resolveServerId(patientId, serverId):
             if patientId in patientMap[key].keys():
                 serverId = key
     return serverId
+
+
+def requiredResources(serverId):
+    return map(lambda(x): "Patient/"+x, getPatientMap()[serverId].keys()) + \
+           map(lambda(x): "Questionnaire/"+x, getQuestionnaireMap()[serverId].values())
 
 
 def getFhirClient(serverId):
