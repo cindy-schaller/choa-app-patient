@@ -99,10 +99,10 @@ def respond(request, form_id):
         return render_to_response('questionnaire.html',
                                   context_instance=context)
 
-    #except:
-    except requests.exceptions.HTTPError as error:
-        print(error)
-        print(error.response.text)
+    except:
+    #except requests.exceptions.HTTPError as error:
+        #print(error)
+        #print(error.response.text)
         context = RequestContext(request)
         context['error_text'] = "Couldn't connect to the FHIR server or FHIR server has been reset. \
          Please contact <a href='mailto:asmiley3@gatech.edu'>the team</a> and ask them to investigate."
