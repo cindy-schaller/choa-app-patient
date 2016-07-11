@@ -1,7 +1,7 @@
 from __future__ import print_function
 import json
 from collections import OrderedDict
-from fhirclient.models import questionnaire
+from fhirclient.models import questionnaire, extension
 import datetime
 from questionnaire_commons import *
 
@@ -26,16 +26,14 @@ def main():
 
     # fill in specific data for questions
     # Question 1
-    # TODO make 2nd question dependent on first choice true
     # http://www.hl7.org/fhir/extension-questionnaire-enablewhen.html
     q1 = questionnaire.QuestionnaireGroupQuestion()
     q1.linkId = "1.0"
     q1.text = "What type of progress has been made towards achieving the goal?"
     q1.type = "choice"
     q1.repeats = False
-    q1required = True
-    q1_ext = RADIOBUTTON_EXTENSION
-    q1.extension = q1_ext
+    q1.required = True
+    q1.extension = [RADIOBUTTON_EXTENSION, VERTICAL_EXTENSION]
     q1.option = [
         {"code": "a1", "display": "We have already achieved the goal"},
         {"code": "a2", "display": "We are working on the goal"},
@@ -43,26 +41,34 @@ def main():
     ]
     questions.append(q1)
 
-    # Question 2
+    # Question 1.1 - followup to achieved goal
     q2 = questionnaire.QuestionnaireGroupQuestion()
-    q2.linkId = "2.0"
+    q2.linkId = "1.1"
     q2.text = "If the goal has already achieved the goal is the healthy behavior being maintained?"
     q2.type = "boolean"
     q2.repeats = False
-    q2.required = True
+    q2.required = False
     q2.option = YESNO
+    # signal that this question should only appear if first question has "a1" as answer
+    q2.extension = [{
+        "url": QEXT_URL_ENABLEWHEN,
+        "extension":[
+            {"url": "question","valueString": "1.0"},
+            {"url": "answered","valueBoolean": True},
+            {"url": "answer","valueCode": "a1"}]
+    }]
     questions.append(q2)
 
-    # Question 3
-    # TODO provide text option if c6; make c7 non-repeating (?)
+    # Question 2
+    # TODO make "none" answer c7 non-repeating
+    # with current extension coding options, this is complex - not doing it for now
     q3 = questionnaire.QuestionnaireGroupQuestion()
-    q3.linkId = "3.0"
+    q3.linkId = "2.0"
     q3.text = "Did any of the following make it difficult to achieve the goal? (Check all that apply)"
     q3.type = "choice"
     q3.repeats = True
     q3.required = True
-    q3_ext = CHECKBOX_EXTENSION
-    q3.extension = q3_ext
+    q3.extension = [CHECKBOX_EXTENSION]
     q3.option = [
         {"code": "c1", "display": "Lack of time"},
         {"code": "c2", "display": "Lack of resources"},
@@ -73,6 +79,22 @@ def main():
         {"code": "c7", "display": "None of the above made it difficult to achieve the goal"},
     ]
     questions.append(q3)
+
+    # Question 2.1 text followup to "other" choice
+    q4 = questionnaire.QuestionnaireGroupQuestion()
+    q4.linkId = "2.1"
+    q4.text = "Please specify Other difficulties"
+    q4.type = "text"
+    q4.repeats = True
+    q4.required = False
+    q4.extension = [{
+        "url": QEXT_URL_ENABLEWHEN,
+        "extension":[
+            {"url": "question","valueString": "2.0"},
+            {"url": "answered","valueBoolean": True},
+            {"url": "answer","valueCode": "c6"}]
+    }]
+    questions.append(q4)
 
     with open('questionnaire-healthy-habit-goal_status.json','w') as f:
         print(json.dumps(OrderedDict(q.as_json()), indent=4, separators=(',', ': ')), file=f)
