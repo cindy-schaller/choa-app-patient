@@ -96,7 +96,7 @@ def main():
     }]
     questions.append(q4)
 
-    with open('questionnaire-healthy-habit-goal_status.json','w') as f:
+    with open('questionnaire-healthy-habit-goal-status.json','w') as f:
         print(json.dumps(OrderedDict(q.as_json()), indent=4, separators=(',', ': ')), file=f)
 
 
