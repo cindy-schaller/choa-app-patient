@@ -1,0 +1,166 @@
+{
+    "status": "draft",
+    "publisher": "GT CS8903 HOC Team",
+    "group": {
+        "linkId": "root",
+        "question": [
+            {
+                "option": [
+                    {
+                        "code": "a1",
+                        "display": "We have already achieved the goal"
+                    },
+                    {
+                        "code": "a2",
+                        "display": "We are working on the goal"
+                    },
+                    {
+                        "code": "a3",
+                        "display": "We are not working on the goal"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/valueset-questionnaire-question-control.html",
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "code": "radio-button",
+                                    "display": "Radio-button"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "url": "http://www.hl7.org/fhir/extension-questionnaire-choiceorientation.html",
+                        "valueCode": "vertical"
+                    }
+                ],
+                "linkId": "1.0",
+                "required": true,
+                "text": "What type of progress has been made towards achieving the goal?",
+                "repeats": false,
+                "type": "choice"
+            },
+            {
+                "option": [
+                    {
+                        "code": true,
+                        "display": "Yes"
+                    },
+                    {
+                        "code": false,
+                        "display": "No"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-enableWhen",
+                        "extension": [
+                            {
+                                "url": "question",
+                                "valueString": "1.0"
+                            },
+                            {
+                                "url": "answered",
+                                "valueBoolean": true
+                            },
+                            {
+                                "url": "answer",
+                                "valueCode": "a1"
+                            }
+                        ]
+                    }
+                ],
+                "linkId": "1.1",
+                "required": false,
+                "text": "If the goal has already achieved the goal is the healthy behavior being maintained?",
+                "repeats": false,
+                "type": "boolean"
+            },
+            {
+                "option": [
+                    {
+                        "code": "c1",
+                        "display": "Lack of time"
+                    },
+                    {
+                        "code": "c2",
+                        "display": "Lack of resources"
+                    },
+                    {
+                        "code": "c3",
+                        "display": "Lack of support"
+                    },
+                    {
+                        "code": "c4",
+                        "display": "Low motivation"
+                    },
+                    {
+                        "code": "c5",
+                        "display": "Injuries or illness"
+                    },
+                    {
+                        "code": "c6",
+                        "display": "Other (please specify)"
+                    },
+                    {
+                        "code": "c7",
+                        "display": "None of the above made it difficult to achieve the goal"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/valueset-questionnaire-question-control.html",
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "code": "check-box",
+                                    "display": "Check-box"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "linkId": "2.0",
+                "required": true,
+                "text": "Did any of the following make it difficult to achieve the goal? (Check all that apply)",
+                "repeats": true,
+                "type": "choice"
+            },
+            {
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-enableWhen",
+                        "extension": [
+                            {
+                                "url": "question",
+                                "valueString": "2.0"
+                            },
+                            {
+                                "url": "answered",
+                                "valueBoolean": true
+                            },
+                            {
+                                "url": "answer",
+                                "valueCode": "c6"
+                            }
+                        ]
+                    }
+                ],
+                "linkId": "2.1",
+                "required": false,
+                "text": "Please specify Other difficulties",
+                "repeats": true,
+                "type": "text"
+            }
+        ]
+    },
+    "resourceType": "Questionnaire",
+    "date": "2016-07-11",
+    "identifier": [
+        {
+            "value": "questionnaire-healthy-habit-goal-status"
+        }
+    ]
+}

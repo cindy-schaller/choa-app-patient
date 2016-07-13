@@ -38,7 +38,7 @@ def main():
     # handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
 
     # one-off load
-    handle(this_dir, ['questionnaire-healthy-habit-goals.json'],'Questionnaire')
+    handle(this_dir, ['questionnaire-healthy-habit-goal-status.json'],'Questionnaire')
     # handle(obs_dir_clark, ['rp-clark-sib.json'] , 'RelatedPerson')
     # handle(obs_dir_kara, ['rp-kara-sib.json'] , 'RelatedPerson')
 
