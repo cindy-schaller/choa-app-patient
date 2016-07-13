@@ -5,11 +5,13 @@ from fhirclient.models import questionnaire, fhirdate
 import datetime
 from questionnaire_commons import *
 GOAL_QUESTIONS = [
-    "How will you work with your child on his goal? (e.g., He will ride his bike.)",
-    "When will you work with your child on his goal? (e.g., After school.)",
-    "How often will you work with your child on his goal? (e.g., 20 minutes, 3 days a week.)",
-    "Who can support your child? (e.g., M, his gradmother, etc.)",
-    "When will you start working on your child's goal? (e.g., Today, when I go to the grocery store, etc.)",
+    "How will you work with your child on this goal?",
+    "When will you work with your child on this goal?",
+    "How often will you work with your child on this goal?",
+    "Who can support you?",
+    "When will you start working on your child's goal?)",
+    "What barriers may stop you from supporting your child's goal?",
+    "Other Notes:",
     ]
 def main():
     # set up questionnaire structure from model
