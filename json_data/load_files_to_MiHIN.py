@@ -27,6 +27,7 @@ def handle(dir_name, files, resource_type):
             fjson = json.load(h)
             response = server.post_json(resource_type, fjson)
             print response
+            print response.headers
 
 
 def main():
@@ -38,7 +39,7 @@ def main():
     # handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
 
     # one-off load
-    handle(this_dir, ['questionnaire-healthy-habit-goal-status.json'],'Questionnaire')
+    handle(this_dir, ['qresponse-food-insecurity.json'],'QuestionnaireResponse')
     # handle(obs_dir_clark, ['rp-clark-sib.json'] , 'RelatedPerson')
     # handle(obs_dir_kara, ['rp-kara-sib.json'] , 'RelatedPerson')
 
