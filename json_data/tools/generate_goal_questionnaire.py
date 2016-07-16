@@ -32,10 +32,26 @@ def main():
     # complete required fields for root group level
     root_group.linkId = 'root'
 
+    # add goal choice question
+    item = questionnaire.QuestionnaireGroupQuestion()
+    item.linkId = "1"
+    item.text = "Today's Healthy Habit Goal Set: (choose one)"
+    item.type = "integer"
+    item.required = True
+    item.repeats = False
+    # ordered upper left, upper right, lower left, lower right; codes match codes used in HHA questionnaire
+    item.option = [
+        {"code": "1","display": "Make half your plate fruits and veggies"},
+        {"code": "2","display": "Be active"},
+        {"code": "4","display": "Drink more water & limit sugary drinks"},
+        {"code": "3", "display": "Limit screen time"},
+    ]
+    questions.append(item)
+
     # fill in specific data for questions
     for i in range(len(GOAL_QUESTIONS)):
         item = questionnaire.QuestionnaireGroupQuestion()
-        item.linkId = str(i+1)
+        item.linkId = str(i+2)
         item.text = GOAL_QUESTIONS[i]
         item.type = 'string'
         item.required = True
