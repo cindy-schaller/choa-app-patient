@@ -16,6 +16,7 @@ fam_hist_files_kara = ['ob-kara-mth.json', 'ob-kara-fth.json']
 rel_person_files_kara = ['rp-kara-mth.json', 'rp-kara-sib.json']
 obs_dir_clark = 'ob-clark'
 rel_person_files_clark = ['rp-clark-mth.json','rp-clark-sib.json']
+tools_dir = 'tools'
 this_dir = '.'
 
 
@@ -40,6 +41,7 @@ def main():
 
     # one-off load
     handle(this_dir, ['qresponse-food-insecurity.json'],'QuestionnaireResponse')
+    # handle(tools_dir, ['questionnaire-wic-child-nutrition.json'],'Questionnaire')
     # handle(obs_dir_clark, ['rp-clark-sib.json'] , 'RelatedPerson')
     # handle(obs_dir_kara, ['rp-kara-sib.json'] , 'RelatedPerson')
 
