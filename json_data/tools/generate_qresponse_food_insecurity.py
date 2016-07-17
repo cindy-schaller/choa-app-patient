@@ -11,21 +11,28 @@ CLARK_KENT_REFERENCE = {"reference":"Patient/11034584"}
 KARA_KENT_REFERENCE = {"reference":"Patient/11037781"}
 QUESTIONNAIRE_FOOD_INSECURITY_REERENCE = {"reference":"Questionnaire/11036849"}
 
-if __name__ == '__main__':
+def qr_food(reference, is_insecure, tag):
     # set up questionnaire response structure from model
     qr = questionnaireresponse.QuestionnaireResponse()
-    qr.author = CLARK_KENT_REFERENCE
-    qr.subject = CLARK_KENT_REFERENCE
+    qr.author = reference
+    qr.subject = reference
     qr.authored = "2016-06-30T19:05:47.356000"
     qr.questionnaire = QUESTIONNAIRE_FOOD_INSECURITY_REERENCE
     qr.status = "completed"
     qr.group = {
         "linkId":"root",
         "question":[
-            {"linkId":"1","answer":[{"valueBoolean":True}]},
-            {"linkId":"2","answer":[{"valueBoolean":True}]},
+            {"linkId":"1","answer":[{"valueBoolean":is_insecure}]},
+            {"linkId":"2","answer":[{"valueBoolean":is_insecure}]},
         ]
     }
 
-    with open('qresponse-food-insecurity.json','w') as f:
+    with open('qresponse-food-insecurity_' + tag + '.json','w') as f:
         print(json.dumps(qr.as_json(), indent=4, separators=(',', ': ')), file=f)
+
+def main():
+    qr_food(CLARK_KENT_REFERENCE, True, "clark")
+    qr_food(KARA_KENT_REFERENCE, True, "kara")
+
+if __name__ == '__main__':
+    main()
