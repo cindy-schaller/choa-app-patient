@@ -2,7 +2,7 @@ import json
 
 from django.core.management.base import BaseCommand
 
-from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner
+from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner, organization
 
 from questionnaire import utils
 
@@ -73,13 +73,13 @@ class Command(BaseCommand):
                         print response
                         print response.headers
         if include_organizations:
-            organizations = ['organization-md.json', 'organization-patco.json', 'organization-wic']
+            organizations = ['organization-md.json', 'organization-patco.json', 'organization-wic.json']
             for filename in organizations:
                 with open('json_data/'+filename, 'r') as h:
                     ojson = json.load(h)
                     name = ojson["name"]
 
-                    search = questionnaire.Questionnaire.where(struct={"name": name})
+                    search = organization.Organization.where(struct={"name": name})
                     existing = search.perform(server)
                     if existing.total > 0:
                         print "Warning - organization "+name+" already exists, attempting update"
