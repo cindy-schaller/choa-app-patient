@@ -78,10 +78,11 @@
                 "text": "Other Notes:",
                 "required": true
             }
-        ]
+        ],
+        "title": "Healthy Habits Goal Questionnaire"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-15",
+    "date": "2016-07-18",
     "identifier": [
         {
             "value": "questionnaire-healthy-habit-goals"

@@ -222,6 +222,7 @@ if __name__ == '__main__':
 
     # complete fields for root group level
     root_group.linkId = 'root'
+    root_group.title = 'WIC Child Nutrition Questionnaire'
 
     # root group can be either a group of groups or questions
     questions_group = []

@@ -31,6 +31,7 @@ def main():
     q.date = str(datetime.date.today())
     # complete required fields for root group level
     root_group.linkId = 'root'
+    root_group.title = 'Healthy Habits Goal Questionnaire'
 
     # add goal choice question
     item = questionnaire.QuestionnaireGroupQuestion()

@@ -1712,10 +1712,11 @@
                 ],
                 "text": "16. "
             }
-        ]
+        ],
+        "title": "WIC Child Nutrition Questionnaire"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-16",
+    "date": "2016-07-18",
     "identifier": [
         {
             "value": "questionnaire-wic-child-nutrition"

@@ -154,10 +154,11 @@
                 "repeats": true,
                 "type": "text"
             }
-        ]
+        ],
+        "title": "Healthy Habits Goal Status"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-11",
+    "date": "2016-07-18",
     "identifier": [
         {
             "value": "questionnaire-healthy-habit-goal-status"

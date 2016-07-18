@@ -23,6 +23,8 @@ def main():
     q.date = str(datetime.date.today())
     # complete required fields for root group level
     root_group.linkId = 'root'
+    root_group.title = 'Healthy Habits Goal Status'
+
 
     # fill in specific data for questions
     # Question 1
