@@ -1,0 +1,72 @@
+/*Modify theme to reduce header size*/
+section.page-header {
+    height: 90px;
+    min-height: 90px;
+}
+section.page-header .page-header_title {
+    margin-top: 10px;
+}
+
+.material-icons {
+    color: #ad208e;
+}
+
+.username {
+    color: #ad208e;
+    font-weight: bold;
+}
+
+/*questionnaire*/
+.questionnaire-wrapper {
+    margin: auto;
+}
+.question div.answer-choices {
+    display: inline-block;
+    margin: 10pt 10pt;
+}
+.question div.answer-choices div.answer-choice {
+    display: inline-block;
+    vertical-align: top;
+    width: 30pt;
+}
+.question span.answer-label {
+	font-weight: bold;
+    vertical-align: middle;
+}
+
+#questionnaire-wrapper span {
+    display: block;
+    margin-top: -1.2em;
+    margin-left: 25px;
+}
+
+#questionnaire-wrapper input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+#questionnaire-wrapper .material-icons {
+    padding-right: 10px;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+/* TODO: make this less hacky */
+#questionnaire-wrapper .low-text{
+    display: block;
+    margin-top: 1.4em;
+    margin-left: 1em;
+    padding-left: 2em;
+}
+
+#questionnaire-wrapper .high-text{
+    display: block;
+    margin-top: 1.4em;
+    margin-left: .1em
+

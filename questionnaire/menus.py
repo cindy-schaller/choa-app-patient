@@ -3,22 +3,29 @@ from django.core.urlresolvers import reverse
 from menu import Menu, MenuItem
 
 Menu.add_item("main", MenuItem("Home",
-                               reverse("questionnaire.views.index")))
+                               reverse("questionnaire.views.index"),
+                               icon="home"))
 
-Menu.add_item("main", MenuItem("About",
-                               reverse("questionnaire.views.about")))
+Menu.add_item("main", MenuItem("Healthy Habits Questionnaire",
+                               reverse("questionnaire.views.respond"),
+                               icon="assessment"))
 
-Menu.add_item("main", MenuItem("Questionnaire",
-                               reverse("questionnaire.views.respond")))
 
 Menu.add_item("main", MenuItem("WIC Questionnaire",
-                               reverse("questionnaire.views.respond_wic")))
+                               reverse("questionnaire.views.respond_wic"),
+                               icon="assignment"))
 
 Menu.add_item("main", MenuItem("Messages",
-                               reverse("questionnaire.views.messages")))
+                               reverse("questionnaire.views.messages"),
+                               icon="mail"))
 
 Menu.add_item("main", MenuItem("History",
-                               reverse("questionnaire.views.history")))
+                               reverse("questionnaire.views.history"),
+                               icon="history"))
+
+Menu.add_item("main", MenuItem("About",
+                               reverse("questionnaire.views.about"),
+                               icon="info"))
 
 # this item will be shown to users who are not logged in
 # Menu.add_item("main", MenuItem("Login",

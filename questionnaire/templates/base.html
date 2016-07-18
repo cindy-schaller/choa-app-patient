@@ -6,24 +6,136 @@
 <html>
     <head>
         <title>{% block title %}Questionnaire{% endblock %}</title>
-        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui.custom.min.js' %}"></script>
+        <script src="{% static 'js/modernizr-custom-3.3.1.js' %}"></script>
+        <script src="{% static 'js/fgh-cdc.js' %}"></script>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="{%  static 'css/fgh-cdc-style.css' %}" />
-        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bemat-admin.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{%  static 'css/fgh-cdc-style-rev.css' %}" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block headextra %}{% endblock %}
     </head>
 
-    <body>
-        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+    <body class="container-fluid">
+        <div id="page-wrapper">
+            <div id="left-content" data-toggle="open" data-default="open" data-size="" class="SidebarOpen">
+                <header class="header-container">
+					<div class="header-wrapper">
+						<div id="header-brand">
+							<div class="logo padding-left-2">
+								<span class="logo-image">HH</span>
+								<span class="logo-text">Healthy Habits Tracker</span>
+							</div>
+						</div>
+					</div>
+				</header>
+                <div id="sidebar-wrapper" class="ps-container ps-active-y">
+                    {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+                </div>
+            </div>
+            <div id="right-content" class="SidebarOpen">
+                <header class="header-container">
+                    <div class="header-wrapper">
+                        <div id="header-toolbar">
+                            <ul class="toolbar toolbar-left">
+                                <li>
+                                    <a id="sidebar-toggle" data-state="open" href="#" class="SidebarOpen">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="toolbar toolbar-right">
+								<li id="user-profile" class="dropdown open">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+										<div class="avatar">
+{#											<img src="img/avatar/avatar_square_blue.png" class="img-circle img-responsive">#}
+										</div>
+										<div class="user">
+											<span class="username">
+                                                {%  if patientName %}
+                                                    {{ patientName }}
+                                                {%  else %}
+                                                    Please select a patient
+                                                {%  endif %}
+                                            </span>&nbsp;&nbsp;<i class="fa fa-user fa-lg"></i>
+										</div>
 
-		<h2 id="questionnaire-name">Healthy Habits Tracker</h2>
-        <hr class="myHR"/>
+									</a>
+{#									<ul class="dropdown-menu dropdown-menu-right" style="min-width: 180px;">#}
+{#										<li class="materialRipple-dark materialRipple-btn animation-delay-pos6"><a href="#"><i class="material-icons">person</i> <span data-i18n="userinfo.profile">Profile</span></a><div class="materialRipple-md-ripple-container"></div></li>#}
+{#										<li class="materialRipple-dark materialRipple-btn animation-delay-pos5"><a href="#"><i class="material-icons">settings</i> <span data-i18n="userinfo.settings">Settings</span></a><div class="materialRipple-md-ripple-container"></div></li>#}
+{#										<li class="divider-horizontal materialRipple-dark materialRipple-btn animation-delay-pos4"><div class="materialRipple-md-ripple-container"></div></li>#}
+{#										<li class="materialRipple-dark materialRipple-btn animation-delay-pos3"><a href="#"><i class="material-icons">lock</i> <span data-i18n="userinfo.lock">Lock</span></a><div class="materialRipple-md-ripple-container"></div></li>#}
+{#										<li class="divider-horizontal materialRipple-dark materialRipple-btn animation-delay-pos2"><div class="materialRipple-md-ripple-container"></div></li>#}
+{#										<li class="materialRipple-dark materialRipple-btn animation-delay-pos1"><a href="#"><i class="material-icons">exit_to_app</i> <span data-i18n="userinfo.logout">Log Out</span></a><div class="materialRipple-md-ripple-container"></div></li>#}
+{#									</ul>#}
+								</li><!-- /#user-profile -->
+							</ul>
 
-        <div class="main" style="padding:0 10pt">{% block content %}</div>
-        {% endblock %}
+                        </div>
+                    </div>
+                </header>
+                <section id="right-content-wrapper">
+					<div class="right-content-outter">
+						<div class="right-content-inner" style="opacity: 1;">
+                            <section class="page-header alternative-header">
+{#                                <ol class="breadcrumb">#}
+{#                                    <li>Admin</li>#}
+{#                                    <li>Dashboard</li>#}
+{#                                    <li>Pages</li>#}
+{#                                </ol>#}
+                                <div class="page-header_title">
+                                    <h1>
+                                        {%  if request.path ==  "/questionnaire/" %}
+                                            Home
+                                        {% elif request.path ==  "/questionnaire/respond/" %}
+                                            Healthy Habits Questionnaire
+                                        {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                                            WIC Questionnaire
+                                        {% elif request.path ==  "/questionnaire/messages/" %}
+                                            Messages
+                                        {% elif request.path ==  "/questionnaire/history/" %}
+                                            History
+                                        {% elif request.path ==  "/questionnaire/about/" %}
+                                            About
+                                        {% elif "response-details" in request.path %}
+                                            Response Details
+                                        {%  else %}
+                                            {{ request.path }}
+                                        {%  endif %}
+                                        <span class="page-header_subtitle"></span>
+                                    </h1>
+                                </div>
+                            </section>
+
+                            <section class="page-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                            <div class="panel panel-default">
+
+                                                <div class="panel-body" >
+
+                                                    {% block content %}  {% endblock %}
+                                                </div>
+                                            </div>
+
+
+                                    </div>
+                                </div>
+                            </section>
+
+
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </body>
 </html>
