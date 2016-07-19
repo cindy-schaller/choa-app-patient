@@ -4,6 +4,8 @@ from fhirclient.models import patient, questionnaire, questionnaireresponse, com
 
 from questionnaire import utils
 
+patients = ['patient1.json', 'patient2.json', 'patient3.json', 'patient4.json', 'patient5.json']
+
 
 class Command(BaseCommand):
     args = '{MiHIN, SMART}'
