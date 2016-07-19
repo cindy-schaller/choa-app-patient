@@ -22,14 +22,14 @@
         ]
     },
     "author": {
-        "reference": "Patient/586453"
+        "reference": "Patient/226013"
     },
     "resourceType": "QuestionnaireResponse",
     "questionnaire": {
-        "reference": "Questionnaire/586564"
+        "reference": "Questionnaire/226124"
     },
     "authored": "2016-06-30T19:05:47.356000",
     "subject": {
-        "reference": "Patient/586453"
+        "reference": "Patient/226013"
     }
 }

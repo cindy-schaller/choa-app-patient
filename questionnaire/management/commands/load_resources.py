@@ -46,13 +46,12 @@ class Command(BaseCommand):
                     search = patient.Patient.where(struct={"identifier": identifier})
                     existing = search.perform(server)
                     if existing.total > 0:
-                        print "Warning - patient "+name+" already exists, attempting update"
                         for entry in existing.entry:
+                            print "Warning - patient " + name + " already exists as ID " + entry.resource.id + ", attempting update"
                             server.put_json('Patient/'+entry.resource.id, pjson)
                     else:
                         response = server.post_json('Patient', pjson)
                         print response
-                        print response.headers
         if include_questionnaires:
             questionnaires = ['questionnaire-adolescent.json', 'questionnaire-child.json',
                               'questionnaire-food-insecurity.json', 'questionnaire-wic-child-nutrition.json',
@@ -61,34 +60,35 @@ class Command(BaseCommand):
                 with open('json_data/'+filename, 'r') as h:
                     qjson = json.load(h)
                     name = qjson["group"]["title"]
+                    print name
 
                     search = questionnaire.Questionnaire.where(struct={"title": name})
                     existing = search.perform(server)
                     if existing.total > 0:
-                        print "Warning - questionnaire "+name+" already exists, attempting update"
                         for entry in existing.entry:
+                            print "Warning - questionnaire " + name + " already exists as ID " + entry.resource.id + ", attempting update"
                             server.put_json('Questionnaire/'+entry.resource.id, qjson)
                     else:
                         response = server.post_json('Questionnaire', qjson)
                         print response
-                        print response.headers
+
         if include_organizations:
             organizations = ['organization-md.json', 'organization-patco.json', 'organization-wic.json']
             for filename in organizations:
                 with open('json_data/'+filename, 'r') as h:
                     ojson = json.load(h)
                     name = ojson["name"]
+                    print name
 
                     search = organization.Organization.where(struct={"name": name})
                     existing = search.perform(server)
                     if existing.total > 0:
-                        print "Warning - organization "+name+" already exists, attempting update"
                         for entry in existing.entry:
+                            print "Warning - organization " + name + " already exists as ID " + entry.resource.id + ", attempting update"
                             server.put_json('Organization/'+entry.resource.id, ojson)
                     else:
                         response = server.post_json('Organization', ojson)
                         print response
-                        print response.headers
 
         for message in ['message1.json']:
            with open('json_data/'+message, 'r') as h:
