@@ -26,8 +26,8 @@ def getFhirConnectionInfo(serverId):
 def getPatientMap():
     return {
         MIHIN: {
-            '586453': 'Parent/guardian of Clark, age 5',
-            '586537': 'Parent/guardian of Kara, age 2',
+            '226013': 'Parent/guardian of Clark, age 5',
+            '226097': 'Parent/guardian of Kara, age 2',
         }
     }
 
@@ -35,8 +35,8 @@ def getPatientMap():
 def getQuestionnaireMap():
     return {
         MIHIN: {
-            TEEN_FORM: '586558',
-            CHILD_FORM: '586561'
+            TEEN_FORM: '226118',
+            CHILD_FORM: '226121'
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
@@ -48,7 +48,7 @@ def getQuestionnaireMap():
 def getWicQuestionnaireMap():
     return {
         MIHIN: {
-            WIC_FORM: '586570'
+            WIC_FORM: '226130'
         },
         # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
         SMART: {
