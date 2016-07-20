@@ -1,6 +1,7 @@
 from fhirclient import client
 from fhirclient.server import FHIRNotFoundException
 from importlib import import_module
+from json_data.tools.db_references import *
 
 MIHIN = 'MiHIN'
 SMART = 'SMART'
@@ -26,8 +27,8 @@ def getFhirConnectionInfo(serverId):
 def getPatientMap():
     return {
         MIHIN: {
-            '11034584': 'Parent/guardian of Clark, age 5',
-            '11037781': 'Parent/guardian of Kara, age 2',
+            REF_CLARK: 'Parent/guardian of Clark, age 5',
+            REF_KARA: 'Parent/guardian of Kara, age 2',
         }
     }
 
@@ -35,8 +36,8 @@ def getPatientMap():
 def getQuestionnaireMap():
     return {
         MIHIN: {
-            TEEN_FORM: '11034668',
-            CHILD_FORM: '11034671'
+            TEEN_FORM: REF_HHA_TEEN,
+            CHILD_FORM: REF_HHA_CHILD
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
@@ -48,7 +49,7 @@ def getQuestionnaireMap():
 def getWicQuestionnaireMap():
     return {
         MIHIN: {
-            WIC_FORM: '11036859'
+            WIC_FORM: REF_WIC
         },
         # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
         SMART: {

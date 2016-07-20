@@ -5,11 +5,13 @@ from fhirclient.models import questionnaire, fhirdate
 import datetime
 from questionnaire_commons import *
 GOAL_QUESTIONS = [
-    "How will you work with your child on his goal? (e.g., He will ride his bike.)",
-    "When will you work with your child on his goal? (e.g., After school.)",
-    "How often will you work with your child on his goal? (e.g., 20 minutes, 3 days a week.)",
-    "Who can support your child? (e.g., M, his gradmother, etc.)",
-    "When will you start working on your child's goal? (e.g., Today, when I go to the grocery store, etc.)",
+    "How will you work with your child on this goal?",
+    "When will you work with your child on this goal?",
+    "How often will you work with your child on this goal?",
+    "Who can support you?",
+    "When will you start working on your child's goal?)",
+    "What barriers may stop you from supporting your child's goal?",
+    "Other Notes:",
     ]
 def main():
     # set up questionnaire structure from model
@@ -29,11 +31,28 @@ def main():
     q.date = str(datetime.date.today())
     # complete required fields for root group level
     root_group.linkId = 'root'
+    root_group.title = 'Healthy Habits Goal Questionnaire'
+
+    # add goal choice question
+    item = questionnaire.QuestionnaireGroupQuestion()
+    item.linkId = "1"
+    item.text = "Today's Healthy Habit Goal Set: (choose one)"
+    item.type = "integer"
+    item.required = True
+    item.repeats = False
+    # ordered upper left, upper right, lower left, lower right; codes match codes used in HHA questionnaire
+    item.option = [
+        {"code": "1","display": "Make half your plate fruits and veggies"},
+        {"code": "2","display": "Be active"},
+        {"code": "4","display": "Drink more water & limit sugary drinks"},
+        {"code": "3", "display": "Limit screen time"},
+    ]
+    questions.append(item)
 
     # fill in specific data for questions
     for i in range(len(GOAL_QUESTIONS)):
         item = questionnaire.QuestionnaireGroupQuestion()
-        item.linkId = str(i+1)
+        item.linkId = str(i+2)
         item.text = GOAL_QUESTIONS[i]
         item.type = 'string'
         item.required = True

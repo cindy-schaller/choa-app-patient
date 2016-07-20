@@ -27,6 +27,7 @@ if __name__ == '__main__':
     q.date = str(datetime.date.today())
     # complete required fields for root group level
     root_group.linkId = 'root'
+    root_group.title = 'Food Insecurity Questionnaire'
 
     # fill in specific data for questions
     for i in range(1,3):

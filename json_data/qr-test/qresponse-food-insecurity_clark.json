@@ -1,0 +1,35 @@
+{
+    "status": "completed",
+    "group": {
+        "linkId": "root",
+        "question": [
+            {
+                "answer": [
+                    {
+                        "valueBoolean": true
+                    }
+                ],
+                "linkId": "1"
+            },
+            {
+                "answer": [
+                    {
+                        "valueBoolean": true
+                    }
+                ],
+                "linkId": "2"
+            }
+        ]
+    },
+    "author": {
+        "reference": "Patient/4043549"
+    },
+    "resourceType": "QuestionnaireResponse",
+    "questionnaire": {
+        "reference": "Questionnaire/4043660"
+    },
+    "authored": "2016-06-30T19:05:47.356000",
+    "subject": {
+        "reference": "Patient/4043549"
+    }
+}

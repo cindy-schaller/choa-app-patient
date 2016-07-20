@@ -4,11 +4,11 @@ import os
 from collections import OrderedDict
 from fhirclient.models import fhirdate, observation, patient, familymemberhistory, quantity, relatedperson, humanname
 from observation_commons import *
+from db_references import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-patient_id = "11037781"
-patient_id_ref = "Patient/"+patient_id
+patient_id_ref = "Patient/"+REF_KARA
 patient_name = "Kara Kent"
 patient_dob = kent_kara_dob
 
