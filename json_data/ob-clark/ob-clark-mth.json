@@ -3,7 +3,7 @@
     "resourceType": "FamilyMemberHistory",
     "patient": {
         "display": "Clark Kent",
-        "reference": "Patient/4043549"
+        "reference": "Patient/1081176"
     },
     "relationship": {
         "coding": [
