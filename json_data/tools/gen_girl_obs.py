@@ -8,9 +8,6 @@ from db_references import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-patient_id_ref = "Patient/"+REF_KARA
-patient_name = "Kara Kent"
-patient_dob = kent_kara_dob
 
 # data for generation (provided by Aly)
 # Girl Smith 0-2 yr
@@ -32,7 +29,7 @@ def lbs_to_kg(lbs):
     return round(lbs*0.453592,1)
 def in_to_cm(ins):
     return round(ins*2.54,1)
-def gen_obs():
+def gen_obs(patient_id_ref,patient_name, patient_dob ):
     # set up observation structure from model
     for i in range(len(observation_list)):
         # performer, age_mos, wt_lbs, ht_in, bmi = observation_list[i]
@@ -47,12 +44,12 @@ def gen_obs():
 
         o.code = coding_weight
         o.valueQuantity = {"value":lbs_to_kg(wt_lbs),"unit":"kg"}
-        with open(os.path.join('../ob-kara', 'ob-kara-wt-'+str(i)+ '.json'), 'w') as f:
+        with open(os.path.join('json_data','ob-kara', 'ob-kara-wt-'+str(i)+ '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         o.code = coding_height
         o.valueQuantity = {"value":in_to_cm(ht_in),"unit":"cm"}
-        with open(os.path.join('../ob-kara', 'ob-kara-ht-' + str(i) + '.json'), 'w') as f:
+        with open(os.path.join('json_data','ob-kara', 'ob-kara-ht-' + str(i) + '.json'), 'w') as f:
             print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
         # o.code = coding_bmi
@@ -60,7 +57,7 @@ def gen_obs():
         # with open(os.path.join('ob-kara', 'ob-kara-bmi-' + str(i) + '.json'), 'w') as f:
         #     print(json.dumps(OrderedDict(o.as_json()), indent=4, separators=(',', ': ')), file=f)
 
-def gen_hist():
+def gen_hist(patient_id_ref,patient_name):
     h = familymemberhistory.FamilyMemberHistory()
     h.patient = {"reference":patient_id_ref, "display":patient_name}
     h.status = 'completed'
@@ -69,7 +66,7 @@ def gen_hist():
     measurement.unit = "cm"
     measurement.value = 162
     h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 162}}]
-    with open(os.path.join('../ob-kara', 'ob-kara-mth.json'), 'w') as f:
+    with open(os.path.join('json_data','ob-kara', 'ob-kara-mth.json'), 'w') as f:
         print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
 
     h = familymemberhistory.FamilyMemberHistory()
@@ -80,10 +77,10 @@ def gen_hist():
     measurement.unit = "cm"
     measurement.value = 177
     h.extension = [{"url": "http://fhir-registry.smarthealthit.org/StructureDefinition/family-history#height", "valueQuantity": {"unit": "cm", "value": 177}}]
-    with open(os.path.join('../ob-kara', 'ob-kara-fth.json'), 'w') as f:
+    with open(os.path.join('json_data','ob-kara', 'ob-kara-fth.json'), 'w') as f:
         print(json.dumps(OrderedDict(h.as_json()), indent=4, separators=(',', ': ')), file=f)
 
-def gen_rel():
+def gen_rel(patient_id_ref,patient_name):
     r = relatedperson.RelatedPerson()
     r.patient = {"reference":patient_id_ref, "display":patient_name}
     r.relationship = {"coding":[{"code": "MTH","system":"http://hl7.org/fhir/v3/RoleCode","display":"mother"}]}
@@ -92,7 +89,7 @@ def gen_rel():
     r.address = kent_address
     r.gender = "female"
     r.birthDate = str(kent_mom_dob.date())
-    with open(os.path.join('../ob-kara', 'rp-kara-mth.json'),'w') as f:
+    with open(os.path.join('json_data','ob-kara', 'rp-kara-mth.json'),'w') as f:
         print(json.dumps(OrderedDict(r.as_json()), indent=4, separators=(',', ': ')), file=f)
 
     r = relatedperson.RelatedPerson()
@@ -103,14 +100,18 @@ def gen_rel():
     r.address = kent_address
     r.gender = "male"
     r.birthDate = str(kent_clark_dob.date())
-    with open(os.path.join('../ob-kara', 'rp-kara-sib.json'),'w') as f:
+    with open(os.path.join('json_data','ob-kara', 'rp-kara-sib.json'),'w') as f:
         print(json.dumps(OrderedDict(r.as_json()), indent=4, separators=(',', ': ')), file=f)
 
 
 def main():
-    gen_obs()
-    gen_hist()
-    gen_rel()
+    patient_id_ref = "Patient/" + REF_KARA
+    patient_name = "Kara Kent"
+    patient_dob = kent_kara_dob
+
+    gen_obs(patient_id_ref,patient_name, patient_dob )
+    gen_hist(patient_id_ref,patient_name)
+    gen_rel(patient_id_ref,patient_name)
 
 
 if __name__ == '__main__':
