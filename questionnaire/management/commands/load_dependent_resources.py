@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 import json_data.tools.gen_boy_obs
 import json_data.tools.gen_girl_obs
 import json_data.tools.generate_qresponse_food_insecurity
+import json_data.tools.generate_qresponse_HHA
 import json_data.load_files_to_MiHIN
 
 '''
@@ -21,4 +22,5 @@ class Command(BaseCommand):
         json_data.tools.gen_boy_obs.main()
         json_data.tools.gen_girl_obs.main()
         json_data.tools.generate_qresponse_food_insecurity.main()
+        json_data.tools.generate_qresponse_HHA.main()
         json_data.load_files_to_MiHIN.main()

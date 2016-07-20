@@ -13,7 +13,9 @@ def handle(dir_name, files, resource_type):
     client = questionnaire.utils.getFhirClient(questionnaire.utils.MIHIN)
     server = client.server
     for filename in files:
-        with open(os.path.join('json_data',dir_name, filename), 'r') as h:
+        with open(os.path.join('json_data', dir_name, filename), 'r') as h:
+        #FIXME: local reference for manual upload to server
+        # with open(os.path.join(dir_name, filename), 'r') as h:
             fjson = json.load(h)
             response = server.post_json(resource_type, fjson)
             print response
@@ -50,7 +52,13 @@ def main():
 
     qr_test_dir = 'qr-test'
     qr_food_files = ['qresponse-food-insecurity_clark.json', 'qresponse-food-insecurity_kara.json']
-
+    qr_hha_clark_files = ['qresponse-hha_clark_0.json',
+                          'qresponse-hha_clark_1.json',
+                          'qresponse-hha_clark_2.json',]
+    qr_hha_kara_files = ['qresponse-hha_kara_0.json',
+                         'qresponse-hha_kara_1.json',
+                         'qresponse-hha_kara_2.json',
+                         'qresponse-hha_kara_2.json',]
 
     # note: comment out what shouldn't be re-uploaded to avoid conflicts
     #       not hardened to detect updates and duplicates!
@@ -62,6 +70,8 @@ def main():
     handle(obs_dir_clark, fam_hist_files_clark, 'FamilyMemberHistory')
     handle(obs_dir_clark, rel_person_files_clark, 'RelatedPerson')
     handle(qr_test_dir, qr_food_files, 'QuestionnaireResponse')
+    handle(qr_test_dir, qr_hha_clark_files, 'QuestionnaireResponse')
+    handle(qr_test_dir, qr_hha_kara_files, 'QuestionnaireResponse')
 
     # one-off load
     # handle(tools_dir, ['questionnaire-wic-child-nutrition.json'],'Questionnaire')
