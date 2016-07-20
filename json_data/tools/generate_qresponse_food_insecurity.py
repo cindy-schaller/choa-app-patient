@@ -5,15 +5,13 @@ from fhirclient.models import questionnaireresponse, fhirdate
 from db_references import *
 import datetime
 from questionnaire_commons import *
-CDC_QUESTIONS = [
-    "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
-    "In the last year, did the food you bought just not last and you didn't have money to get more?",
-]
-CLARK_KENT_REFERENCE = {"reference":"Patient/"+REF_CLARK}
-KARA_KENT_REFERENCE = {"reference":"Patient/"+REF_KARA}
-QUESTIONNAIRE_FOOD_INSECURITY_REERENCE = {"reference":"Questionnaire/" + REF_INSECURITY}
 
 def qr_food(reference, is_insecure, tag):
+    CDC_QUESTIONS = [
+        "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
+        "In the last year, did the food you bought just not last and you didn't have money to get more?",
+    ]
+    QUESTIONNAIRE_FOOD_INSECURITY_REERENCE = {"reference": "Questionnaire/" + REF_INSECURITY}
     # set up questionnaire response structure from model
     qr = questionnaireresponse.QuestionnaireResponse()
     qr.author = reference
@@ -29,10 +27,12 @@ def qr_food(reference, is_insecure, tag):
         ]
     }
     filename = 'qresponse-food-insecurity_' + tag + '.json'
-    with open(os.path.join('../qr-test', filename),'w') as f:
+    with open(os.path.join('json_data','qr-test', filename),'w') as f:
         print(json.dumps(qr.as_json(), indent=4, separators=(',', ': ')), file=f)
 
 def main():
+    CLARK_KENT_REFERENCE = {"reference": "Patient/" + REF_CLARK}
+    KARA_KENT_REFERENCE = {"reference": "Patient/" + REF_KARA}
     qr_food(CLARK_KENT_REFERENCE, True, "clark")
     qr_food(KARA_KENT_REFERENCE, True, "kara")
 
