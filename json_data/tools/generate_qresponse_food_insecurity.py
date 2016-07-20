@@ -9,9 +9,9 @@ CDC_QUESTIONS = [
     "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
     "In the last year, did the food you bought just not last and you didn't have money to get more?",
 ]
-CLARK_KENT_REFERENCE = {"reference":REF_PATIENT_CLARK}
-KARA_KENT_REFERENCE = {"reference":REF_PATIENT_KARA}
-QUESTIONNAIRE_FOOD_INSECURITY_REERENCE = {"reference":REF_Q_FOOD_INSECURITY}
+CLARK_KENT_REFERENCE = {"reference":"Patient/"+REF_CLARK}
+KARA_KENT_REFERENCE = {"reference":"Patient/"+REF_KARA}
+QUESTIONNAIRE_FOOD_INSECURITY_REERENCE = {"reference":"Questionnaire/" + REF_INSECURITY}
 
 def qr_food(reference, is_insecure, tag):
     # set up questionnaire response structure from model

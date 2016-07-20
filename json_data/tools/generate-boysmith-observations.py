@@ -8,7 +8,7 @@ from db_references import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-patient_id_ref = REF_PATIENT_CLARK
+patient_id_ref = "Patient/"+REF_CLARK
 patient_name = "Clark Kent"
 patient_dob = kent_clark_dob
 
