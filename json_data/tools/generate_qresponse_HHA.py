@@ -27,29 +27,48 @@ def qr_hha(reference, answers, tag):
             "question":qrlist
         }
         filename = 'qresponse-hha_' + tag + '_'+str(count)+ '.json'
-        # with open(os.path.join('json_data','qr-test', filename),'w') as f:
+        with open(os.path.join('json_data','qr-test', filename),'w') as f:
         # FIXME: for local IDE run
-        with open(os.path.join('..','qr-test', filename),'w') as f:
+        # with open(os.path.join('..','qr-test', filename),'w') as f:
             print(json.dumps(qr.as_json(), indent=4, separators=(',', ': ')), file=f)
 
 def main():
     CLARK_KENT_REFERENCE = {"reference": "Patient/" + REF_CLARK}
     #authored date, answers[1-thru-9]
-    clark_info = [
+    clark_md_info = [
         ("2013-03-30T00:00:00",[2,4,3,2,2,4,4,2,2,]),
         ("2014-06-30T00:00:00",[1,4,3,2,2,3,1,2,2,]),
         ("2015-06-30T00:00:00",[2,2,3,2,2,1,3,2,2,]),
     ]
+    clark_wic_info = [
+        ("2013-03-30T00:00:00",[2,4,3,2,2,4,4,2,2,]),
+        ("2013-09-30T00:00:00",[2,4,3,2,2,4,4,2,2,]),
+        ("2014-03-30T00:00:00",[2,4,3,2,2,4,4,2,2,]),
+        ("2015-07-30T00:00:00",[2,2,3,2,2,1,3,2,2,]),
+        ("2015-09-30T00:00:00", [2,2,3,2,2,1,3,2,2,]),
+        ("2015-12-30T00:00:00", [2,2,3,2,2,1,3,2,2,]),
+        ("2016-03-30T00:00:00", [2,2,3,2,2,1,3,2,2,]),
+    ]
     KARA_KENT_REFERENCE = {"reference": "Patient/" + REF_KARA}
-    kara_info = [
+    kara_md_info = [
         ("2014-05-15T00:00:00",[2,2,2,2,2,2,4,2,2,]),
         ("2015-01-01T00:00:00",[2,2,2,2,2,2,1,2,2,]),
         ("2015-11-01T00:00:00",[2,3,2,2,2,2,1,2,2,]),
         ("2016-05-01T00:00:00",[2,4,2,2,2,2,2,2,2,]),
     ]
+    kara_wic_info = [
+        ("2014-06-01T00:00:00",[2,2,2,2,2,2,4,2,2,]),
+        ("2014-08-01T00:00:00",[2,2,2,2,2,2,4,2,2,]),
+        ("2014-11-01T00:00:00",[2,2,2,2,2,2,4,2,2,]),
+        ("2015-05-01T00:00:00",[2,2,2,2,2,2,1,2,2,]),
+        ("2015-08-01T00:00:00",[2,2,2,2,2,2,1,2,2,]),
+        ("2016-02-01T00:00:00",[2,4,2,2,2,2,2,2,2,]),
+    ]
 
-    qr_hha(CLARK_KENT_REFERENCE, clark_info, "clark")
-    qr_hha(KARA_KENT_REFERENCE, kara_info, "kara")
+    qr_hha(CLARK_KENT_REFERENCE, clark_md_info, "clark")
+    qr_hha(KARA_KENT_REFERENCE, kara_md_info, "kara")
+    qr_hha(CLARK_KENT_REFERENCE, clark_wic_info, "clark_wic")
+    qr_hha(KARA_KENT_REFERENCE, kara_wic_info, "kara_wic")
 
 if __name__ == '__main__':
     main()

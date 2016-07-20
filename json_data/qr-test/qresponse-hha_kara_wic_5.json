@@ -1,0 +1,91 @@
+{
+    "status": "completed",
+    "group": {
+        "linkId": "root",
+        "question": [
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "1"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 4
+                    }
+                ],
+                "linkId": "2"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "3"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "4"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "5"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "6"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "7"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "8"
+            },
+            {
+                "answer": [
+                    {
+                        "valueInteger": 2
+                    }
+                ],
+                "linkId": "9"
+            }
+        ]
+    },
+    "author": {
+        "reference": "Patient/1081180"
+    },
+    "resourceType": "QuestionnaireResponse",
+    "questionnaire": {
+        "reference": "Questionnaire/1081182"
+    },
+    "authored": "2016-02-01T00:00:00",
+    "subject": {
+        "reference": "Patient/1081180"
+    }
+}
