@@ -37,26 +37,16 @@ def getQuestionnaireMap():
     return {
         MIHIN: {
             TEEN_FORM: REF_HHA_TEEN,
-            CHILD_FORM: REF_HHA_CHILD
+            CHILD_FORM: REF_HHA_CHILD,
+            WIC_FORM: REF_WIC
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
-            CHILD_FORM: '572358140cf20e9addb2a71b'
-        }
-    }
-
-
-def getWicQuestionnaireMap():
-    return {
-        MIHIN: {
-            WIC_FORM: REF_WIC
-        },
-        # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
-        SMART: {
+            CHILD_FORM: '572358140cf20e9addb2a71b',
+            # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
             WIC_FORM: '-1'
         }
     }
-
 
 def resolveServerId(patientId, serverId):
     # Allowing this kind of fallback is a little dubious, since in principle nothing prevents the same patient ID
@@ -68,6 +58,11 @@ def resolveServerId(patientId, serverId):
             if patientId in patientMap[key].keys():
                 serverId = key
     return serverId
+
+
+def requiredResources(serverId):
+    return map(lambda(x): "Patient/"+x, getPatientMap()[serverId].keys()) + \
+           map(lambda(x): "Questionnaire/"+x, getQuestionnaireMap()[serverId].values())
 
 
 def getFhirClient(serverId):

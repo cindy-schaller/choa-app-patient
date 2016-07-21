@@ -7,7 +7,7 @@ Menu.add_item("main", MenuItem("Home",
                                icon="home"))
 
 Menu.add_item("main", MenuItem("Healthy Habits Questionnaire",
-                               reverse("questionnaire.views.respond"),
+                               reverse("questionnaire.views.respond_hh"),
                                icon="assessment"))
 
 

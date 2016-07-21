@@ -14,6 +14,7 @@
             </div>
         </form>
     </div>
+
 <script type="text/javascript">
     function getCookie(cname) {
         var name = cname + "=";
@@ -32,10 +33,47 @@
 
     function getQuestionnaire() {
         var patientQuestionnaire = [
-            {% for question in questionnaire %}
+            {% for question_group in questionnaire.group %}
+                    // TODO: double-check on whether the first group of questions, containing patient info,
+                    // is really supposed to be in the questionnaire.
+                    // From questionnaire_wic.html:
+                    // I don't know why this question group made it into the questionnaire, but that group
+                    // of questions should be dealt with at FHIR level. We skip through it so they don't
+                    // show up, even if they will end up being submitted empty into the QuestionnaireResponse.
+                {
+                    "id": "{{ question_group.linkId }}",
+                    "text": "{{ question_group.text }}",
+                    {% if question_group.question|length > 1 %}
+                    "type": "group",
+                    {% else %}
+                    "type": "stub",
+                    {% endif %}
+                    "questions": [
+                    {% for question in question_group.question %}
+                        {
+                            "id": "{{ question.linkId }}",
+                            "prompt": "{{ question.text }}",
+                            {% if question.option %}
+                            "type": "scale",
+                            "choices": [
+                                {% for answer in question.option %}
+                                    {
+                                        "code": "{{ answer.code }}",
+                                        "text": "{{ answer.display }}"
+                                    }{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ]
+                            {% else %}
+                                "type": "freeform"
+                            {% endif %}
+                        },
+                    {% endfor %}
+                    ]
+                },
+            {% endfor %}
+            {% for question in questionnaire.question %}
                 {
                     "id": "{{ question.linkId }}",
-                    "type": "scale",
                     "prompt": "{{ question.text }}",
                     {% for extension in question.group.0.extension %}
                         {% if extension.url == "http://hl7.org/fhir/StructureDefinition/questionnaire-lowRangeLabel" %}
@@ -48,6 +86,8 @@
                             "highImg": "{{ extension.valueString }}",
                         {% endif %}
                     {% endfor %}
+                    {% if question.option %}
+                    "type": "scale",
                     "choices": [
                         {% for answer in question.option %}
                             {
@@ -56,6 +96,9 @@
                             }{% if not forloop.last %},{% endif %}
                         {% endfor %}
                     ]
+                    {% else %}
+                        "type": "freeform"
+                    {% endif %}
                 },
             {% endfor %}
         ];
@@ -66,6 +109,49 @@
         if (typeof fhirText !== "undefined")
             fhirText = fhirText.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         return fhirText;
+    }
+
+    function renderQuestion(question, node, patientName) {
+        var prompt = question["prompt"].replace("%1$s", patientName);
+        node.append("<h4 class='prompt'>"+prompt+"</h4>");
+
+        if (question["type"] == "scale") {
+            var lowImg = question["lowImg"];
+            var lowText = textDecode(question["lowText"]);
+            var lowNode = $("<div class='radio-inline'>");
+            if (lowImg) lowNode.append("<img src='" + lowImg + "' />");
+            if (lowText) lowNode.append("<span class='answer-label'>" + lowText + "</span>");
+            node.append(lowNode);
+
+            var choices = question["choices"];
+            var questionId = question["id"];
+            var choicesNode = $("<div class='answer-choices'>");
+            for (var j = 0; j < choices.length; j++) {
+                var text = textDecode(choices[j]["text"]);
+                var choice = $("<div class='radio-inline answer-choice'>");
+                if (typeof choice["image"] != "undefined")
+                    choice.append("<img src='"+choice["image"][j]+"' />");
+                choice.append("<input type='radio' id='"+questionId+"."+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");
+                //choice.append("<br/>");
+                choice.append("<label for='"+questionId+"."+choices[j]["code"]+"'><span></span><br/>"+text+"</label>");
+                choicesNode.append(choice);
+            }
+            node.append(choicesNode);
+
+            var highImg = question["highImg"];
+            var highText = textDecode(question["highText"]);
+            var highNode = $("<div class='radio-inline'>");
+            if (highImg) highNode.append("<img src='" + highImg + "' />");
+            if (highText) highNode.append("<span class='answer-label'>" + highText + "</span>");
+            node.append(highNode);
+        } else { // question["type"] == "freeform"
+            // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else
+            var questionId = question["id"];
+            var choicesNode = $("<div class='answer-choices'>");
+            choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
+            node.append(choicesNode);
+        }
+        node.append('<br/>');
     }
 
     function resetSelections() {
@@ -146,7 +232,6 @@
                     }
                     node.append(choicesNode);
 
-
                 }
 
                 node.append('</div>');
@@ -163,10 +248,14 @@
         var questionnaire = getQuestionnaire();
         for (var i = 0; i < questionnaire.length; i++) {
             question = questionnaire[i];
-            if (question["id"]) {
+            // TODO: switch me to look at the "required" parameter for the question, passed through from FHIR.
+            if (question["id"] && question["type"] == "scale") {
                 var selected = $('input[name='+question["id"]+']:checked').val();
                 if (typeof selected == "undefined") {
-                    errors.push("You must choose an answer for '"+question["prompt"]+"'");
+                    var text = question["id"];
+                    if (typeof question["prompt"] != "undefined") text = question["prompt"];
+                    else if (typeof question["text"] != "undefined") text = question["text"];
+                    errors.push("You must choose an answer for '"+text+"'");
                 }
             }
         }
