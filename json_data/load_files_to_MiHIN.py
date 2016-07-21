@@ -49,7 +49,12 @@ def main():
     rel_person_files_clark = ['rp-clark-mth.json', 'rp-clark-sib.json']
 
     qr_test_dir = os.path.join('json_data', 'qr-test')
-    qr_food_files = ['qresponse-food-insecurity_clark.json', 'qresponse-food-insecurity_kara.json']
+    qr_food_files = [
+        'qresponse-food-insecurity_clark_ff.json', 'qresponse-food-insecurity_kara_ff.json',
+        'qresponse-food-insecurity_clark_ft.json', 'qresponse-food-insecurity_kara_ft.json',
+        'qresponse-food-insecurity_clark_tf.json', 'qresponse-food-insecurity_kara_tf.json',
+        'qresponse-food-insecurity_clark_tt.json', 'qresponse-food-insecurity_kara_tt.json',
+    ]
     qr_hha_clark_files = ['qresponse-hha_clark_0.json',
                           'qresponse-hha_clark_1.json',
                           'qresponse-hha_clark_2.json',]
@@ -94,6 +99,7 @@ def main():
     # handle(tools_dir, ['questionnaire-wic-child-nutrition.json'],'Questionnaire')
     # handle('qr-test',qr_hha_clark_wic_files, 'QuestionnaireResponse')
     # handle('qr-test',qr_hha_kara_wic_files, 'QuestionnaireResponse')
+    # handle('qr-test',qr_food_files,'QuestionnaireResponse')
 
 
 if __name__ == '__main__':
