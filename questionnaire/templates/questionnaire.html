@@ -242,6 +242,38 @@
         }
     }
 
+	/*
+	* Below is the same function in Master except the merge over wrote using your branch
+	*function resetSelections() {
+    *    var questionnaire = getQuestionnaire();
+    *    var patientName = getDisplayName();
+	*
+    *    var paginate = false;
+    *    if (paginate) {
+    *        // TODO: multi-page version of the questionnaire
+    *    } else {
+    *        $('#questionnaire-wrapper').html('');
+    *        for (var i = 0; i < questionnaire.length; i++) {
+    *            var question = questionnaire[i];
+    *            var node = $("<div class='row question "+question["type"]+"'>");*
+	*
+    *            if (typeof question["questions"] != "undefined") {
+    *                var text = question["text"].replace("%1$s", patientName);
+    *                node.append("<h4 class='prompt group'>" + text + "</h4>");
+    *                for (var j = 0; j < questionnaire[i].questions.length; j++) {
+    *                    renderQuestion(questionnaire[i].questions[j], node, patientName);
+    *                }
+    *            } else {
+    *                renderQuestion(question, node, patientName);
+    *            }
+    *            node.append('</div>');
+	*
+    *            $('#questionnaire-wrapper').append(node);
+    *            $('#questionnaire-wrapper').append("<hr class='myHR' />");
+    *        }
+    *    }
+    *}
+	*/
     function validateForm() {
         errors = [];
 
