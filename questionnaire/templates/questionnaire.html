@@ -59,7 +59,6 @@ div.answer-choices {
     function getQuestionnaire() {
         var patientQuestionnaire = [
             {% for question_group in questionnaire.group %}
-                {% if not forloop.first %}
                     // TODO: double-check on whether the first group of questions, containing patient info,
                     // is really supposed to be in the questionnaire.
                     // From questionnaire_wic.html:
@@ -96,7 +95,6 @@ div.answer-choices {
                     {% endfor %}
                     ]
                 },
-                {% endif %}
             {% endfor %}
             {% for question in questionnaire.question %}
                 {

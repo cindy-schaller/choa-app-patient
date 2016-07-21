@@ -1,4 +1,5 @@
 import json
+#import requests
 
 import pytz as pytz
 
@@ -68,8 +69,7 @@ def respond(request, form_id):
                             "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
                             "subject": {"reference": "Patient/"+childRecord.id},
                             "author": {"reference": "Patient/"+childRecord.id},
-                            "authored": datetime.today().isoformat(),
-                            }
+                            "authored": datetime.today().isoformat()}
             if form.group.question is not None:
                 jsonResponse["group"]["question"] = []
                 for question in form.group.question:

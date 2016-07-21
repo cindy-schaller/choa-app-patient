@@ -38,7 +38,7 @@ def getQuestionnaireMap():
         MIHIN: {
             TEEN_FORM: REF_HHA_TEEN,
             CHILD_FORM: REF_HHA_CHILD,
-            WIC_FORM: '11036859'
+            WIC_FORM: REF_WIC
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
