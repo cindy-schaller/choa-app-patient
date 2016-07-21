@@ -1,3 +1,5 @@
+import json
+
 import pytz as pytz
 
 from functools import wraps
@@ -10,7 +12,6 @@ from django.shortcuts import render,render_to_response,redirect
 from django.template import RequestContext
 
 from fhirclient.models import patient, questionnaire, questionnaireresponse, communication, practitioner
-# from fhirclient.models import bundle
 
 from datetime import datetime
 
@@ -50,93 +51,81 @@ def index(request):
     return render_to_response('index.html',
                               context_instance=context)
 
-
 @require_valid_user
-def respond(request):
+def respond(request, form_id):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
     childRecord = patient.Patient.read(patientId, smart.server)
-    age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
 
     try:
         qMap = utils.getQuestionnaireMap()
-        form = questionnaire.Questionnaire.read(qMap[serverId][utils.TEEN_FORM], smart.server)
-        if age < 13:
-                form = questionnaire.Questionnaire.read(qMap[serverId][utils.CHILD_FORM], smart.server)
+        form = questionnaire.Questionnaire.read(qMap[serverId][form_id], smart.server)
 
         jsonResponse = []
         if request.method == 'POST':
-            jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
+            jsonResponse = {"group": {"linkId": "root"}, "resourceType": "QuestionnaireResponse",
                             "questionnaire": {"reference": "Questionnaire/"+form.id}, "status": "completed",
                             "subject": {"reference": "Patient/"+childRecord.id},
                             "author": {"reference": "Patient/"+childRecord.id},
                             "authored": datetime.today().isoformat(),
                             }
-            for question in form.group.question:
-                questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST[question.linkId]}]}
-                jsonResponse["group"]["question"].append(questionJson)
+            if form.group.question is not None:
+                jsonResponse["group"]["question"] = []
+                for question in form.group.question:
+                    type = {"text":"valueString", "boolean":"valueBoolean", "integer":"valueInteger"}[question.type]
+                    questionJson = {"linkId": question.linkId, "answer": [{type: request.POST.get(question.linkId, default=0)}]}
+                    jsonResponse["group"]["question"].append(questionJson)
+            if form.group.group is not None:
+                jsonResponse["group"]["group"] = []
+                for group in form.group.group:
+                    groupJson = {"linkId": group.linkId, "question":[]}
+                    for question in group.question:
+                        type = {"text":"valueString", "boolean":"valueBoolean", "integer":"valueInteger"}[question.type]
+                        questionJson = {"linkId": question.linkId, "answer": [{type: request.POST.get(question.linkId, default=0)}]}
+                        groupJson["question"].append(questionJson)
+                    jsonResponse["group"]["group"].append(groupJson)
+
+            print json.dumps(jsonResponse)
             smart.server.post_json('QuestionnaireResponse', jsonResponse)
             return redirect("/questionnaire/")
 
         context = RequestContext(request)
         context['patientName'] = smart.human_name(childRecord.name[0])
-        context['questionnaire'] = form.group.question
+        context['questionnaire'] = form.group
+        context['form_id'] = form_id
         context['json'] = jsonResponse
 
         #return JsonResponse(jsonResponse)
         return render_to_response('questionnaire.html',
                                   context_instance=context)
 
-    except Exception:
+    except:
+    #except requests.exceptions.HTTPError as error:
+        #print(error)
+        #print(error.response.text)
         context = RequestContext(request)
         context['error_text'] = "Couldn't connect to the FHIR server or FHIR server has been reset. \
          Please contact <a href='mailto:asmiley3@gatech.edu'>the team</a> and ask them to investigate."
         return render_to_response('error.html',
                                   context_instance=context)
 
-# FIXME: This should probably be merged with respond, time is running short so quick and dirty job for now.
-
 @require_valid_user
-def respond_wic(request):
+def respond_hh(request):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
     childRecord = patient.Patient.read(patientId, smart.server)
     age = (datetime.now().date() - childRecord.birthDate.date).days / 365.24
 
-    try:
-        qMap = utils.getWicQuestionnaireMap()
-        form = questionnaire.Questionnaire.read(qMap[serverId][utils.WIC_FORM], smart.server)
+    if age < 13:
+        return respond(request, utils.CHILD_FORM)
+    else:
+        return respond(request, utils.TEEN_FORM)
 
-        jsonResponse = []
-        if request.method == 'POST':
-            jsonResponse = {"group": {"linkId": "root", "question": []}, "resourceType": "QuestionnaireResponse",
-                            "questionnaire": {"reference": "Questionnaire/" + form.id}, "status": "completed",
-                            "subject": {"reference": "Patient/" + childRecord.id},
-                            "author": {"reference": "Patient/" + childRecord.id}}
-            for question_group in form.group.group:
-                for question in question_group.question:
-                    questionJson = {"linkId": question.linkId, "answer": [{"valueInteger": request.POST.get(question.linkId)}]}
-                    jsonResponse["group"]["question"].append(questionJson)
-            smart.server.post_json('QuestionnaireResponse', jsonResponse)
-            return redirect("/questionnaire_wic/")
-
-        context = RequestContext(request)
-        context['patientName'] = smart.human_name(childRecord.name[0])
-        context['questionnaire'] = form.group.group
-        context['json'] = jsonResponse
-
-        return render_to_response('questionnaire_wic.html',
-                                  context_instance=context)
-
-    except Exception:
-        context = RequestContext(request)
-        context['error_text'] = "Couldn't connect to the FHIR server or FHIR server has been reset. \
-         Please contact <a href='mailto:asmiley3@gatech.edu'>the team</a> and ask them to investigate."
-        return render_to_response('error.html',
-                                  context_instance=context)
-
+@require_valid_user
+def respond_wic(request):
+    return respond(request, utils.WIC_FORM)
 
 @require_valid_user
 def messages(request):
@@ -192,7 +181,7 @@ def history(request):
     else:
         context = RequestContext(request)
         context['error_text'] = "You don't have any history yet. \
-         <a href='"+reverse("questionnaire.views.respond")+"'>Fill out the questionnaire</a> to get started!"
+         <a href='"+reverse("questionnaire.views.respond_hh")+"'>Fill out the questionnaire</a> to get started!"
         return render_to_response('error.html',
                                   context_instance=context)
 

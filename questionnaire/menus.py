@@ -9,7 +9,7 @@ Menu.add_item("main", MenuItem("About",
                                reverse("questionnaire.views.about")))
 
 Menu.add_item("main", MenuItem("Questionnaire",
-                               reverse("questionnaire.views.respond")))
+                               reverse("questionnaire.views.respond_hh")))
 
 Menu.add_item("main", MenuItem("WIC Questionnaire",
                                reverse("questionnaire.views.respond_wic")))
