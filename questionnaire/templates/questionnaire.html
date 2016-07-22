@@ -113,51 +113,102 @@
 
     function renderQuestion(question, node, patientName) {
         var prompt = question["prompt"].replace("%1$s", patientName);
-        node.append("<h4 class='prompt'>"+prompt+"</h4>");
+        node.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
+{#        alert('inside render question');#}
 
-        if (question["type"] == "scale") {
-            var lowImg = question["lowImg"];
-            var lowText = textDecode(question["lowText"]);
-            var lowNode = $("<div class='radio-inline'>");
-            if (lowImg) lowNode.append("<img src='" + lowImg + "' />");
-            if (lowText) lowNode.append("<span class='answer-label'>" + lowText + "</span>");
-            node.append(lowNode);
+{#        if ((textDecode(question["lowText"]) != undefined) && (textDecode(question["highText"]) != undefined)) {#}
+            if (question["type"] == "scale") {
+                var choices = question["choices"];
+                var questionId = question["id"];
 
-            var choices = question["choices"];
-            var questionId = question["id"];
-            var choicesNode = $("<div class='answer-choices'>");
-            for (var j = 0; j < choices.length; j++) {
-                var text = textDecode(choices[j]["text"]);
-                var choice = $("<div class='radio-inline answer-choice'>");
-                if (typeof choice["image"] != "undefined")
-                    choice.append("<img src='"+choice["image"][j]+"' />");
-                choice.append("<input type='radio' id='"+questionId+"."+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");
-                //choice.append("<br/>");
-                choice.append("<label for='"+questionId+"."+choices[j]["code"]+"'><span></span><br/>"+text+"</label>");
-                choicesNode.append(choice);
+{#                For the images with the questions #}
+{#                var lowImg = question["lowImg"];#}
+{#                if (!lowImg) var lowImg = '';#}
+{#                var prompt = question["prompt"].replace("%1$s", patientName);#}
+{#                node.append("<h4 class='prompt' style='display: inline-block'><i class='material-icons'>" + lowImg + "</i>" + prompt + "</h4>");#}
+
+
+                if (question["type"] == "scale") {
+                    var lowText = textDecode(question["lowText"]);
+{#                    var lowNode = $("<br/><div class='radio-inline'>");#}
+{#                    if (lowText) lowNode.append("<span class='answer-label low-text'>" + lowText + "</span>");#}
+                    if (lowText) var lowNode = $("<span class='answer-label low-text'>" + lowText + "</span>");
+                    node.append(lowNode);
+                }
+
+                var choicesNode = $("<div class='answer-choices'>");
+                for (var j = 0; j < choices.length; j++) {
+                    var text = textDecode(choices[j]["text"]);
+                    var choice = $("<div class='radio-inline answer-choice'>");
+{#                    if (typeof choice["image"] != "undefined")#}
+{#                        choice.append("<img src='" + choice["image"][j] + "' />");#}
+                    choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
+                    choice.append("<label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
+                    choicesNode.append(choice);
+                }
+                node.append(choicesNode);
+
+                if (question["type"] == "scale") {
+                    var highText = textDecode(question["highText"]);
+{#                    var highNode = $("<div class='radio-inline'>");#}
+{#                    if (highText) highNode.append("<span class='answer-label high-text'>" + highText + "</span>");#}
+                    if (highText) var highNode = $("<span class='answer-label high-text'>" + highText + "</span>");
+                    node.append(highNode);
+                }
+                node.append('</div>');
+            } else { // question["type"] == "freeform"
+{#                // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else#}
+                var questionId = question["id"];
+                var choicesNode = $("<div class='answer-choices'>");
+                choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
+                node.append(choicesNode);
+                node.append('<br/>');
             }
-            node.append(choicesNode);
+{#        }#}
 
-            var highImg = question["highImg"];
-            var highText = textDecode(question["highText"]);
-            var highNode = $("<div class='radio-inline'>");
-            if (highImg) highNode.append("<img src='" + highImg + "' />");
-            if (highText) highNode.append("<span class='answer-label'>" + highText + "</span>");
-            node.append(highNode);
-        } else { // question["type"] == "freeform"
-            // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else
-            var questionId = question["id"];
-            var choicesNode = $("<div class='answer-choices'>");
-            choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
-            node.append(choicesNode);
-        }
-        node.append('<br/>');
+
+{#            var lowImg = question["lowImg"];#}
+{#            var lowText = textDecode(question["lowText"]);#}
+{#            var lowNode = $("<div class='radio-inline'>");#}
+{#            if (lowImg) lowNode.append("<img src='" + lowImg + "' />");#}
+{#            if (lowText) lowNode.append("<span class='answer-label'>" + lowText + "</span>");#}
+{#            node.append(lowNode);#}
+
+{#            var choices = question["choices"];#}
+{#            var questionId = question["id"];#}
+{#            var choicesNode = $("<div class='answer-choices'>");#}
+{#            for (var j = 0; j < choices.length; j++) {#}
+{#                var text = textDecode(choices[j]["text"]);#}
+{#                var choice = $("<div class='radio-inline answer-choice'>");#}
+{#                if (typeof choice["image"] != "undefined")#}
+{#                    choice.append("<img src='"+choice["image"][j]+"' />");#}
+{#                choice.append("<input type='radio' id='"+questionId+"."+choices[j]["code"]+"' name='"+questionId+"' value='"+choices[j]["code"]+"'/>");#}
+{#                //choice.append("<br/>");#}
+{#                choice.append("<label for='"+questionId+"."+choices[j]["code"]+"'><span></span><br/>"+text+"</label>");#}
+{#                choicesNode.append(choice);#}
+{#            }#}
+{#            node.append(choicesNode);#}
+{##}
+{#            var highImg = question["highImg"];#}
+{#            var highText = textDecode(question["highText"]);#}
+{#            var highNode = $("<div class='radio-inline'>");#}
+{#            if (highImg) highNode.append("<img src='" + highImg + "' />");#}
+{#            if (highText) highNode.append("<span class='answer-label'>" + highText + "</span>");#}
+{#            node.append(highNode);#}
+{#        } else { // question["type"] == "freeform"#}
+{#            // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else#}
+{#            var questionId = question["id"];#}
+{#            var choicesNode = $("<div class='answer-choices'>");#}
+{#            choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));#}
+{#            node.append(choicesNode);#}
+{#        }#}
+{#        node.append('<br/>'); //Needed for questions that don't have freeform text#}
     }
+
 
     function resetSelections() {
         var questionnaire = getQuestionnaire();
         var patientName = getDisplayName();
-
         var paginate = false;
         if (paginate) {
             // TODO: multi-page version of the questionnaire
@@ -165,82 +216,107 @@
             $('#questionnaire-wrapper').html('');
             for (var i = 0; i < questionnaire.length; i++) {
                 var question = questionnaire[i];
+{#                alert('inside reset selections');#}
                 var node = $("<div class='row question "+question["type"]+"'>");
-
-                var choices = question["choices"];
-                var questionId = question["id"];
-
-                var lowImg = question["lowImg"];
-
-{#                <span class="menu-item-ico"><i class="material-icons">{{ item.icon }}</i></span>#}
-
-{#                if (lowImg) node.append("<i class='material-icons'>" + lowImg + "</i>");#}
-{#                if (lowImg) node.append("  <img src='../../images/food-apple.svg'>" );#}
-{#                if (lowImg) node.append("<span class='glyphicon glyphicon-star'  aria-hidden='true'></span>" );#}
-{#                <i class="glyphicon glyphicon-search"></i>#}
-
-
-                var prompt = question["prompt"].replace("%1$s", patientName);
-                node.append("<h4 class='prompt' style='display: inline-block'><i class='material-icons'>" + lowImg + "</i>" + prompt+"</h4>");
-
-                if ((textDecode(question["lowText"]) != undefined) && (textDecode(question["highText"]) != undefined)) {
-                    if (question["type"] == "scale") {
-                        var lowText = textDecode(question["lowText"]);
-                        var lowNode = $("<br/><div class='radio-inline'>");
-                        if (lowText) lowNode.append("<span class='answer-label low-text'>" + lowText + "</span>");
-                        node.append(lowNode);
+                if (typeof question["questions"] != "undefined") {
+                    var text = question["text"].replace("%1$s", patientName);
+                    node.append("<h4 class='prompt group'>" + text + "</h4>");
+                    for (var j = 0; j < questionnaire[i].questions.length; j++) {
+                        renderQuestion(questionnaire[i].questions[j], node, patientName);
                     }
-
-                    var choicesNode = $("<div class='answer-choices'>");
-                    for (var j = 0; j < choices.length; j++) {
-                        var text = textDecode(choices[j]["text"]);
-                        var choice = $("<div class='radio-inline answer-choice'>");
-                        if (typeof choice["image"] != "undefined")
-                            choice.append("<img src='" + choice["image"][j] + "' />");
-                        choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
-                        choice.append("<label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
-                        choicesNode.append(choice);
-                    }
-                    node.append(choicesNode);
-
-                    if (question["type"] == "scale") {
-                        var highText = textDecode(question["highText"]);
-                        var highNode = $("<div class='radio-inline'>");
-                        if (highText) highNode.append("<span class='answer-label high-text'>" + highText + "</span>");
-                        node.append(highNode);
-                    }
-                    node.append('</div>');
-
                 } else {
-
-                    var choicesNode = $("<div class='col-lg-12'>");
-                    for (var j = 0; j < choices.length; j++) {
-                        var text = textDecode(choices[j]["text"]);
-
-                        // TODO: Fix this display code
-                        if (choices.length == 5) {
-                            var choice = $("<div class='col-lg-2'><label for='" + questionId + "." + choices[j]["code"] + "'>");
-                            choice.append("<input class='switch switch-primary' type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
-                            choice.append("<span>"+ text + "</span></div>");
-                            choicesNode.append(choice);
-                        } else {
-                            var choice = $("<div class='col-lg-3'><label for='" + questionId + "." + choices[j]["code"] + "'>");
-                            choice.append("<input class='switch switch-primary' type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
-                            choice.append("<span>" + text + "</span></div>");
-                            choicesNode.append(choice);
-                        }
-                    }
-                    node.append(choicesNode);
-
+                    renderQuestion(question, node, patientName);
                 }
-
                 node.append('</div>');
-
                 $('#questionnaire-wrapper').append(node);
                 $('#questionnaire-wrapper').append("<hr>");
             }
         }
     }
+
+
+{#    function resetSelections() {#}
+{#        var questionnaire = getQuestionnaire();#}
+{#        var patientName = getDisplayName();#}
+{##}
+{#        var paginate = false;#}
+{#        if (paginate) {#}
+{#            // TODO: multi-page version of the questionnaire#}
+{#        } else {#}
+{#            $('#questionnaire-wrapper').html('');#}
+{#            for (var i = 0; i < questionnaire.length; i++) {#}
+{#                var question = questionnaire[i];#}
+{#                alert(question["lowText"]);#}
+{#                var node = $("<div class='row question "+question["type"]+"'>");#}
+{##}
+{#                var choices = question["choices"];#}
+{#                var questionId = question["id"];#}
+{##}
+{#                var lowImg = question["lowImg"];#}
+{##}
+
+{##}
+{#                var prompt = question["prompt"].replace("%1$s", patientName);#}
+{#                node.append("<h4 class='prompt' style='display: inline-block'><i class='material-icons'>" + lowImg + "</i>" + prompt+"</h4>");#}
+{##}
+{#                if ((textDecode(question["lowText"]) != undefined) && (textDecode(question["highText"]) != undefined)) {#}
+{#                    if (question["type"] == "scale") {#}
+{#                        var lowText = textDecode(question["lowText"]);#}
+{#                        var lowNode = $("<br/><div class='radio-inline'>");#}
+{#                        if (lowText) lowNode.append("<span class='answer-label low-text'>" + lowText + "</span>");#}
+{#                        node.append(lowNode);#}
+{#                    }#}
+{##}
+{#                    var choicesNode = $("<div class='answer-choices'>");#}
+{#                    for (var j = 0; j < choices.length; j++) {#}
+{#                        var text = textDecode(choices[j]["text"]);#}
+{#                        var choice = $("<div class='radio-inline answer-choice'>");#}
+{#                        if (typeof choice["image"] != "undefined")#}
+{#                            choice.append("<img src='" + choice["image"][j] + "' />");#}
+{#                        choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");#}
+{#                        choice.append("<label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");#}
+{#                        choicesNode.append(choice);#}
+{#                    }#}
+{#                    node.append(choicesNode);#}
+{##}
+{#                    if (question["type"] == "scale") {#}
+{#                        var highText = textDecode(question["highText"]);#}
+{#                        var highNode = $("<div class='radio-inline'>");#}
+{#                        if (highText) highNode.append("<span class='answer-label high-text'>" + highText + "</span>");#}
+{#                        node.append(highNode);#}
+{#                    }#}
+{#                    node.append('</div>');#}
+{##}
+{#                } else {#}
+{##}
+{#                    var choicesNode = $("<div class='col-lg-12'>");#}
+{#                    for (var j = 0; j < choices.length; j++) {#}
+{#                        var text = textDecode(choices[j]["text"]);#}
+{##}
+{#                        // TODO: Fix this display code#}
+{#                        if (choices.length == 5) {#}
+{#                            var choice = $("<div class='col-lg-2'><label for='" + questionId + "." + choices[j]["code"] + "'>");#}
+{#                            choice.append("<input class='switch switch-primary' type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");#}
+{#                            choice.append("<span>"+ text + "</span></div>");#}
+{#                            choicesNode.append(choice);#}
+{#                        } else {#}
+{#                            var choice = $("<div class='col-lg-3'><label for='" + questionId + "." + choices[j]["code"] + "'>");#}
+{#                            choice.append("<input class='switch switch-primary' type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");#}
+{#                            choice.append("<span>" + text + "</span></div>");#}
+{#                            choicesNode.append(choice);#}
+{#                        }#}
+{#                    }#}
+{#                    node.append(choicesNode);#}
+{##}
+{#                }#}
+{##}
+{#                node.append('</div>');#}
+{##}
+{#                $('#questionnaire-wrapper').append(node);#}
+{#                $('#questionnaire-wrapper').append("<hr>");#}
+{#            }#}
+{#        }#}
+{#    }#}
 
 	/*
 	* Below is the same function in Master except the merge over wrote using your branch
