@@ -128,52 +128,69 @@
             node.append("<div class='clear'>");
         }
 
-            var singleQuestion = $("<div class='col-md-5'>");
-            singleQuestion.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
+        var singleQuestion = $("<div class='col-md-5'>");
+        singleQuestion.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
 
+        if (prompt.length > 40 ) {
+            $(singleQuestion).removeClass('col-md-5').addClass('col-md-10');
+        }
+
+        if (question["type"] == "scale") {
+            var choices = question["choices"];
+            var questionId = question["id"];
 
             if (question["type"] == "scale") {
-                var choices = question["choices"];
-                var questionId = question["id"];
-
-                if (question["type"] == "scale") {
-                    var lowText = textDecode(question["lowText"]);
-                    if (lowText) var lowNode = $("<span class='answer-label low-text'>" + lowText + "</span>");
-                    singleQuestion.append(lowNode);
-                }
-
-                var choicesNode = $("<div style='float:right;'><div class='answer-choices'>");
-
-
-                if (choices.length > 2) {
-                    node.append("<div class='clear'>");
-                    $(singleQuestion).removeClass('col-md-5').addClass('col-md-9');
-                }
-
-                for (var j = 0; j < choices.length; j++) {
-                    var text = textDecode(choices[j]["text"]);
-                    var choice = $("<div class='radio-inline answer-choice'>");
-                    choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
-                    choice.append("  <label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
-                    choicesNode.append(choice);
-                }
-                singleQuestion.append(choicesNode);
-
-                if (question["type"] == "scale") {
-                    var highText = textDecode(question["highText"]);
-                    if (highText) var highNode = $("<span class='answer-label high-text'>" + highText + "</span>");
-                    singleQuestion.append(highNode);
-                }
-                singleQuestion.append('</div>');
-            } else { // question["type"] == "freeform"
-{#                // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else#}
-                var questionId = question["id"];
-                var choicesNode = $("<div class='answer-choices'>");
-                choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
-                $(singleQuestion).removeClass('col-md-5').addClass('col-md-7');
-                singleQuestion.append(choicesNode);
+                var lowText = textDecode(question["lowText"]);
+                if (lowText) var lowNode = $("<span class='answer-label low-text'>" + lowText + "</span>");
+                singleQuestion.append(lowNode);
             }
-            node.append(singleQuestion);
+
+            var choicesNode = $("<div style='float:right;'><div class='answer-choices'>");
+
+
+            if (choices.length > 2) {
+                node.append("<div class='clear'>");
+                $(singleQuestion).removeClass('col-md-10').addClass('col-md-9');
+                $(singleQuestion).removeClass('col-md-5').addClass('col-md-9');
+            }
+
+            for (var j = 0; j < choices.length; j++) {
+                var text = textDecode(choices[j]["text"]);
+                var choice = $("<div class='radio-inline answer-choice'>");
+
+                if (text.length > 10 ) {
+                    choicesNode.append("<br/>");
+                }
+                choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
+                choice.append("  <label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
+                choicesNode.append(choice);
+                if (text.length > 10 ) {
+                    choicesNode.append("<br/>");
+                }
+
+                //ToDo: fix me!
+                var siblingBrs = [].slice.call( document.querySelectorAll('br + br') );
+                siblingBrs.forEach( function( br ){
+                    br.parentNode.removeChild( br );
+                });
+                            }
+            singleQuestion.append(choicesNode);
+
+            if (question["type"] == "scale") {
+                var highText = textDecode(question["highText"]);
+                if (highText) var highNode = $("<span class='answer-label high-text'>" + highText + "</span>");
+                singleQuestion.append(highNode);
+            }
+            singleQuestion.append('</div>');
+        } else { // question["type"] == "freeform"
+{#                // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else#}
+            var questionId = question["id"];
+            var choicesNode = $("<div class='answer-choices'>");
+            choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
+            $(singleQuestion).removeClass('col-md-5').addClass('col-md-7');
+            singleQuestion.append(choicesNode);
+        }
+        node.append(singleQuestion);
     }
 
     function renderHhQuestion(question, node, patientName) {
