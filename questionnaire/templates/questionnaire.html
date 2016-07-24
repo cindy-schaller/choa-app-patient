@@ -5,7 +5,7 @@
 {% block content %}
     <div class="col-lg-1"></div>
     <div class="col-lg-10">
-        <form id="questionnaire" action="/questionnaire/respond/" method="post">
+        <form id="questionnaire" action="/questionnaire/respond/{{ form_id }}/" method="post">
             {% csrf_token %}
             <div id="questionnaire-wrapper"></div>
             <div class="col-log-12 text-center" style="margin-top:3em;">
