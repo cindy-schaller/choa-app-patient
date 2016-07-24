@@ -132,6 +132,7 @@ def messages(request):
     timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
+    childRecord = patient.Patient.read(patientId, smart.server)
 
     search = communication.Communication.where(struct={"recipient": "Patient/"+patientId})
     # This is a hack to work around a bug in the SMART on FHIR server.
@@ -144,12 +145,13 @@ def messages(request):
 
         def timestamp_key(entry):
             return entry.sent.date
-
+        context['patientName'] = smart.human_name(childRecord.name[0])
         context['messages'] = sorted(messages, key=timestamp_key, reverse=True)
         return render_to_response('messages.html',
                                   context_instance=context)
     else:
         context = RequestContext(request)
+        context['patientName'] = smart.human_name(childRecord.name[0])
         context['error_text'] = "No messages yet.  Check back soon!"
         return render_to_response('error.html',
                                   context_instance=context)
@@ -160,6 +162,7 @@ def history(request):
     timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
+    childRecord = patient.Patient.read(patientId, smart.server)
 
     search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
                     "_sort:desc": "authored", "_count": "30"})
@@ -176,10 +179,12 @@ def history(request):
             return ts
 
         context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
+        context['patientName'] = smart.human_name(childRecord.name[0])
         return render_to_response('history.html',
                                   context_instance=context)
     else:
         context = RequestContext(request)
+        context['patientName'] = smart.human_name(childRecord.name[0])
         context['error_text'] = "You don't have any history yet. \
          <a href='"+reverse("questionnaire.views.respond_hh")+"'>Fill out the questionnaire</a> to get started!"
         return render_to_response('error.html',
