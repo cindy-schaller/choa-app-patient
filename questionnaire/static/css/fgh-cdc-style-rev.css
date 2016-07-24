@@ -17,30 +17,31 @@ section.page-header .page-header_title {
 }
 
 /*questionnaire*/
-.questionnaire-wrapper {
+#wic-questionnaire-wrapper .questionnaire-wrapper {
     margin: auto;
 }
-.question div.answer-choices {
+
+#wic-questionnaire-wrapper .question div.answer-choices {
     display: inline-block;
     /*margin: 10pt 10pt;*/
 }
-.question div.answer-choices div.answer-choice {
+#wic-questionnaire-wrapper .question div.answer-choices div.answer-choice {
     display: inline-block;
     vertical-align: top;
     width: 30pt;
 }
-.question span.answer-label {
+#wic-questionnaire-wrapper .question span.answer-label {
 	font-weight: bold;
     vertical-align: middle;
 }
 
-#questionnaire-wrapper span {
+#wic-questionnaire-wrapper span {
     display: block;
     margin-top: -1.2em;
     margin-left: 25px;
 }
 
-#questionnaire-wrapper input {
+#wic-questionnaire-wrapper input {
     /*width: 13px;*/
     /*height: 13px;*/
     /*padding: 0;*/
@@ -51,46 +52,46 @@ section.page-header .page-header_title {
     *overflow: hidden;
 }
 
-#questionnaire-wrapper .material-icons {
+#wic-questionnaire-wrapper .material-icons {
     padding-right: 10px;
     display: inline-flex;
     vertical-align: middle;
 }
 
 /* TODO: make this less hacky */
-#questionnaire-wrapper .low-text{
+#wic-questionnaire-wrapper .low-text{
     display: block;
     margin-top: 1.4em;
     margin-left: 1em;
     padding-left: 2em;
 }
 
-#questionnaire-wrapper .high-text {
+#wic-questionnaire-wrapper .high-text {
     display: block;
     margin-top: 1.4em;
     margin-left: .1em
 }
 
-.group_heading {
+#wic-questionnaire-wrapper .group_heading {
     text-align: center;
 }
 
-.response_freeform  {
+#wic-questionnaire-wrapper .response_freeform  {
     min-width: 199px;
     margin-left: 5px;
 }
 
-.prompt::first-letter {
+#wic-questionnaire-wrapper .prompt::first-letter {
     text-transform: capitalize;
 }
-div.answer-choices {
+#wic-questionnaire-wrapper div.answer-choices {
     clear: right;
 }
-.group .prompt {
+#wic-questionnaire-wrapper .group .prompt {
     display: inline-block;
     /*width: 400px;*/
 }
-.group.prompt {
+#wic-questionnaire-wrapper .group.prompt {
     color: #000000;
     display: block;
     clear: both;
@@ -102,6 +103,65 @@ div.answer-choices {
     /*margin-top: -2.5em;*/
 /*}*/
 
-#questionnaire-wrapper h4 {
+#wic-questionnaire-wrapper h4 {
     margin: 0;
 }
+
+
+
+
+/* temp */
+
+/* HH questionnaire */
+.hh-questionnaire-wrapper {
+    margin: auto;
+}
+#hh-questionnaire-wrapper  .question div.answer-choices {
+    display: inline-block;
+    margin: 10pt 10pt;
+}
+#hh-questionnaire-wrapper  .question div.answer-choices div.answer-choice {
+    display: inline-block;
+    vertical-align: top;
+    width: 30pt;
+}
+#hh-questionnaire-wrapper  .question span.answer-label {
+	font-weight: bold;
+    vertical-align: middle;
+}
+
+#hh-questionnaire-wrapper span {
+    display: block;
+    margin-top: -1.2em;
+    margin-left: 25px;
+}
+
+#hh-questionnaire-wrapper input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+#hh-questionnaire-wrapper .material-icons {
+    padding-right: 10px;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+/* TODO: make this less hacky */
+#hh-questionnaire-wrapper .low-text{
+    display: block;
+    margin-top: 1.4em;
+    margin-left: 1em;
+    padding-left: 2em;
+}
+
+#hh-questionnaire-wrapper .high-text{
+    display: block;
+    margin-top: 1.4em;
+    margin-left: .1em
