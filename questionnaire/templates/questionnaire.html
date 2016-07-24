@@ -373,6 +373,7 @@
     function submitResponse() {
         var formErrors = validateForm();
         if (formErrors.length == 0) {
+            alert("Thank you. Your submission was successful.")
             return true;
         } else {
             alert(formErrors[0]);
