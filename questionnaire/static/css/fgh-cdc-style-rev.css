@@ -22,7 +22,7 @@ section.page-header .page-header_title {
 }
 .question div.answer-choices {
     display: inline-block;
-    margin: 10pt 10pt;
+    /*margin: 10pt 10pt;*/
 }
 .question div.answer-choices div.answer-choice {
     display: inline-block;
@@ -43,8 +43,8 @@ section.page-header .page-header_title {
 #questionnaire-wrapper input {
     /*width: 13px;*/
     /*height: 13px;*/
-    padding: 0;
-    margin:0;
+    /*padding: 0;*/
+    /*margin:0;*/
     /*vertical-align: bottom;*/
     position: relative;
     top: -1px;
@@ -76,7 +76,8 @@ section.page-header .page-header_title {
 }
 
 .response_freeform  {
-    min-width: 400px;
+    min-width: 199px;
+    margin-left: 5px;
 }
 
 .prompt::first-letter {
@@ -87,7 +88,7 @@ div.answer-choices {
 }
 .group .prompt {
     display: inline-block;
-    /*width: 600px;*/
+    /*width: 400px;*/
 }
 .group.prompt {
     color: #000000;
@@ -96,7 +97,11 @@ div.answer-choices {
     width: auto;
     margin-top: 2em;
 }
-.prompt {
+/*.prompt {*/
 
-    margin-top: -2.5em;
+    /*margin-top: -2.5em;*/
+/*}*/
+
+#questionnaire-wrapper h4 {
+    margin: 0;
 }

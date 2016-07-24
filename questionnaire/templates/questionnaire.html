@@ -113,58 +113,61 @@
 
     function renderQuestion(question, node, patientName) {
         var prompt = question["prompt"].replace("%1$s", patientName);
-        node.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
-{#        alert('inside render question');#}
 
-{#        if ((textDecode(question["lowText"]) != undefined) && (textDecode(question["highText"]) != undefined)) {#}
+{#        if (question["id"] % 1 == 0) {#}
+{#            var singleQuestion = $("<div class='col-md-10'>");#}
+{#        } else {#}
+            var singleQuestion = $("<div class='col-md-5'>");
+{#        }#}
+
+
+        if (question["prompt"] == "special diet") {
+{#            $(singleQuestion).addClass('col-md-12').removeClass('col-md-5');#}
+            $("col-md-5").insertBefore("<div class='clearfix'>");
+{#            $(singleQuestion).addClass('col-md-12').removeClass('col-md-5');#}
+            singleQuestion.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
+        } else {
+            singleQuestion.append("<h4 class='prompt' style='display: inline-block'>"+prompt+"</h4>");
+        }
+
+
             if (question["type"] == "scale") {
                 var choices = question["choices"];
                 var questionId = question["id"];
 
-{#                For the images with the questions #}
-{#                var lowImg = question["lowImg"];#}
-{#                if (!lowImg) var lowImg = '';#}
-{#                var prompt = question["prompt"].replace("%1$s", patientName);#}
-{#                node.append("<h4 class='prompt' style='display: inline-block'><i class='material-icons'>" + lowImg + "</i>" + prompt + "</h4>");#}
-
-
                 if (question["type"] == "scale") {
                     var lowText = textDecode(question["lowText"]);
-{#                    var lowNode = $("<br/><div class='radio-inline'>");#}
-{#                    if (lowText) lowNode.append("<span class='answer-label low-text'>" + lowText + "</span>");#}
                     if (lowText) var lowNode = $("<span class='answer-label low-text'>" + lowText + "</span>");
-                    node.append(lowNode);
+                    singleQuestion.append(lowNode);
                 }
 
-                var choicesNode = $("<div class='answer-choices'>");
+                var choicesNode = $("<div style='float:right;'><div class='answer-choices'>");
                 for (var j = 0; j < choices.length; j++) {
                     var text = textDecode(choices[j]["text"]);
                     var choice = $("<div class='radio-inline answer-choice'>");
-{#                    if (typeof choice["image"] != "undefined")#}
-{#                        choice.append("<img src='" + choice["image"][j] + "' />");#}
                     choice.append("<input type='radio' id='" + questionId + "." + choices[j]["code"] + "' name='" + questionId + "' value='" + choices[j]["code"] + "'/>");
-                    choice.append("<label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
+                    choice.append("  <label for='" + questionId + "." + choices[j]["code"] + "'>" + text + "</label>");
                     choicesNode.append(choice);
                 }
-                node.append(choicesNode);
+                singleQuestion.append(choicesNode);
 
                 if (question["type"] == "scale") {
                     var highText = textDecode(question["highText"]);
-{#                    var highNode = $("<div class='radio-inline'>");#}
-{#                    if (highText) highNode.append("<span class='answer-label high-text'>" + highText + "</span>");#}
                     if (highText) var highNode = $("<span class='answer-label high-text'>" + highText + "</span>");
-                    node.append(highNode);
+                    singleQuestion.append(highNode);
                 }
-                node.append('</div>');
+                singleQuestion.append('</div>');
             } else { // question["type"] == "freeform"
 {#                // TODO: applying the answer-choices class to freeform inputs seems a little weird - maybe it should be something else#}
                 var questionId = question["id"];
                 var choicesNode = $("<div class='answer-choices'>");
                 choicesNode.append($("<input class='response_freeform' type='text' id='" + questionId + "' name='" + questionId + "'/>"));
-                node.append(choicesNode);
-                node.append('<br/>');
+                singleQuestion.append(choicesNode);
+                singleQuestion.append('<br/>');
+
             }
-{#        }#}
+
+            node.append(singleQuestion);
 
 
 {#            var lowImg = question["lowImg"];#}
@@ -216,13 +219,13 @@
             $('#questionnaire-wrapper').html('');
             for (var i = 0; i < questionnaire.length; i++) {
                 var question = questionnaire[i];
-{#                alert('inside reset selections');#}
                 var node = $("<div class='row question "+question["type"]+"'>");
                 if (typeof question["questions"] != "undefined") {
                     var text = question["text"].replace("%1$s", patientName);
                     node.append("<h4 class='prompt group'>" + text + "</h4>");
                     for (var j = 0; j < questionnaire[i].questions.length; j++) {
                         renderQuestion(questionnaire[i].questions[j], node, patientName);
+{#                        node.append("<div col-md-2>");#}
                     }
                 } else {
                     renderQuestion(question, node, patientName);
