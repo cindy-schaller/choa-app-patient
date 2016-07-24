@@ -16,6 +16,10 @@ section.page-header .page-header_title {
     font-weight: bold;
 }
 
+.clear {
+    clear: both;
+}
+
 /*questionnaire*/
 #wic-questionnaire-wrapper .questionnaire-wrapper {
     margin: auto;
