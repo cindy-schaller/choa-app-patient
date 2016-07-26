@@ -9,7 +9,8 @@ GOAL_QUESTIONS = [
     "When will you work with your child on this goal?",
     "How often will you work with your child on this goal?",
     "Who can support you?",
-    "When will you start working on your child's goal?)",
+    "When will you start working on your child's goal?",
+    "How will you support your child's goal?",
     "What barriers may stop you from supporting your child's goal?",
     "Other Notes:",
     ]
