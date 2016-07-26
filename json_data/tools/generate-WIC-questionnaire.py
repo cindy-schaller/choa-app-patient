@@ -130,8 +130,8 @@ Q8_CHECKBOXES = [
 ]
 WIC_Q8 = "8. ", Q8_CHECKBOXES
 Q9_SUBQUESTIONS = [
-    ("How do you know when your child is hungry?","text",None, "9.0", False, True, None),
-    ("How do you know when your child is full?","text",None, "9.1", False, True, None),
+    ("How do you know when your child is hungry?","text",None, "9.0", False, False, None),
+    ("How do you know when your child is full?","text",None, "9.1", False, False, None),
 ]
 WIC_Q9 = "9. ",Q9_SUBQUESTIONS
 Q10_CHECKBOXES = [
@@ -173,7 +173,7 @@ Q12_CHECKBOXES = [
 ]
 WIC_Q12 = "12. ",Q12_CHECKBOXES
 Q13_CHECKBOXES = [
-    ("How many hours a day does your child watch TV, play at the computer, or play video games?","text", None, "13.0", False, True, None),
+    ("How many hours a day does your child watch TV, play at the computer, or play video games?","text", None, "13.0", False, False, None),
 ]
 WIC_Q13 = "13. ",Q13_CHECKBOXES
 Q14_CHECKBOXES = [
@@ -188,7 +188,7 @@ Q15_SUBQUESTIONS = [
                      {"url":"answered","valueBoolean":True},
                      {"url":"answer","valueBoolean":True}]}]),
 ]
-WIC_Q15 = "15. Check all your child has had in the last month:", Q15_SUBQUESTIONS
+WIC_Q15 = "15. ", Q15_SUBQUESTIONS
 Q16_SUBQUESTIONS = [
     ("Please offer any suggestions on what WIC can do to better serve you and your family.","text",None, "16.0", False, False, None),
 ]
@@ -246,8 +246,6 @@ if __name__ == '__main__':
             q_question.required, extension = sub_q_truple
             if option is not None: q_question.option = option
             if extension is not None: q_question.extension = extension
-            q_question.repeats = False
-            q_question.required = True
             questions.append(q_question)
 
 

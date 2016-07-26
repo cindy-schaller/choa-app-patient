@@ -45,7 +45,7 @@
                             }
                         ],
                         "linkId": "1.1",
-                        "required": true,
+                        "required": false,
                         "text": "If yes, please list:",
                         "repeats": false,
                         "type": "text"
@@ -88,7 +88,7 @@
                             }
                         ],
                         "linkId": "1.3",
-                        "required": true,
+                        "required": false,
                         "text": "If yes, please list:",
                         "repeats": false,
                         "type": "text"
@@ -131,7 +131,7 @@
                             }
                         ],
                         "linkId": "1.5",
-                        "required": true,
+                        "required": false,
                         "text": "If yes, please list:",
                         "repeats": false,
                         "type": "text"
@@ -174,7 +174,7 @@
                             }
                         ],
                         "linkId": "1.7",
-                        "required": true,
+                        "required": false,
                         "text": "If yes, please list:",
                         "repeats": false,
                         "type": "text"
@@ -191,7 +191,7 @@
                             }
                         ],
                         "linkId": "1.8",
-                        "required": true,
+                        "required": false,
                         "text": "none",
                         "repeats": false,
                         "type": "boolean"
@@ -342,7 +342,7 @@
                             }
                         ],
                         "linkId": "2.7",
-                        "required": true,
+                        "required": false,
                         "text": "If other, please list:",
                         "repeats": false,
                         "type": "text"
@@ -794,7 +794,7 @@
                             }
                         ],
                         "linkId": "6.13",
-                        "required": true,
+                        "required": false,
                         "text": "If other, please list:",
                         "repeats": false,
                         "type": "text"
@@ -1264,14 +1264,14 @@
                         "type": "text",
                         "repeats": false,
                         "text": "How do you know when your child is hungry?",
-                        "required": true
+                        "required": false
                     },
                     {
                         "linkId": "9.1",
                         "type": "text",
                         "repeats": false,
                         "text": "How do you know when your child is full?",
-                        "required": true
+                        "required": false
                     }
                 ],
                 "text": "9. "
@@ -1476,7 +1476,7 @@
                             }
                         ],
                         "linkId": "11.8",
-                        "required": true,
+                        "required": false,
                         "text": "if yes, enter special diet:",
                         "repeats": false,
                         "type": "text"
@@ -1519,7 +1519,7 @@
                             }
                         ],
                         "linkId": "11.10",
-                        "required": true,
+                        "required": false,
                         "text": "if yes, enter or medical problem:",
                         "repeats": false,
                         "type": "text"
@@ -1562,7 +1562,7 @@
                             }
                         ],
                         "linkId": "11.12",
-                        "required": true,
+                        "required": false,
                         "text": "if yes, enter allergy or problem:",
                         "repeats": false,
                         "type": "text"
@@ -1622,7 +1622,7 @@
                         "type": "text",
                         "repeats": false,
                         "text": "How many hours a day does your child watch TV, play at the computer, or play video games?",
-                        "required": true
+                        "required": false
                     }
                 ],
                 "text": "13. "
@@ -1691,7 +1691,7 @@
                             }
                         ],
                         "linkId": "15.1",
-                        "required": true,
+                        "required": false,
                         "text": "If yes, please describe",
                         "repeats": false,
                         "type": "text"
@@ -1707,7 +1707,7 @@
                         "type": "text",
                         "repeats": false,
                         "text": "Please offer any suggestions on what WIC can do to better serve you and your family.",
-                        "required": true
+                        "required": false
                     }
                 ],
                 "text": "16. "
@@ -1716,7 +1716,7 @@
         "title": "WIC Child Nutrition Questionnaire"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-18",
+    "date": "2016-07-25",
     "identifier": [
         {
             "value": "questionnaire-wic-child-nutrition"
