@@ -163,12 +163,20 @@ def history(request):
     search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId, "_sort:desc": "authored", "_count": "30"})
     responses = search.perform_resources(smart.server)
     if len(responses) > 0:
-        context = RequestContext(request)
-
         def timestamp_key(entry):
             return entry.meta.lastUpdated.date
+        responses = sorted(responses, key=timestamp_key, reverse=True)
 
-        context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
+        response_groups = {}
+        for response in responses:
+            ref = response.questionnaire.reference.split('/')[1]
+            if ref in response_groups:
+                response_groups[ref]['responses'].append(response)
+            else:
+                response_groups[ref] = {'questionnaire':utils.resolveFhirReference(response.questionnaire, server=smart.server), 'responses':[response]}
+        context = RequestContext(request)
+
+        context['pastResponses'] = response_groups
         return render_to_response('history.html',
                                   context_instance=context)
     else:

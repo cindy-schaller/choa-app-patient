@@ -8,11 +8,24 @@
             font-weight: bold;
         }
     </style>
-    <div>Your past responses:</div>
-    {% for response in pastResponses %}
-        <div class="response">
-            <span class="label">Submitted:</span>
-            <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
-        </div>
-    {% endfor %}
+
+    <ul class="nav nav-tabs">
+      {% for qid, responseGroup in pastResponses.items %}
+      <li {% if forloop.first %}class="active"{% endif %}><a data-toggle="tab" href="#{{ qid }}">{{ responseGroup.questionnaire.group.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content">
+      {% for qid, responseGroup in pastResponses.items %}
+      <div class="tab-pane fade in {% if forloop.first %}active{% endif %}" id="{{ qid }}">
+        <h3>{{ responseGroup.questionnaire.group.title }}</h3>
+        <div>Your past responses:</div>
+        {% for response in responseGroup.responses %}
+            <div class="response">
+                <span class="label">Submitted:</span>
+                <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
+            </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
 {% endblock %}
