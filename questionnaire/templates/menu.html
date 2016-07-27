@@ -1,6 +1,15 @@
-<ul class="mainMenuul">
-    {% for item in menu %}
-    {% if item.separator %}<li>------------</li>{% endif %}
-    <li class="mainMenuli"><a class="mainMenua" href="{{ item.url }}">{{ item.title }}</a></li>
-    {% endfor %}
-</ul>
+<nav id="sidebar">
+    <ul>
+        {% for item in menu %}
+        <li>
+            <a href="{{ item.url }}" class="materialRipple-dark materialRipple-btn">
+                <span class="menu-item-ico"><i class="material-icons">{{ item.icon }}</i></span>
+                <span class="menu-item-name">{{ item.title }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+
+

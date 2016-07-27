@@ -40,7 +40,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q1L.jpg"
+                                "valueString":"shopping_cart"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -79,7 +79,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q2L.jpg"
+                                "valueString":"directions_run"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -118,7 +118,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q3L.jpg"
+                                "valueString":"local_drink"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -157,7 +157,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q4L.jpg"
+                                "valueString":"local_drink"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -196,7 +196,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q5L.jpg"
+                                "valueString":"cake"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -240,7 +240,7 @@
                         "extension":[
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q6L.jpg"
+                                "valueString":"laptop"
                             },
                             {
                                 "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
@@ -272,6 +272,16 @@
                     {
                         "code":"4",
                         "display":"Drink more water and limit sugary drinks"
+                    }
+                ],
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"face"
+                            }
+                        ]
                     }
                 ]
             },
@@ -309,6 +319,10 @@
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
                                 "valueString":"VERY"
+                            },
+                            {
+                                "url": "http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString": "new_releases"
                             }
                         ]
                     }
@@ -348,6 +362,10 @@
                             {
                                 "url":"http://hl7.org/fhir/StructureDefinition/questionnaire-highRangeLabel",
                                 "valueString":"VERY"
+                            },
+                            {
+                                "url": "http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString": "favorite"
                             }
                         ]
                     }
