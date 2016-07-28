@@ -168,45 +168,6 @@
                 ]
             },
             {
-                "linkId":"5",
-                "text":"I eat foods like brownies, muffins, cakes or cookies:",
-                "type":"integer",
-                "required":true,
-                "repeats":false,
-                "option":[
-                    {
-                        "code":"1",
-                        "display":"3 or more times a day"
-                    },
-                    {
-                        "code":"2",
-                        "display":"2 times a day"
-                    },
-                    {
-                        "code":"3",
-                        "display":"1 time a day"
-                    },
-                    {
-                        "code":"4",
-                        "display":"Not very often"
-                    }
-                ],
-                "group":[
-                    {
-                        "extension":[
-                            {
-                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/adolescent/Q5L.jpg"
-                            },
-                            {
-                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/adolescent/Q5R.jpg"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
                 "linkId":"6",
                 "text":"I watch television, play video games, spend (non-school related) time on a computer, tablet or cell phone:",
                 "type":"integer",

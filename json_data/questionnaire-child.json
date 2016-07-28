@@ -168,45 +168,6 @@
                 ]
             },
             {
-                "linkId":"5",
-                "text":"My child eats foods like brownies, muffins, cakes or cookies:",
-                "type":"integer",
-                "required":true,
-                "repeats":false,
-                "option":[
-                    {
-                        "code":"1",
-                        "display":"5 or more times a week"
-                    },
-                    {
-                        "code":"2",
-                        "display":"3-4 times per week"
-                    },
-                    {
-                        "code":"3",
-                        "display":"1-2 times per week"
-                    },
-                    {
-                        "code":"4",
-                        "display":"Not very often"
-                    }
-                ],
-                "group":[
-                    {
-                        "extension":[
-                            {
-                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
-                                "valueString":"cake"
-                            },
-                            {
-                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-highRangeImage",
-                                "valueString":"http://54.164.154.218:8000/images/child/Q5R.jpg"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
                 "linkId":"6",
                 "text":"My child watches television, plays video games, spends (non-school related) time on a computer, tablet or cell phone:",
                 "type":"integer",
