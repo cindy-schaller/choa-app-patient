@@ -10,6 +10,13 @@ Menu.add_item("main", MenuItem("Healthy Habits Questionnaire",
                                reverse("questionnaire.views.respond_hh"),
                                icon="assessment"))
 
+Menu.add_item("main", MenuItem("Food Questionnaire",
+                               reverse("questionnaire.views.respond_food"),
+                               icon="shopping_cart"))
+
+Menu.add_item("main", MenuItem("Goal Status Questionnaire",
+                               reverse("questionnaire.views.respond_status"),
+                               icon="face"))
 
 Menu.add_item("main", MenuItem("WIC Questionnaire",
                                reverse("questionnaire.views.respond_wic"),

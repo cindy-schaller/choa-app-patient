@@ -128,6 +128,14 @@ def respond_wic(request):
     return respond(request, utils.WIC_FORM)
 
 @require_valid_user
+def respond_food(request):
+    return respond(request, utils.FOOD_FORM)
+
+@require_valid_user
+def respond_status(request):
+    return respond(request, utils.STATUS_FORM)
+
+@require_valid_user
 def messages(request):
     timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)

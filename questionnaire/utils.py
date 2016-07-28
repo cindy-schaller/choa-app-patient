@@ -8,6 +8,8 @@ SMART = 'SMART'
 TEEN_FORM = 'questionnaire-healthy-habits-adolescent'
 CHILD_FORM = 'questionnaire-healthy-habits-child'
 WIC_FORM = 'questionnaire-wic-child-nutrition'
+FOOD_FORM = 'questionnaire-food-insecurity'
+STATUS_FORM = 'questionnaire-healthy-habit-goal-status'
 
 
 def getFhirConnectionInfo(serverId):
@@ -38,13 +40,17 @@ def getQuestionnaireMap():
         MIHIN: {
             TEEN_FORM: REF_HHA_TEEN,
             CHILD_FORM: REF_HHA_CHILD,
-            WIC_FORM: REF_WIC
+            WIC_FORM: REF_WIC,
+            FOOD_FORM: REF_INSECURITY,
+            STATUS_FORM: REF_STATUS
         },
         SMART: {
             TEEN_FORM: '572357f90cf20e9addb2a71a',
             CHILD_FORM: '572358140cf20e9addb2a71b',
             # FIXME: We don't have a known entry ID for SMART (never pushed it there, at least from what I know)
-            WIC_FORM: '-1'
+            WIC_FORM: '-1',
+            FOOD_FORM: '-1',
+            STATUS_FORM: '-1'
         }
     }
 
