@@ -165,7 +165,8 @@ section.page-header .page-header_title {
     padding-left: 2em;
 }
 
-#hh-questionnaire-wrapper .high-text{
+#hh-questionnaire-wrapper .high-text {
     display: block;
     margin-top: 1.4em;
-    margin-left: .1em
+    margin-left: .1em;
+}
