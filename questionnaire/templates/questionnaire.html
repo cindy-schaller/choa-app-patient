@@ -8,9 +8,13 @@
         <form id="questionnaire" action="/questionnaire/respond/{{ form_id }}/" method="post">
             {% csrf_token %}
 
-             {% if request.path ==  "/questionnaire/respond_hh/" %}
+            {% if request.path ==  "/questionnaire/respond_hh/" %}
+                <div id="hh-questionnaire-wrapper"></div>
+            {% elif request.path ==  "/questionnaire/respond_food/" %}
                 <div id="hh-questionnaire-wrapper"></div>
             {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                <div id="wic-questionnaire-wrapper"></div>
+            {% elif request.path ==  "/questionnaire/respond_status/" %}
                 <div id="wic-questionnaire-wrapper"></div>
             {%  else %}
                 <div id="questionnaire-wrapper"></div>
@@ -70,7 +74,7 @@
                                         "text": "{{ answer.display }}"
                                     }{% if not forloop.last %},{% endif %}
                                 {% endfor %}
-                            ]
+                            ],
                             {% else %}
                                 "type": "freeform"
                             {% endif %}
@@ -103,7 +107,7 @@
                                 "text": "{{ answer.display }}"
                             }{% if not forloop.last %},{% endif %}
                         {% endfor %}
-                    ]
+                    ],
                     {% else %}
                         "type": "freeform"
                     {% endif %}
@@ -260,7 +264,11 @@
 
             {% if request.path ==  "/questionnaire/respond_hh/" %}
                 $('#hh-questionnaire-wrapper').html('');
+            {% elif request.path ==  "/questionnaire/respond_food/" %}
+                $('#hh-questionnaire-wrapper').html('')
             {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                $('#wic-questionnaire-wrapper').html('');
+            {% elif request.path ==  "/questionnaire/respond_status/" %}
                 $('#wic-questionnaire-wrapper').html('');
             {%  else %}
                 $('#questionnaire-wrapper').html('');
@@ -283,7 +291,13 @@
                 {% if request.path ==  "/questionnaire/respond_hh/" %}
                     $('#hh-questionnaire-wrapper').append(node);
                     $('#hh-questionnaire-wrapper').append("<hr>");
+                {% elif request.path ==  "/questionnaire/respond_food/" %}
+                    $('#hh-questionnaire-wrapper').append(node);
+                    $('#hh-questionnaire-wrapper').append("<hr>");
                 {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                    $('#wic-questionnaire-wrapper').append(node);
+                    $('#wic-questionnaire-wrapper').append("<hr>");
+                {% elif request.path ==  "/questionnaire/respond_status/" %}
                     $('#wic-questionnaire-wrapper').append(node);
                     $('#wic-questionnaire-wrapper').append("<hr>");
                 {%  else %}
@@ -318,7 +332,7 @@
     function submitResponse() {
         var formErrors = validateForm();
         if (formErrors.length == 0) {
-            alert("Thank you. Your submission was successful.")
+            alert("Thank you. Your submission was successful.");
             return true;
         } else {
             alert(formErrors[0]);

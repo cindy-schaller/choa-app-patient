@@ -19,7 +19,17 @@
                 "required": true,
                 "text": "In the last year, did you worry that your food would run out before you got money or Food Stamps to buy more?",
                 "repeats": false,
-                "type": "boolean"
+                "type": "boolean",
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"help"
+                            }
+                       ]
+                    }
+                ]
             },
             {
                 "option": [
@@ -36,7 +46,17 @@
                 "required": true,
                 "text": "In the last year, did the food you bought just not last and you didn't have money to get more?",
                 "repeats": false,
-                "type": "boolean"
+                "type": "boolean",
+                "group":[
+                    {
+                        "extension":[
+                            {
+                                "url":"http://54.164.154.218:8000/fhir/StructureDefinition/questionnaire-lowRangeImage",
+                                "valueString":"help"
+                            }
+                       ]
+                    }
+                ]
             }
         ],
         "title": "Food Insecurity Questionnaire"
