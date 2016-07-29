@@ -23,18 +23,18 @@ ST_Q2 = "2. ",Q2_CHECKBOXES
 
 # represent checkbox choices as nested yes/no in group
 Q3_CHECKBOXES = [
-    ("Lack of time", "boolean", YESNO, "2.1", False, True, None),
-    ("Lack of resources", "boolean", YESNO, "2.2", False, True, None),
-    ("Lack of support", "boolean", YESNO, "2.3", False, True, None),
-    ("Low motivation", "boolean", YESNO, "2.4", False, True, None),
-    ("Injuries or illness", "boolean", YESNO, "2.5", False, True, None),
-    ("Other", "boolean", YESNO, "2.6", False, True, None),
-    ("If Other, please specify:", "text", None, "2.7", False, False, [{
+    ("Lack of time", "boolean", YESNO, "3.1", False, True, None),
+    ("Lack of resources", "boolean", YESNO, "3.2", False, True, None),
+    ("Lack of support", "boolean", YESNO, "3.3", False, True, None),
+    ("Low motivation", "boolean", YESNO, "3.4", False, True, None),
+    ("Injuries or illness", "boolean", YESNO, "3.5", False, True, None),
+    ("Other", "boolean", YESNO, "3.6", False, True, None),
+    ("If Other, please specify:", "text", None, "3.7", False, False, [{
         "url": QEXT_URL_ENABLEWHEN,
-        "extension": [{"url": "question", "valueString": "2.6"},
+        "extension": [{"url": "question", "valueString": "3.6"},
                       {"url": "answered", "valueBoolean": True},
                       {"url": "answer", "valueBoolean": True}]}]),
-    ("None of the above made it difficult to achieve the goal", "boolean", YESNO, "2.1", False, False, None),
+    ("None of the above made it difficult to achieve the goal", "boolean", YESNO, "3.1", False, False, None),
 ]
 ST_Q3 = "3. Did any of the following make it difficult to achieve the goal? (Check all that apply)",Q3_CHECKBOXES
 ST_QUESTIONS = [
