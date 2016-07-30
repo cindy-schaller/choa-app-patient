@@ -53,7 +53,7 @@ def index(request):
                               context_instance=context)
 
 @require_valid_user
-def respond(request, form_id):
+def respond(request, form_id, goal = None):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
@@ -95,6 +95,7 @@ def respond(request, form_id):
         context['questionnaire'] = form.group
         context['form_id'] = form_id
         context['json'] = jsonResponse
+        context['goalText'] = goal
 
         #return JsonResponse(jsonResponse)
         return render_to_response('questionnaire.html',
@@ -133,7 +134,9 @@ def respond_food(request):
 
 @require_valid_user
 def respond_status(request):
-    return respond(request, utils.STATUS_FORM)
+    # place holder to test transfer
+    goalText = "Goal retrieved test"
+    return respond(request, utils.STATUS_FORM,goal = goalText)
 
 @require_valid_user
 def messages(request):

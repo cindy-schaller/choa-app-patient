@@ -43,6 +43,10 @@
         return "{{ patientName }}";
     }
 
+    function getGoal() {
+        return "{{ goalText }}"
+    }
+
     function getQuestionnaire() {
         var patientQuestionnaire = [
             {% for question_group in questionnaire.group %}
@@ -270,6 +274,12 @@
                 $('#wic-questionnaire-wrapper').html('');
             {% elif request.path ==  "/questionnaire/respond_status/" %}
                 $('#wic-questionnaire-wrapper').html('');
+                var goal = getGoal();
+                var node = $("<div class = 'row question'>");
+                node.append("<h2>" + goal + "</h2>");
+                node.append("</div>");
+                $('#wic-questionnaire-wrapper').append(node);
+                $('#wic-questionnaire-wrapper').append("<hr>");
             {%  else %}
                 $('#questionnaire-wrapper').html('');
             {% endif %}
