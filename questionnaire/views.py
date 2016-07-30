@@ -144,10 +144,18 @@ def respond_status(request):
     smart = utils.getFhirClient(serverId)
 
     try:
-        goal_questionnaire = questionnaire.Questionnaire.read(qMap[serverId][utils.GOAL_FORM], smart.server)
-        #TODO find most recent correct response
-        goal_response = questionnaireresponse.QuestionnaireResponse.read('1081329', smart.server)
-        return respond(request, utils.STATUS_FORM, goal=(goal_questionnaire,goal_response))
+        search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
+            "questionnaire":qMap[serverId][utils.GOAL_FORM],"_sort:desc": "authored", "_count": "30"})
+        responses = search.perform_resources(smart.server)
+        if len(responses)>0:
+            goal_response = responses[0]
+            goal_questionnaire = questionnaire.Questionnaire.read(qMap[serverId][utils.GOAL_FORM], smart.server)
+            return respond(request, utils.STATUS_FORM, goal=(goal_questionnaire,goal_response))
+        else:
+            context = RequestContext(request)
+            context['error_text'] = "No goals have been set yet.  Try again soon!"
+            return render_to_response('error.html',
+                                      context_instance=context)
     except Exception:
         context = RequestContext(request)
         context['error_text'] = "There was an error retrieving the text goal information."
