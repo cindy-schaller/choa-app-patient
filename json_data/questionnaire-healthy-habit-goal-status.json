@@ -47,7 +47,7 @@
                         ],
                         "linkId": "2.1",
                         "required": false,
-                        "text": "If the goal has already achieved the goal is the healthy behavior being maintained?",
+                        "text": "If the goal has already been achieved, is the healthy behavior being maintained?",
                         "repeats": false,
                         "type": "boolean"
                     }
@@ -209,7 +209,7 @@
         "title": "Healthy Habits Goal Status"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-29",
+    "date": "2016-07-30",
     "identifier": [
         {
             "value": "questionnaire-healthy-habit-goal-status"
