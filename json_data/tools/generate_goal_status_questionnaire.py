@@ -34,9 +34,9 @@ Q3_CHECKBOXES = [
         "extension": [{"url": "question", "valueString": "3.6"},
                       {"url": "answered", "valueBoolean": True},
                       {"url": "answer", "valueBoolean": True}]}]),
-    ("None of the above made it difficult to achieve the goal", "boolean", YESNO, "3.8", False, False, None),
+    ("None of the above made it difficult to achieve the goal", "integer", YESNONA, "3.8", False, False, None),
 ]
-ST_Q3 = "3. Did any of the following make it difficult to achieve the goal? (Check all that apply)",Q3_CHECKBOXES
+ST_Q3 = "3. Did any of the following make it difficult to achieve the goal?",Q3_CHECKBOXES
 ST_QUESTIONS = [
     ST_Q1, ST_Q2, ST_Q3
 ]
