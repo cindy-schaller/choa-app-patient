@@ -17,7 +17,7 @@ Q1_CHECKBOXES = [
 ST_Q1 = "1. ",Q1_CHECKBOXES
 Q2_CHECKBOXES = [
     ("If the goal has already been achieved, is the healthy behavior being maintained?",
-     "boolean",YESNO, "2.1", False, False, None),
+     "integer",YESNONA, "2.1", False, False, None),
 ]
 ST_Q2 = "2. ",Q2_CHECKBOXES
 

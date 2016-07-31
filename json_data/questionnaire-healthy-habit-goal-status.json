@@ -37,19 +37,23 @@
                     {
                         "option": [
                             {
-                                "code": true,
+                                "code": "1",
                                 "display": "Yes"
                             },
                             {
-                                "code": false,
+                                "code": "2",
                                 "display": "No"
+                            },
+                            {
+                                "code": "3",
+                                "display": "Not applicable"
                             }
                         ],
                         "linkId": "2.1",
                         "required": false,
                         "text": "If the goal has already been achieved, is the healthy behavior being maintained?",
                         "repeats": false,
-                        "type": "boolean"
+                        "type": "integer"
                     }
                 ],
                 "text": "2. "
@@ -209,7 +213,7 @@
         "title": "Healthy Habits Goal Status"
     },
     "resourceType": "Questionnaire",
-    "date": "2016-07-30",
+    "date": "2016-07-31",
     "identifier": [
         {
             "value": "questionnaire-healthy-habit-goal-status"
