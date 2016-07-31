@@ -7,6 +7,12 @@ YESNO = [
     {'code': False, 'display': 'No'}
 ]
 
+YESNONA = [
+    {'code': '1', 'display': 'Yes'},
+    {'code': '2', 'display': 'No'},
+    {'code': '0', 'display': 'Not applicable'},
+]
+
 HOW_OFTEN_DAILY_3WAY = [
     {'code': '1', 'display': 'Daily'},
     {'code': '2', 'display': 'Some days'},

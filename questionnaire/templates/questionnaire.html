@@ -8,9 +8,13 @@
         <form id="questionnaire" action="/questionnaire/respond/{{ form_id }}/" method="post">
             {% csrf_token %}
 
-             {% if request.path ==  "/questionnaire/respond_hh/" %}
+            {% if request.path ==  "/questionnaire/respond_hh/" %}
+                <div id="hh-questionnaire-wrapper"></div>
+            {% elif request.path ==  "/questionnaire/respond_food/" %}
                 <div id="hh-questionnaire-wrapper"></div>
             {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                <div id="wic-questionnaire-wrapper"></div>
+            {% elif request.path ==  "/questionnaire/respond_status/" %}
                 <div id="wic-questionnaire-wrapper"></div>
             {%  else %}
                 <div id="questionnaire-wrapper"></div>
@@ -70,7 +74,7 @@
                                         "text": "{{ answer.display }}"
                                     }{% if not forloop.last %},{% endif %}
                                 {% endfor %}
-                            ]
+                            ],
                             {% else %}
                                 "type": "freeform"
                             {% endif %}
@@ -103,7 +107,7 @@
                                 "text": "{{ answer.display }}"
                             }{% if not forloop.last %},{% endif %}
                         {% endfor %}
-                    ]
+                    ],
                     {% else %}
                         "type": "freeform"
                     {% endif %}
@@ -249,6 +253,33 @@
         $('#hh-questionnaire-wrapper').append(node);
     }
 
+    function renderGoal() {
+        var node = $("<div class = 'response'>");
+        node.append('<h4>Current Healthy Habit Goal (date: {{ goalResponse.authored.date }})</h4>');
+         // other one is goalQuestionnaire
+        {% for question in goalResponse.group.question %}
+            {% for original_question in goalQuestionnaire.group.question %}
+                {% if original_question.linkId == question.linkId %}
+                    node.append('<div class="item">');
+                    node.append('{{ original_question.text }}');
+                    {% if original_question.type|stringformat:"s" == "integer" %}
+                        {% for answer in original_question.option %}
+                            {% if answer.code|stringformat:"s" == question.answer.0.valueInteger|stringformat:"s" %}
+                                node.append('<b><font color ="purple"> {{ answer.display }}</font></b>');
+                            {% endif %}
+                        {% endfor %}
+                    {% elif original_question.type|stringformat:"s" == "string"%}
+                        node.append('<b><font color ="purple"> {{ question.answer.0.valueString|stringformat:"s" }}</font></b')
+                    node.append("</div>");
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        node.append("</div>");
+        return node
+    }
+
+
     function resetSelections() {
 
         var questionnaire = getQuestionnaire();
@@ -260,8 +291,15 @@
 
             {% if request.path ==  "/questionnaire/respond_hh/" %}
                 $('#hh-questionnaire-wrapper').html('');
+            {% elif request.path ==  "/questionnaire/respond_food/" %}
+                $('#hh-questionnaire-wrapper').html('');
             {% elif request.path ==  "/questionnaire/respond_wic/" %}
                 $('#wic-questionnaire-wrapper').html('');
+            {% elif request.path ==  "/questionnaire/respond_status/" %}
+                $('#wic-questionnaire-wrapper').html('');
+                var node = renderGoal();
+                $('#wic-questionnaire-wrapper').append(node);
+                $('#wic-questionnaire-wrapper').append("<hr>");
             {%  else %}
                 $('#questionnaire-wrapper').html('');
             {% endif %}
@@ -283,7 +321,13 @@
                 {% if request.path ==  "/questionnaire/respond_hh/" %}
                     $('#hh-questionnaire-wrapper').append(node);
                     $('#hh-questionnaire-wrapper').append("<hr>");
+                {% elif request.path ==  "/questionnaire/respond_food/" %}
+                    $('#hh-questionnaire-wrapper').append(node);
+                    $('#hh-questionnaire-wrapper').append("<hr>");
                 {% elif request.path ==  "/questionnaire/respond_wic/" %}
+                    $('#wic-questionnaire-wrapper').append(node);
+                    $('#wic-questionnaire-wrapper').append("<hr>");
+                {% elif request.path ==  "/questionnaire/respond_status/" %}
                     $('#wic-questionnaire-wrapper').append(node);
                     $('#wic-questionnaire-wrapper').append("<hr>");
                 {%  else %}
@@ -293,7 +337,6 @@
             }
         }
     }
-
 
     function validateForm() {
         errors = [];
@@ -318,7 +361,7 @@
     function submitResponse() {
         var formErrors = validateForm();
         if (formErrors.length == 0) {
-            alert("Thank you. Your submission was successful.")
+            alert("Thank you. Your submission was successful.");
             return true;
         } else {
             alert(formErrors[0]);

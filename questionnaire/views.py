@@ -53,7 +53,7 @@ def index(request):
                               context_instance=context)
 
 @require_valid_user
-def respond(request, form_id):
+def respond(request, form_id, goal = None):
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
 
@@ -95,6 +95,9 @@ def respond(request, form_id):
         context['questionnaire'] = form.group
         context['form_id'] = form_id
         context['json'] = jsonResponse
+        if goal is not None:
+            context['goalQuestionnaire'] = goal[0]
+            context['goalResponse'] = goal[1]
 
         #return JsonResponse(jsonResponse)
         return render_to_response('questionnaire.html',
@@ -102,8 +105,8 @@ def respond(request, form_id):
 
     except:
     #except requests.exceptions.HTTPError as error:
-        #print(error)
-        #print(error.response.text)
+        # print(error)
+        # print(error.response.text)
         context = RequestContext(request)
         context['error_text'] = "Couldn't connect to the FHIR server or FHIR server has been reset. \
          Please contact <a href='mailto:asmiley3@gatech.edu'>the team</a> and ask them to investigate."
@@ -126,6 +129,39 @@ def respond_hh(request):
 @require_valid_user
 def respond_wic(request):
     return respond(request, utils.WIC_FORM)
+
+@require_valid_user
+def respond_food(request):
+    return respond(request, utils.FOOD_FORM)
+
+@require_valid_user
+def respond_status(request):
+    (patientId, serverId) = get_login_info(request)
+    smart = utils.getFhirClient(serverId)
+    qMap = utils.getQuestionnaireMap()
+    timezone.activate(pytz.timezone("US/Eastern"))
+    (patientId, serverId) = get_login_info(request)
+    smart = utils.getFhirClient(serverId)
+
+    try:
+        search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
+            "questionnaire":qMap[serverId][utils.GOAL_FORM],"_sort:desc": "authored", "_count": "30"})
+        responses = search.perform_resources(smart.server)
+        if len(responses)>0:
+            goal_response = responses[0]
+            goal_questionnaire = questionnaire.Questionnaire.read(qMap[serverId][utils.GOAL_FORM], smart.server)
+            return respond(request, utils.STATUS_FORM, goal=(goal_questionnaire,goal_response))
+        else:
+            context = RequestContext(request)
+            context['error_text'] = "No goals have been set yet.  Try again soon!"
+            return render_to_response('error.html',
+                                      context_instance=context)
+    except Exception:
+        context = RequestContext(request)
+        context['error_text'] = "There was an error retrieving the text goal information."
+        return render_to_response('error.html',
+                                  context_instance=context)
+
 
 @require_valid_user
 def messages(request):

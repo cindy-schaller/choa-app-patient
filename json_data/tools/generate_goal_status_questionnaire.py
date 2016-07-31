@@ -5,14 +5,48 @@ from fhirclient.models import questionnaire, extension
 import datetime
 from questionnaire_commons import *
 
+STATUS_3WAY = [
+    {'code': '1', 'display': 'We have already achieved the goal'},
+    {'code': '2', 'display': 'We are working on the goal'},
+    {'code': '3', 'display': 'We are not working on the goal'},
+]
+Q1_CHECKBOXES = [
+    ("What type of progress has been made towards achieving the goal?",
+     "integer", STATUS_3WAY, "1.1", False, True, None),
+]
+ST_Q1 = "1. ",Q1_CHECKBOXES
+Q2_CHECKBOXES = [
+    ("If the goal has already been achieved, is the healthy behavior being maintained?",
+     "integer",YESNONA, "2.1", False, False, None),
+]
+ST_Q2 = "2. ",Q2_CHECKBOXES
+
+# represent checkbox choices as nested yes/no in group
+Q3_CHECKBOXES = [
+    ("Lack of time", "boolean", YESNO, "3.1", False, True, None),
+    ("Lack of resources", "boolean", YESNO, "3.2", False, True, None),
+    ("Lack of support", "boolean", YESNO, "3.3", False, True, None),
+    ("Low motivation", "boolean", YESNO, "3.4", False, True, None),
+    ("Injuries or illness", "boolean", YESNO, "3.5", False, True, None),
+    ("Other", "boolean", YESNO, "3.6", False, True, None),
+    ("If Other, please specify:", "text", None, "3.7", False, False, [{
+        "url": QEXT_URL_ENABLEWHEN,
+        "extension": [{"url": "question", "valueString": "3.6"},
+                      {"url": "answered", "valueBoolean": True},
+                      {"url": "answer", "valueBoolean": True}]}]),
+    ("None of the above made it difficult to achieve the goal", "integer", YESNONA, "3.8", False, False, None),
+]
+ST_Q3 = "3. Did any of the following make it difficult to achieve the goal?",Q3_CHECKBOXES
+ST_QUESTIONS = [
+    ST_Q1, ST_Q2, ST_Q3
+]
+
 def main():
     # set up questionnaire structure from model
     q = questionnaire.Questionnaire()
     root_group = questionnaire.QuestionnaireGroup()
     q.group = root_group
     # root group can be either a group of groups or questions
-    questions = []
-    root_group.question = questions
 
     # complete required fields for q level
     q.identifier = [{'value':'questionnaire-healthy-habit-goal-status'}]  # used by response to link to questionnaire
@@ -21,82 +55,34 @@ def main():
     # complete other fields for q level
     q.publisher = 'GT CS8903 HOC Team'
     q.date = str(datetime.date.today())
+
     # complete required fields for root group level
     root_group.linkId = 'root'
     root_group.title = 'Healthy Habits Goal Status'
 
+    # root group can be either a group of groups or questions
+    questions_group = []
+    root_group.group = questions_group
 
-    # fill in specific data for questions
-    # Question 1
-    # http://www.hl7.org/fhir/extension-questionnaire-enablewhen.html
-    q1 = questionnaire.QuestionnaireGroupQuestion()
-    q1.linkId = "1.0"
-    q1.text = "What type of progress has been made towards achieving the goal?"
-    q1.type = "choice"
-    q1.repeats = False
-    q1.required = True
-    q1.extension = [RADIOBUTTON_EXTENSION, VERTICAL_EXTENSION]
-    q1.option = [
-        {"code": "a1", "display": "We have already achieved the goal"},
-        {"code": "a2", "display": "We are working on the goal"},
-        {"code": "a3", "display": "We are not working on the goal"},
-    ]
-    questions.append(q1)
+    # for each status question, create a QuestionnaireGroup obj to add to the list
+    # then for each QuestionnaireGroup obj, assign the question to a list of QuestionnaireGroupQuestion objects
+    for i, st_question_tuple in enumerate(ST_QUESTIONS):
+        q_group = questionnaire.QuestionnaireGroup()
+        grp_text, question_details = st_question_tuple
+        q_group.text = grp_text
+        q_group.linkId = str(i+1)
+        questions_group.append(q_group)
 
-    # Question 1.1 - followup to achieved goal
-    q2 = questionnaire.QuestionnaireGroupQuestion()
-    q2.linkId = "1.1"
-    q2.text = "If the goal has already achieved the goal is the healthy behavior being maintained?"
-    q2.type = "boolean"
-    q2.repeats = False
-    q2.required = False
-    q2.option = YESNO
-    # signal that this question should only appear if first question has "a1" as answer
-    q2.extension = [{
-        "url": QEXT_URL_ENABLEWHEN,
-        "extension":[
-            {"url": "question","valueString": "1.0"},
-            {"url": "answered","valueBoolean": True},
-            {"url": "answer","valueCode": "a1"}]
-    }]
-    questions.append(q2)
-
-    # Question 2
-    # TODO make "none" answer c7 non-repeating
-    # with current extension coding options, this is complex - not doing it for now
-    q3 = questionnaire.QuestionnaireGroupQuestion()
-    q3.linkId = "2.0"
-    q3.text = "Did any of the following make it difficult to achieve the goal? (Check all that apply)"
-    q3.type = "choice"
-    q3.repeats = True
-    q3.required = True
-    q3.extension = [CHECKBOX_EXTENSION]
-    q3.option = [
-        {"code": "c1", "display": "Lack of time"},
-        {"code": "c2", "display": "Lack of resources"},
-        {"code": "c3", "display": "Lack of support"},
-        {"code": "c4", "display": "Low motivation"},
-        {"code": "c5", "display": "Injuries or illness"},
-        {"code": "c6", "display": "Other (please specify)"},
-        {"code": "c7", "display": "None of the above made it difficult to achieve the goal"},
-    ]
-    questions.append(q3)
-
-    # Question 2.1 text followup to "other" choice
-    q4 = questionnaire.QuestionnaireGroupQuestion()
-    q4.linkId = "2.1"
-    q4.text = "Please specify Other difficulties"
-    q4.type = "text"
-    q4.repeats = True
-    q4.required = False
-    q4.extension = [{
-        "url": QEXT_URL_ENABLEWHEN,
-        "extension":[
-            {"url": "question","valueString": "2.0"},
-            {"url": "answered","valueBoolean": True},
-            {"url": "answer","valueCode": "c6"}]
-    }]
-    questions.append(q4)
+        questions = []
+        q_group.question = questions
+        for j, sub_q_truple in enumerate(question_details):
+            q_question = questionnaire.QuestionnaireGroupQuestion()
+            q_question.linkId = str(i) + "." + str(j)
+            q_question.text, q_question.type, option, q_question.linkId, q_question.repeats,\
+            q_question.required, extension = sub_q_truple
+            if option is not None: q_question.option = option
+            if extension is not None: q_question.extension = extension
+            questions.append(q_question)
 
     with open('questionnaire-healthy-habit-goal-status.json','w') as f:
         print(json.dumps(OrderedDict(q.as_json()), indent=4, separators=(',', ': ')), file=f)
