@@ -1,10 +1,10 @@
 import json
-#import requests
 
 import pytz as pytz
 
 from functools import wraps
 
+#import requests
 from django.utils import timezone
 from django.utils.decorators import available_attrs
 from django.core.urlresolvers import reverse
@@ -200,21 +200,19 @@ def history(request):
     smart = utils.getFhirClient(serverId)
     childRecord = patient.Patient.read(patientId, smart.server)
 
-    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId,
-                    "_sort:desc": "authored", "_count": "30"})
+    search = questionnaireresponse.QuestionnaireResponse.where(struct={"patient": patientId, "_sort:desc": "authored", "_count": "30"})
     responses = search.perform_resources(smart.server)
-
     if len(responses) > 0:
+        response_groups = {}
+        for response in responses:
+            ref = response.questionnaire.reference.split('/')[1]
+            if ref in response_groups:
+                response_groups[ref]['responses'].append(response)
+            else:
+                response_groups[ref] = {'questionnaire':utils.resolveFhirReference(response.questionnaire, server=smart.server), 'responses':[response]}
+
         context = RequestContext(request)
-
-        def timestamp_key(entry):
-            try:
-                ts = str(entry.authored.date)
-            except:
-                ts = str(entry.meta.lastUpdated.date)
-            return ts
-
-        context['pastResponses'] = sorted(responses, key=timestamp_key, reverse=True)
+        context['pastResponses'] = response_groups
         context['patientName'] = smart.human_name(childRecord.name[0])
         return render_to_response('history.html',
                                   context_instance=context)
