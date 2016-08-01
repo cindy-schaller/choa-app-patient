@@ -14,16 +14,50 @@
         <div>Details for response submitted on {{ response.meta.lastUpdated.date }}:</div>
     {% endif %}
     <div class="response">
+        {% for group in response.group.group %}
+            {% for question in group.question %}
+                {% for original_group in questionnaire.group.group %}
+                    {% for original_question in original_group.question %}
+                        {% if original_question.linkId == question.linkId %}
+                            <div class="item">
+                                <span class="item-label">{{ original_question.text }}</span>
+                            {% if original_question.option %}
+                            {% for answer in original_question.option %}
+                                {% if answer.code|stringformat:"s" == question.answer.0.valueInteger|stringformat:"s" %}
+                                    {{ answer.display }}
+                                {% endif %}
+                            {% endfor %}
+                            {% elif question.answer.0.valueString %}
+                                {{ question.answer.0.valueString }}
+                            {% elif question.answer.0.valueInteger %}
+                                {{ question.answer.0.valueString }}
+                            {% elif question.answer.0.valueBoolean %}
+                                {{ question.answer.0.valueBoolean }}
+                            {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
         {% for question in response.group.question %}
             {% for original_question in questionnaire.group.question %}
                 {% if original_question.linkId == question.linkId %}
                     <div class="item">
                         <span class="item-label">{{ original_question.text }}</span>
+                    {% if original_question.option %}
                     {% for answer in original_question.option %}
                         {% if answer.code|stringformat:"s" == question.answer.0.valueInteger|stringformat:"s" %}
                             {{ answer.display }}
                         {% endif %}
                     {% endfor %}
+                    {% elif question.answer.0.valueString %}
+                        {{ question.answer.0.valueString }}
+                    {% elif question.answer.0.valueInteger %}
+                        {{ question.answer.0.valueString }}
+                    {% elif question.answer.0.valueBoolean %}
+                        {{ question.answer.0.valueBoolean }}
+                    {% endif %}
                     </div>
                 {% endif %}
             {% endfor %}
