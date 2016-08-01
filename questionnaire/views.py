@@ -230,6 +230,7 @@ def details(request, responseid):
     timezone.activate(pytz.timezone("US/Eastern"))
     (patientId, serverId) = get_login_info(request)
     smart = utils.getFhirClient(serverId)
+    childRecord = patient.Patient.read(patientId, smart.server)
 
     try:
         response = questionnaireresponse.QuestionnaireResponse.read(responseid, smart.server)
@@ -237,6 +238,7 @@ def details(request, responseid):
         context = RequestContext(request)
         context['response'] = response
         context['questionnaire'] = questionnaire
+        context['patientName'] = smart.human_name(childRecord.name[0])
         return render_to_response('response-details.html',
                                   context_instance=context)
     except Exception:
