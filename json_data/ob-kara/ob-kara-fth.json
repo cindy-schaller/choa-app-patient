@@ -3,7 +3,7 @@
     "resourceType": "FamilyMemberHistory",
     "patient": {
         "display": "Kara Kent",
-        "reference": "Patient/11037781"
+        "reference": "Patient/1081180"
     },
     "relationship": {
         "coding": [

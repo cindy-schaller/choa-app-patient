@@ -1,0 +1,98 @@
+{
+    "status": "draft",
+    "publisher": "GT CS8903 HOC Team",
+    "group": {
+        "linkId": "root",
+        "question": [
+            {
+                "option": [
+                    {
+                        "code": "1",
+                        "display": "Make half your plate fruits and veggies"
+                    },
+                    {
+                        "code": "2",
+                        "display": "Be active"
+                    },
+                    {
+                        "code": "4",
+                        "display": "Drink more water & limit sugary drinks"
+                    },
+                    {
+                        "code": "3",
+                        "display": "Limit screen time"
+                    }
+                ],
+                "linkId": "1",
+                "required": true,
+                "text": "Today's Healthy Habit Goal Set: (choose one)",
+                "repeats": false,
+                "type": "integer"
+            },
+            {
+                "linkId": "2",
+                "type": "string",
+                "repeats": false,
+                "text": "How will you work with your child on this goal?",
+                "required": true
+            },
+            {
+                "linkId": "3",
+                "type": "string",
+                "repeats": false,
+                "text": "When will you work with your child on this goal?",
+                "required": true
+            },
+            {
+                "linkId": "4",
+                "type": "string",
+                "repeats": false,
+                "text": "How often will you work with your child on this goal?",
+                "required": true
+            },
+            {
+                "linkId": "5",
+                "type": "string",
+                "repeats": false,
+                "text": "Who can support you?",
+                "required": true
+            },
+            {
+                "linkId": "6",
+                "type": "string",
+                "repeats": false,
+                "text": "When will you start working on your child's goal?",
+                "required": true
+            },
+            {
+                "linkId": "7",
+                "type": "string",
+                "repeats": false,
+                "text": "How will you support your child's goal?",
+                "required": true
+            },
+            {
+                "linkId": "8",
+                "type": "string",
+                "repeats": false,
+                "text": "What barriers may stop you from supporting your child's goal?",
+                "required": true
+            },
+            {
+                "linkId": "9",
+                "type": "string",
+                "repeats": false,
+                "text": "Other Notes:",
+                "required": false
+            }
+        ],
+        "title": "Healthy Habits Goal Questionnaire"
+    },
+    "resourceType": "Questionnaire",
+    "date": "2016-07-21",
+    "identifier": [
+        {
+            "value": "questionnaire-healthy-habit-goals"
+        }
+    ]
+}

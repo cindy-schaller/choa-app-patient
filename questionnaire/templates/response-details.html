@@ -8,7 +8,11 @@
             font-weight: bold;
         }
     </style>
-    <div>Details for response submitted on {{ response.meta.lastUpdated.date }}:</div>
+    {% if response.authored %}
+        <div>Details for response submitted on {{ response.authored.date }}:</div>
+    {% else %}
+        <div>Details for response submitted on {{ response.meta.lastUpdated.date }}:</div>
+    {% endif %}
     <div class="response">
         {% for group in response.group.group %}
             {% for question in group.question %}

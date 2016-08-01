@@ -1,12 +1,5 @@
 {
     "status": "draft",
-    "resourceType": "Questionnaire",
-    "date": "2016-06-15",
-    "identifier": [
-        {
-            "value": "questionnaire-food-insecurity"
-        }
-    ],
     "publisher": "GT CS8903 HOC Team",
     "group": {
         "linkId": "root",
@@ -45,6 +38,14 @@
                 "repeats": false,
                 "type": "boolean"
             }
-        ]
-    }
+        ],
+        "title": "Food Insecurity Questionnaire"
+    },
+    "resourceType": "Questionnaire",
+    "date": "2016-07-18",
+    "identifier": [
+        {
+            "value": "questionnaire-food-insecurity"
+        }
+    ]
 }
