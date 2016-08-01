@@ -26,7 +26,7 @@ Menu.add_item("main", MenuItem("Messages",
                                reverse("questionnaire.views.messages"),
                                icon="mail"))
 
-Menu.add_item("main", MenuItem("History",
+Menu.add_item("main", MenuItem("Questionnaire History",
                                reverse("questionnaire.views.history"),
                                icon="history"))
 

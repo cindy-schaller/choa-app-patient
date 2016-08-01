@@ -11,7 +11,7 @@
 
     <ul class="nav nav-tabs">
       {% for qid, responseGroup in pastResponses.items %}
-      <li {% if forloop.first %}class="active"{% endif %}><a data-toggle="tab" href="#{{ qid }}">{{ responseGroup.questionnaire.group.title }}</a></li>
+      <li {% if forloop.first %}class="active"{% endif %}><a data-toggle="tab" href="#{{ qid }}">{{ responseGroup.questionnaire.group.title|tab_title }}</a></li>
       {% endfor %}
     </ul>
     <div class="tab-content">
