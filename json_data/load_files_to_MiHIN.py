@@ -97,9 +97,12 @@ def main():
 
     # one-off load
     # handle(tools_dir, ['questionnaire-wic-child-nutrition.json'],'Questionnaire')
+    # handle('qr-test',qr_food_files,'QuestionnaireResponse')
     # handle('qr-test',qr_hha_clark_wic_files, 'QuestionnaireResponse')
     # handle('qr-test',qr_hha_kara_wic_files, 'QuestionnaireResponse')
-    # handle('qr-test',qr_food_files,'QuestionnaireResponse')
+    # handle('qr-test',qr_hha_clark_wic_files, 'QuestionnaireResponse')
+    # handle('qr-test',qr_hha_kara_wic_files, 'QuestionnaireResponse')
+    pass
 
 
 if __name__ == '__main__':
