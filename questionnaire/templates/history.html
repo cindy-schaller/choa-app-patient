@@ -22,7 +22,7 @@
         {% for response in responseGroup.responses %}
             <div class="response">
                 <span class="label">Submitted:</span>
-                <a href="{% url 'questionnaire.views.details' response.id %}">{{ response.meta.lastUpdated.date }}</a>
+                <a href="{% url 'questionnaire.views.details' response.id %}">{%  if response.authored %}{{ response.authored.date }}{% else %}{{ response.meta.lastUpdated.date }}{% endif %}</a>
             </div>
         {% endfor %}
       </div>
